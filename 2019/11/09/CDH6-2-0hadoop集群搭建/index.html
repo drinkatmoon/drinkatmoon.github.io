@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>CDH6.2.0 hadoop集群搭建 - Hexo</title>
+
+
+    <meta name="description" content="基于centos7 安装6.2版本CM以及CDH CM安装包下载地址:rpm包:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;redhat7&#x2F;yum&#x2F;RPMS&#x2F;x86_64&#x2F;   allkeys.asc文件:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;allkeys.asc CDH安装包下载地址:https:&#x2F;&#x2F;archive.cl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CDH6.2.0 hadoop集群搭建">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;09&#x2F;CDH6-2-0hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基于centos7 安装6.2版本CM以及CDH CM安装包下载地址:rpm包:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;redhat7&#x2F;yum&#x2F;RPMS&#x2F;x86_64&#x2F;   allkeys.asc文件:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;allkeys.asc CDH安装包下载地址:https:&#x2F;&#x2F;archive.cl">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2019-11-12T10:02:50.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="CDH6.2.0 hadoop集群搭建" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://drinkatmoon.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-09T10:03:25.000Z">2019-11-09</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 分钟 read (About 1982 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                CDH6.2.0 hadoop集群搭建
+            
+        </h1>
+        <div class="content">
+            <h4 id="基于centos7-安装6-2版本CM以及CDH"><a href="#基于centos7-安装6-2版本CM以及CDH" class="headerlink" title="基于centos7 安装6.2版本CM以及CDH"></a>基于centos7 安装6.2版本CM以及CDH</h4><ul>
+<li>CM安装包下载地址:<br>rpm包:<a href="https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/" target="_blank" rel="noopener">https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/</a><br>   <img src="/images/pasted-10.png" alt="upload successful"><br>allkeys.asc文件:<a href https: archive.cloudera.com cm6 6.2.0 allkeys.asc"">https://archive.cloudera.com/cm6/6.2.0/allkeys.asc</a></li>
+<li>CDH安装包下载地址:<a href="https://archive.cloudera.com/cdh6/6.2.0/parcels/" target="_blank" rel="noopener">https://archive.cloudera.com/cdh6/6.2.0/parcels/</a><br>   <img src="/images/pasted-9.png" alt="upload successful"></li>
+</ul>
+<p>以下操作主要是在root用户下进行》》》</p>
+<ol>
+<li><p>修改hostname（每个节点）</p>
+<p> 1.1 临时修改 <code>$ hostname hdfs1</code></p>
+<p>1.2 长期修改 <code>$ vi /etc/hostname</code></p>
+</li>
+<li><p>配置 /etc/hosts（每个节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.101.1 	hdfs1</span><br><span class="line">192.168.101.2 	hdfs2</span><br><span class="line">192.168.101.3 	hdfs3</span><br><span class="line">192.168.101.4 	hdfs4</span><br><span class="line">192.168.101.5 	hdfs5</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中选择hdfs1作为主节点</p>
+</blockquote>
+</li>
+<li><p>关闭防火墙、禁止防火墙开机自启（每个节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld  #关闭防火墙</span><br><span class="line">$ systemctl disable firewalld #禁止防火墙开机自启</span><br><span class="line">$ vi /etc/selinux/config  #SELINUX=disabled (修改)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置ssh免密登录（可以不用配置）<br><del>登录各节点执行ssh-keygen -t rsa 一路回车到结束，在/root/.ssh/下面会生成一个公钥文件id_rsa.pub<br>cat /home/root/.ssh/id_rsa.pub &gt;&gt; /home/root/.ssh/authorized_keys 将公钥追加到authorized_keys<br>$ chmod 600 /home/root/.ssh/authorized_keys 修改权限<br>将/home/root/.ssh/authorized_keys从当前节点分发到其他各个节点。如：scp   /home/root/.ssh/authorized_keys root@hdfs1:/home/root/.ssh/</del></p>
+</li>
+<li><p>配置NTP服务（所有节点）<br>修改时区（改为中国标准时区）<br>$ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br>安装ntp <code>$ yum -y install ntp</code><br>配置ntp主机服务器，注释掉其他ntp服务器<br>$ vim /etc/ntp.conf<br>server hdfs1</p>
+<p> <img src="/images/pasted-3.png" alt="upload successful"></p>
+<p>重新启动 ntp服务：<code>$ service ntpd restart</code><br>设置开机自启：<code>$ systemctl enable ntpd.service</code><br>ntpdc -c loopinfo #查看与时间同步服务器的时间偏差<br>ntpq -p #查看当前同步的时间服务器<br>ntpstat #查看状态</p>
+</li>
+<li><p>修改Linux swappiness参数(所有节点）<br>为了避免服务器使用swap功能而影响服务器性能，一般都会把vm.swappiness修改为0（cloudera建议10以下）<br><code>$ cd /usr/lib/tuned/</code><br><code>$ grep  &quot;vm.swappiness&quot; * -R</code> #查询出后依次修改</p>
+</li>
+<li><p>禁用透明页(所有节点）<br>在/etc/rc.local 添加命令：<br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag</code><br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code><br>添加可执行权限：chmod +x /etc/rc.d/rc.local </p>
+</li>
+<li><p>JDK安装（所有节点）<br><code>$ rpm -qa | grep java</code> # 查询已安装的java<br><code>$ yum remove java*</code> # 卸载<br><code>$ rpm -ivh oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code><br><code>$ vi /etc/profile</code> #末尾添加</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<p><code>$ source /etc/profile</code><br><code>$ java -version</code> #验证安装是否成功</p>
+</li>
+<li><p>创建/usr/share/java目录，将mysql-jdbc包放进去（所有节点）<br><code>$ mkdir -p /usr/share/java</code><br><code>$ mv /opt/mysql-j/mysql-connector-java-5.1.34.jar /usr/share/java/</code><br>注意:mysql-connector-java-5.1.34.jar 一定要命名为mysql-connector-java.jar</p>
+</li>
+<li><p>Mysql安装(选择一个节点)</p>
+<ul>
+<li><p>卸载旧的mysql(如有)以及mariadb：rpm -qa|grep mariadb<br><code>$ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64</code></p>
+</li>
+<li><p>解压mysql安装包并进行安装:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvf mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">$ rpm -ivh mysql-community-common-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-client-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-server-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-compat-5.7.26-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>MYSQL配置:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mysqld --initialize --user=mysql # 初始化mysql使mysql目录的拥有者为mysql用户</span><br><span class="line">$ cat /var/log/mysqld.log # 最后一行会有随机生成的密码 </span><br><span class="line">$ systemctl start mysqld.service # 设置mysql服务自启</span><br><span class="line">$ mysql -uroot –ppwd</span><br></pre></td></tr></table></figure>
+<p>登录进去后,ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.需要修改访问密码:</p>
+<blockquote>
+<p>ALTER USER USER() IDENTIFIED BY ‘rootpwd’;<br>如果是5.7之前版本,可以使用如下方式: SET PASSWORD = PASSWORD(‘rootpwd’);<br>如果不能登陆,设置免密登录并重启mysql服务:<br><code>vi /etc/my.cnf</code>  #在[mysqld]的段中加上一句：skip-grant-tables ,<br>然后重启mysql： systemctl restart mysqld</p>
+</blockquote>
+</li>
+<li><p>创建库(后续安装服务等使用)　</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create database metastore default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database amon default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database rman default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database hue default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database oozie default charset utf8 collate utf8_general_ci; </span><br><span class="line">grant all on metastore.*  to &apos;metastore&apos;@&apos;%&apos;  identified  by &apos;metastore&apos;;</span><br><span class="line">grant all on amon.*  to &apos;amon&apos;@&apos;%&apos;  identified  by &apos;amon&apos;;</span><br><span class="line">grant all on rman.*  to &apos;rman&apos;@&apos;%&apos;  identified  by &apos;rman&apos;;</span><br><span class="line">grant all on hue.*  to &apos;hue&apos;@&apos;%&apos;  identified  by &apos;hue&apos;;</span><br><span class="line">grant all on oozie.*  to &apos;oozie&apos;@&apos;%&apos;  identified  by &apos;oozie&apos;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>权限回收:revoke all privileges,grant option  from ‘root’@’%’;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>安装Httpd服务（hdfs1节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yum install httpd</span><br><span class="line">$ service httpd start</span><br><span class="line">$ systemctl enable httpd.service 设置httpd服务开机自启</span><br><span class="line">$ ps -ef | grep httpd 查看httpd服务是否启动</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Cloudera Manager包yum源（hdfs1）</p>
+<ul>
+<li><p>配置Web服务器</p>
+<p><code>$ mkdir -p /var/www/html/cloudera-repos/cdh6.2</code><br>把 CDH 6.2 的三个文件放到该目录下,注意把sha256后缀的文件名修改为sha<br><img src="/images/pasted-5.png" alt="upload successful"></p>
+<p><code>$ mkdir -p /var/www/html/cloudera-repos/cm6.2</code><br>将Cloudera Manager安装需要的5个rpm包,asc文件以及jdk文件下载到本地，放在同一目录，执行createrepo命令生成rpm元数据。 </p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /var/www/html/cloudera-repos/cm6.2 </span><br><span class="line">$ yum install createrepo </span><br><span class="line">$ createrepo .#（注意此命令的最后带一个点） 最终 cm6.2目录下多了一个repodata目录</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li>修改 /etc/httpd/conf/httpd.conf 配置文件，在IfModule mime_module中修改以下内容: 把AddType application/x-gzip .gz .tgz 修改为 AddType application/x-gzip .gz .tgz .parcel<br><img src="/images/pasted-7.png" alt="upload successful"></li>
+<li>重启httpd服务 <code>systemctl restart httpd</code>,并在浏览器访问:<br><a href="http://hdfs1/cloudera-repos/" target="_blank" rel="noopener">http://hdfs1/cloudera-repos/</a></li>
+</ul>
+</li>
+<li><p>制作Cloudera Manager的repo源(hdfs1)</p>
+<ul>
+<li>$ vi /etc/yum.repos.d/cloudera-manager.repo <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name=ClouderaManager</span><br><span class="line">baseurl=http://hdfs1/cloudera-repos/cm6.2</span><br><span class="line">enabled=1 # 或者enable=true </span><br><span class="line">gpgcheck=0 # 或者gpgcheck=false</span><br></pre></td></tr></table></figure></li>
+<li>更新yum源 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum clean all </span><br><span class="line">$ yum makecache </span><br><span class="line">$ yum repolist</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li>重启httpd服务 <code>$ systemctl restart httpd</code></li>
+</ul>
+</li>
+<li><p>安装Cloudera Manager Server(hdfs1)</p>
+<ul>
+<li><p>安装CM6.2时，没安装jdk的要在各节点先安装官方提供的JDK：oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</p>
+<ul>
+<li><p>第一种方式：因为已经配置好repo仓库所以yum时会到hdfs1/cm6.2目录下找到oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm进行安装</p>
+<p><code>$ yum -y install oracle-j2sdk1.8-1.8.0+update181-1.x86_64</code><br>默认安装在 /usr/java/jdk1.8.0_181-cloudera</p>
+<p><code>$ vim /etc/profile</code> 文件中添加如下内容</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>重新加载profile配置文件，让配置文件生效：<code>$ source /etc/profile</code><br>检查是否已配置好新的JDK：<code>$ java -version</code><br>然后scp到其他节点.</p>
+</li>
+<li><p>第二种方式<br>直接使用 rpm -ivh 命令安装 rpm 文件的方式<br><code>$ rpm -ivh /var/www/html/cm6.2/oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code> </p>
+</li>
+</ul>
+</li>
+<li><p>通过yum安装Cloudera Manager Server：（Cloudera Manager Server的源 已经配置到了repo库中） <code>$ yum -y install cloudera-manager-server  cloudera-manager-agent</code></p>
+<blockquote>
+<p>最后一行显示 Complete!安装完CM后/opt/ 下会出现cloudera目录</p>
+</blockquote>
+<p>   <code>$ mv /opt/parcels/* /opt/cloudera/parcel-repo</code> # 将parcel包移动到指定位置     </p>
+</li>
+<li><p>初始化数据库,格式:/opt/cloudera/cm/schema/scm_prepare_database.sh mysql cm cm password<br>   <code>/opt/cloudera/cm/schema/scm_prepare_database.sh mysql -hmysql_host -uroot -p&#39;root&#39; --scm-host hdfs1 cm cm_user cm_pwd</code></p>
+<pre><code>注意:如果cm库已经存在,会报错,需要删除
+执行成功最后一行显示 All done, your SCM database is configured correctly!
+必须保证/usr/share/java目录中已经存在 mysql-connector-java.jar 的软连接：ln -s mysql-connector-java-5.1.46.jar mysql-connector-java.jar    </code></pre></li>
+<li><p>启动Cloudera Manager Server</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start cloudera-scm-server</span><br><span class="line">$ ps -ef | grep cloudera-scm-server #查看是否启动</span><br><span class="line">$ systemctl status cloudera-scm-server #显示 Active: active (running)</span><br></pre></td></tr></table></figure></li>
+<li><p>检查端口是否监听</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install net-tools #安装 netstat</span><br><span class="line">$ netstat -lnpt | grep 7180 #要等一段时间启动完全启动成功后，才能看到端口被使用，然后才能真正访问到CM的登录网页</span><br><span class="line">tcp 0  0 0.0.0.0:7180  0.0.0.0:*  LISTEN  68289/java</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 hdfs1:7180/cmf/login 访问 CM,之后相关组件可在页面进行安装了</p>
+</li>
+</ul>
+</li>
+<li><p>遇到的问题:        </p>
+<ul>
+<li>在部署agent时出现错误：<br>MainThread agent        ERROR    Failed to connect to previous supervisor.<br>这时候要确认一下：hostname 和ip是否对应 （/etc/sysconfig/network 和 /etc/hosts  ）<br>(hostname 临时修改方法: hostname master)<br>如果对的话，还存在问题，那么尝试用这种方法（杀掉进程）：<br>kill -9 $(pgrep -f supervisord) 然后重启agent即可。</li>
+<li>如果在界面安装部署agent过程出现中断导致无法继续安装:<br>需要kill掉agent节点两个进程:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 $&#123;pgrep -f &apos;cloudera-scm-agent/events&apos;&#125;</span><br><span class="line">kill -9 $(pgrep -f supervisord)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/wyftb.png" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/wyfwx.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/12/mysql%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">mysql基本使用</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/09/CDH%E7%89%88hadoop%E9%9B%86%E7%BE%A4%E6%89%A9%E5%B1%95%E8%8A%82%E7%82%B9/">
+                <span class="level-item">CDH版hadoop集群扩展节点</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2019/11/09/CDH6-2-0hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/';
+        this.page.identifier = '2019/11/09/CDH6-2-0hadoop集群搭建/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + '不能为空' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="月下独酌">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        月下独酌
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        过程比结果更重要
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        16
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tag
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/drinkatmoon" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/drinkatmoon">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://google.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Google</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">google.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://cn.bing.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bing</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">cn.bing.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/flume/">
+            <span class="level-start">
+                <span class="level-item">flume</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/kafka/">
+            <span class="level-start">
+                <span class="level-item">kafka</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" style="font-size: 10px;">日志采集</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="CDH6.2.0 hadoop集群搭建" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 John Doe&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                
+				<span id="busuanzi_container_site_pv" class="theme-info">
+				  |  本站总访问量<span id="busuanzi_value_site_pv"></span>次
+				 </span>
+				 <span id="busuanzi_container_site_uv" class="theme-info">
+				  |  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+				</span>
+				
+				<span id="timeDate" >载入天数...</span><span id="times">载入时分秒...</span>
+				<script>
+					var now = new Date(); 
+					function createtime() { 
+						var grt= new Date("12/10/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+						now.setTime(now.getTime()+250); 
+						days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+						hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+						if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+						mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+						seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+						snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+						document.getElementById("timeDate").innerHTML = "||本站已安全运行 "+dnum+" 天 "; 
+						document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+					} 
+				setInterval("createtime()",250);
+				</script>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+ 
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+<!-- 雪花特效 -->
+<script type="text/javascript">
+  var windowWidth = $(window).width();
+  if (windowWidth > 480) {
+	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
+  }
+</script>
+</body>
+</html>

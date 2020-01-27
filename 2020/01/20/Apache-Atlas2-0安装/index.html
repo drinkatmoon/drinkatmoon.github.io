@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Apache Atlas2.0安装 - Hexo</title>
+
+
+    <meta name="description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境   123456789101112#下载maven安装包$ wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;bi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache Atlas2.0安装">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;Apache-Atlas2-0%E5%AE%89%E8%A3%85&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境   123456789101112#下载maven安装包$ wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;bi">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2020-01-22T05:50:21.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="Apache Atlas2.0安装" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://drinkatmoon.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 分钟 read (About 1524 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Apache Atlas2.0安装
+            
+        </h1>
+        <div class="content">
+            <p>下载地址:<a href="https://atlas.apache.org/#/Downloads" target="_blank" rel="noopener">https://atlas.apache.org/#/Downloads</a></p>
+<h6 id="上传到服务器并解压"><a href="#上传到服务器并解压" class="headerlink" title="上传到服务器并解压:"></a>上传到服务器并解压:</h6><p><code>tar -zxvf apache-atlas-2.0.0-sources.tar.gz</code></p>
+<h6 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h6><ul>
+<li>配置maven环境 </li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#下载maven安装包</span><br><span class="line">$ wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">$ tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">#修改setting.xml,添加阿里镜像:</span><br><span class="line">$ cd apache-maven-3.6.3</span><br><span class="line">$ vi conf/settings.xml</span><br><span class="line">     &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">     &lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-98.png" alt="upload successful"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#配置mvn环境变量</span><br><span class="line">$ vi /etc/profile</span><br><span class="line">export MAVEN_HOME=/root/apache-maven-3.6.3</span><br><span class="line">export PATH=$MAVEN_HOME/bin:$PATH</span><br><span class="line">$ source /etc/profile</span><br><span class="line">#查看maven版本</span><br><span class="line">$ mvn -v</span><br><span class="line">#开始编译atlas,将hbase与solr一起进行编译</span><br><span class="line">$ cd ~/apache-atlas-sources-2.0.0</span><br><span class="line">#2.0 版本已经内部设置 MAVEN_OPTS，可省略该步</span><br><span class="line"># export MAVEN_OPTS=&quot;-Xms2g -Xmx2g&quot; </span><br><span class="line">$ mvn clean -DskipTests package -Pdist,embedded-hbase-solr</span><br><span class="line">#编译完成后如下图,安装包位于distro/target目录下</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-99.png" alt="upload successful"><br><img src="/images/pasted-100.png" alt="upload successful"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#将target目录下的apache-atlas-2.0.0-bin.tar.gz解压到/opt</span><br><span class="line">$ tar -zxvf distro/target/apache-atlas-2.0.0-bin.tar.gz  -C /opt</span><br><span class="line">$ chown big-data:big-data -R /opt/apache-atlas-2.0.0/</span><br><span class="line">$ cd /opt/apache-atlas-2.0.0</span><br><span class="line">$ vim conf/atlas-env.sh</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">#如果没有使用内嵌的hbase,需要修改conf/atlas-application.properties中相关配置</span><br><span class="line">#启动atlas(由于该节点上部署的impalad进程占用了21000端口,需要调整)</span><br><span class="line">$ bin/atlas_start.py</span><br><span class="line">#停止atlas服务</span><br><span class="line">$ bin/atlas_stop.py</span><br><span class="line">#通过日志可知atlas启动了内置的hbase,solr</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-102.png" alt="upload successful"></p>
+<h6 id="访问atlas"><a href="#访问atlas" class="headerlink" title="访问atlas"></a>访问atlas</h6><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">启动成功后,浏览器输入:http://slave199:21000 ,默认用户名密码为admin/admin</span><br><span class="line">solr的UI地址:http://slave199:9838/solr</span><br><span class="line">运行示例数据:bin/quick_start.py</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- admin</span><br><span class="line">#过程日志如下:</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- </span><br><span class="line"></span><br><span class="line">Creating sample types: </span><br><span class="line">Created type [DB]</span><br><span class="line">Created type [Table]</span><br><span class="line">Created type [StorageDesc]</span><br><span class="line">Created type [Column]</span><br><span class="line">Created type [LoadProcess]</span><br><span class="line">Created type [View]</span><br><span class="line">Created type [JdbcAccess]</span><br><span class="line">Created type [ETL]</span><br><span class="line">Created type [Metric]</span><br><span class="line">Created type [PII]</span><br><span class="line">Created type [Fact]</span><br><span class="line">Created type [Dimension]</span><br><span class="line">Created type [Log Data]</span><br><span class="line">Created type [Table_DB]</span><br><span class="line">Created type [View_DB]</span><br><span class="line">Created type [View_Tables]</span><br><span class="line">Created type [Table_Columns]</span><br><span class="line">Created type [Table_StorageDesc]</span><br><span class="line"></span><br><span class="line">Creating sample entities: </span><br><span class="line">Created entity of type [DB], guid: 72bf5b6f-7eb7-4f80-8c7f-7ae7e9b0dbd1</span><br><span class="line">Created entity of type [DB], guid: a4392aec-9b36-4d2f-b2d7-2ef2f4a83c10</span><br><span class="line">Created entity of type [DB], guid: 0c18f24a-d157-4f85-bd56-c93965371338</span><br><span class="line">Created entity of type [Table], guid: d1a30c78-2939-4624-8e17-abf16855e5e0</span><br><span class="line">Created entity of type [Table], guid: 47527a26-f176-4bb5-8eb4-57b72c7928b4</span><br><span class="line">Created entity of type [Table], guid: 8829432f-932f-43ec-9bab-38603b1bc5df</span><br><span class="line">Created entity of type [Table], guid: 4faafd4d-2f6d-4046-8356-333837966e1f</span><br><span class="line">Created entity of type [Table], guid: f9562fc1-8eab-4a99-be99-ffc22f632cfd</span><br><span class="line">Created entity of type [Table], guid: 8e4fe39a-48ca-4cd4-8a51-6e359645859e</span><br><span class="line">Created entity of type [Table], guid: 37a931d6-a4d2-439d-9401-668260fb7727</span><br><span class="line">Created entity of type [Table], guid: 9e8a05dd-6ec8-4bd4-b42d-3d32f7c28f77</span><br><span class="line">Created entity of type [View], guid: dfcf25d4-1081-41ca-9e88-15ec2ad5cce7</span><br><span class="line">Created entity of type [View], guid: 3cd7452a-e2ab-495e-abe1-c826975a2757</span><br><span class="line">Created entity of type [LoadProcess], guid: fd60947e-4235-4a45-9dd1-31fe702ca360</span><br><span class="line">Created entity of type [LoadProcess], guid: 7e45dd12-da78-48c2-911f-88d09c1f3797</span><br><span class="line">Created entity of type [LoadProcess], guid: a16c8a80-4c36-40d3-9702-57dbc427ee1d</span><br><span class="line"></span><br><span class="line">Sample DSL Queries: </span><br><span class="line">query [from DB] returned [3] rows.</span><br><span class="line">query [DB] returned [3] rows.</span><br><span class="line">query [DB where name=%22Reporting%22] returned [1] rows.</span><br><span class="line">query [DB where name=%22encode_db_name%22] returned [ 0 ] rows.</span><br><span class="line">query [Table where name=%2522sales_fact%2522] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB DB.name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB has name] returned [3] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [from Table] returned [8] rows.</span><br><span class="line">query [Table] returned [8] rows.</span><br><span class="line">query [Table is Dimension] returned [5] rows.</span><br><span class="line">query [Column where Column isa PII] returned [3] rows.</span><br><span class="line">query [View is Dimension] returned [2] rows.</span><br><span class="line">query [Column select Column.name] returned [10] rows.</span><br><span class="line">query [Column select name] returned [9] rows.</span><br><span class="line">query [Column where Column.name=&quot;customer_id&quot;] returned [1] rows.</span><br><span class="line">query [from Table select Table.name] returned [8] rows.</span><br><span class="line">query [DB where (name = &quot;Reporting&quot;)] returned [1] rows.</span><br><span class="line">query [DB where DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB as db1 Table where (db1.name = &quot;Reporting&quot;)] returned [ 0 ] rows.</span><br><span class="line">query [Dimension] returned [9] rows.</span><br><span class="line">query [JdbcAccess] returned [2] rows.</span><br><span class="line">query [ETL] returned [6] rows.</span><br><span class="line">query [Metric] returned [4] rows.</span><br><span class="line">query [PII] returned [3] rows.</span><br><span class="line">query [`Log Data`] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns as column select column.name, column.dataType, column.comment] returned [4] rows.</span><br><span class="line">query [from DataSet] returned [10] rows.</span><br><span class="line">query [from Process] returned [3] rows.</span><br><span class="line"></span><br><span class="line">Sample Lineage Info: </span><br><span class="line">loadSalesDaily(LoadProcess) -&gt; sales_fact_daily_mv(Table)</span><br><span class="line">loadSalesMonthly(LoadProcess) -&gt; sales_fact_monthly_mv(Table)</span><br><span class="line">sales_fact(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">sales_fact_daily_mv(Table) -&gt; loadSalesMonthly(LoadProcess)</span><br><span class="line">time_dim(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">Sample data added to Apache Atlas Server.</span><br></pre></td></tr></table></figure>
+<h6 id="配置HA模式Atlas"><a href="#配置HA模式Atlas" class="headerlink" title="配置HA模式Atlas"></a>配置HA模式Atlas</h6><h6 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h6><p>参考:<a href="https://blog.csdn.net/czq850114000/article/details/95463461" target="_blank" rel="noopener">https://blog.csdn.net/czq850114000/article/details/95463461</a></p>
+<h6 id="引入hive-hook"><a href="#引入hive-hook" class="headerlink" title="引入hive hook"></a>引入hive hook</h6><ul>
+<li><p>1.修改配置文件 atlas-application.properties </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#########  Hive Hook Configs  #########</span><br><span class="line">atlas.hook.hive.synchronous=false</span><br><span class="line">atlas.hook.hive.numRetries=3</span><br><span class="line">atlas.hook.hive.queueSize=10000</span><br><span class="line">atlas.cluster.name=primary</span><br></pre></td></tr></table></figure></li>
+<li><p>2.将配置文件打包到atlas-plugin-classloader-2.0.0.jar中<br><code>zip -u /opt/apache-atlas-2.0.0/hook/hive/atlas-plugin-classloader-2.0.0.jar /opt/apache-atlas-2.0.0/conf/atlas-application.properties</code></p>
+</li>
+<li><p>3.hive-site.xml以及hive-env.sh,CM可通过界面进行,配置完成后需要重启</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.post.hooks&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;org.apache.atlas.hive.hook.HiveHook&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-111.png" alt="upload successful"><br><code>HIVE_AUX_JARS_PATH=/opt/apache-atlas-2.0.0/hook/hive</code><br><img src="/images/pasted-105.png" alt="upload successful"></p>
+</li>
+<li><p>4.将配置文件atlas-application.properties复制到集群hive节点的/etc/hive/conf 目录下<br><code>sudo cp /opt/apache-atlas-2.0.0/conf/atlas-application.properties /etc/hive/conf/</code></p>
+</li>
+<li><p>5.执行import-hive.sh，用于将Apache Hive数据库和表的元数据导入Apache Atlas，该脚本支持导入特定表，特定数据库中的表或所有数据库和表的元数据：<code>import-hive.sh [-d &lt;database regex&gt; OR --database &lt;database regex&gt;] [-t &lt;table regex&gt; OR --table &lt;table regex&gt;]</code></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ export HIVE_HOME=/opt/cloudera/parcels/CDH/lib/hive </span><br><span class="line">$ sh bin/import-hive.sh </span><br><span class="line">#如果hive库中表很多，执行会花很长时间，可查看import日志： /opt/apache-atlas-2.0.0/logs/application.log ，执行完成后控制台会输出：Hive Meta Data imported successfully!!!</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-107.png" alt="upload successful"></p>
+<ul>
+<li>6.查看hive元数据导入结果，点击search功能按钮，在按类型选择下拉选里选择hive_table，点击漏斗图标，弹出属性过滤器，选择名称-包含-pica，点击搜索，结果中显示出了导入元数据的表<br><img src="/images/pasted-108.png" alt="upload successful"><br><img src="/images/pasted-109.png" alt="upload successful"><br><img src="/images/pasted-110.png" alt="upload successful"></li>
+<li>7.导入指定数据库表元数据<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hive -e &quot;create table test_atlas(id int ,name string)&quot;</span><br><span class="line">$ sh bin/import-hive.sh -t test_atlas </span><br><span class="line">#然后在页面上搜索</span><br></pre></td></tr></table></figure>
+<img src="/images/pasted-112.png" alt="upload successful"></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/wyftb.png" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/wyfwx.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/">
+                <span class="level-item">Apache Kylin3.0安装</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/';
+        this.page.identifier = '2020/01/20/Apache-Atlas2-0安装/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + '不能为空' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="月下独酌">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        月下独酌
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        过程比结果更重要
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        16
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tag
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/drinkatmoon" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/drinkatmoon">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://google.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Google</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">google.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://cn.bing.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bing</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">cn.bing.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/flume/">
+            <span class="level-start">
+                <span class="level-item">flume</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/kafka/">
+            <span class="level-start">
+                <span class="level-item">kafka</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" style="font-size: 10px;">日志采集</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="Apache Atlas2.0安装" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 John Doe&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                
+				<span id="busuanzi_container_site_pv" class="theme-info">
+				  |  本站总访问量<span id="busuanzi_value_site_pv"></span>次
+				 </span>
+				 <span id="busuanzi_container_site_uv" class="theme-info">
+				  |  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+				</span>
+				
+				<span id="timeDate" >载入天数...</span><span id="times">载入时分秒...</span>
+				<script>
+					var now = new Date(); 
+					function createtime() { 
+						var grt= new Date("12/10/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+						now.setTime(now.getTime()+250); 
+						days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+						hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+						if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+						mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+						seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+						snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+						document.getElementById("timeDate").innerHTML = "||本站已安全运行 "+dnum+" 天 "; 
+						document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+					} 
+				setInterval("createtime()",250);
+				</script>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+ 
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+<!-- 雪花特效 -->
+<script type="text/javascript">
+  var windowWidth = $(window).width();
+  if (windowWidth > 480) {
+	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
+  }
+</script>
+</body>
+</html>

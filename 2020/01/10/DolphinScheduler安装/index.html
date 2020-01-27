@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>DolphinScheduler安装 - Hexo</title>
+
+
+    <meta name="description" content="DolphinScheduler的前身是EasyScheduler,安装包下载地址:https:&#x2F;&#x2F;dolphinscheduler.apache.org&#x2F;en-us&#x2F;docs&#x2F;user_doc&#x2F;download.html 1.部署后端 1.1后端安装,支持自动安装,源码编译安装,这里使用自动安装  准备,创建新用户big-data,修改用户权限,赋予sudo权限123$ chmod 640 &#x2F;e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DolphinScheduler安装">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;10&#x2F;DolphinScheduler%E5%AE%89%E8%A3%85&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DolphinScheduler的前身是EasyScheduler,安装包下载地址:https:&#x2F;&#x2F;dolphinscheduler.apache.org&#x2F;en-us&#x2F;docs&#x2F;user_doc&#x2F;download.html 1.部署后端 1.1后端安装,支持自动安装,源码编译安装,这里使用自动安装  准备,创建新用户big-data,修改用户权限,赋予sudo权限123$ chmod 640 &#x2F;e">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2020-01-21T03:52:12.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="DolphinScheduler安装" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://drinkatmoon.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    18 分钟 read (About 2750 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                DolphinScheduler安装
+            
+        </h1>
+        <div class="content">
+            <p>DolphinScheduler的前身是EasyScheduler,<br>安装包下载地址:<a href="https://dolphinscheduler.apache.org/en-us/docs/user_doc/download.html" target="_blank" rel="noopener">https://dolphinscheduler.apache.org/en-us/docs/user_doc/download.html</a></p>
+<h5 id="1-部署后端"><a href="#1-部署后端" class="headerlink" title="1.部署后端"></a>1.部署后端</h5><ul>
+<li><p>1.1后端安装,支持自动安装,源码编译安装,这里使用自动安装</p>
+<ul>
+<li>准备,创建新用户big-data,修改用户权限,赋予sudo权限<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ chmod 640 /etc/sudoers &amp;&amp; vim /etc/sudoers </span><br><span class="line">#在root    ALL=(ALL)       ALL行下添加:</span><br><span class="line">big-data  ALL=(ALL)       NOPASSWD: NOPASSWD: ALL</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li><p>给big-data配置ssh免密(从node1开始,每个节点执行)</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">node1: ssh-keygen -t rsa</span><br><span class="line">登录各节点执行ssh-keygen -t rsa 一路回车到结束，在~/.ssh/下面会生成一个公钥文件id_rsa.pub</span><br><span class="line">cat  ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys 将公钥追加到authorized_keys</span><br><span class="line">$ chmod 600  ~/.ssh/authorized_keys 修改权限</span><br><span class="line">将 ~/.ssh/authorized_keys从当前节点分发到其他各个节点。如：</span><br><span class="line">scp  ~/.ssh/authorized_keys big-data@hdfs1:~/.ssh/</span><br></pre></td></tr></table></figure></li>
+<li><p>创建元数据库:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE escheduler DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;</span><br><span class="line">GRANT ALL PRIVILEGES ON escheduler.* TO &apos;escheduler&apos;@&apos;%&apos; IDENTIFIED BY &apos;escheduler&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建安装目录:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /opt/dolphinScheduler  </span><br><span class="line">#修改部署目录权限</span><br><span class="line">$ chown big-data:big-data  /opt/dolphinScheduler</span><br><span class="line">$ cd /opt/dolphinScheduler</span><br></pre></td></tr></table></figure></li>
+<li><p>上传安装包:<br><img src="/images/pasted-44.png" alt="upload successful"><br><code>mkdir escheduler</code> #存放后端包解压文件<br><code>mkdir front</code> #存放前端包解压文件<br><img src="/images/pasted-68.png" alt="upload successful"><br><img src="/images/pasted-46.png" alt="upload successful"></p>
+</li>
+<li><p>修改配置文件:vim /opt/dolphinScheduler/escheduler/conf/application-dao.properties,创建表和导入基础数据<br>注释掉postgre配置,修改mysql配置:spring.datasource.url,username以及password<br><img src="/images/pasted-47.png" alt="upload successful"></p>
+</li>
+<li><p>执行创建表和导入数据脚本:<br><code>sh  backend/script/create-dolphinscheduler.sh</code><br>执行过程如遇到如下报错:<br>Caused by: java.lang.ClassNotFoundException: com.mysql.jdbc.Driver<br>将mysql驱动拷贝到lib目录下即可:<br><img src="/images/pasted-48.png" alt="upload successful"></p>
+</li>
+<li><p>修改运行参数<br><code>vi conf/env/.dolphinscheduler_env.sh</code><br><img src="/images/pasted-49.png" alt="upload successful"></p>
+</li>
+<li><p>修改 install.sh中的各参数，替换成自身业务所需的值</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"># for example postgresql or mysql ...</span><br><span class="line">dbtype=&quot;mysql&quot;</span><br><span class="line"># db address and port</span><br><span class="line">dbhost=&quot;slave199:3306&quot;</span><br><span class="line"># db name</span><br><span class="line">dbname=&quot;escheduler&quot;</span><br><span class="line"># db username</span><br><span class="line">username=&quot;escheduler&quot;</span><br><span class="line"># db passwprd</span><br><span class="line">passowrd=&quot;escheduler&quot;</span><br><span class="line">#各节点部署后端服务目录，和当前解压安装包目录不一样</span><br><span class="line">installPath=&quot;/opt/dolphinScheduler/backend&quot;</span><br><span class="line"># 部署使用的user，需要有免密sudo权限以及ssh权限</span><br><span class="line">deployUser=&quot;big-data&quot;</span><br><span class="line"># zk cluster</span><br><span class="line">zkQuorum=&quot;master197:2181,slave198:2181,slave199:2181&quot;</span><br><span class="line"># 需要部署dolphinscheduler的节点</span><br><span class="line">ips=&quot;master197,slave198,slave199&quot;</span><br><span class="line">#master节点,可配置多个</span><br><span class="line">masters=&quot;slave198&quot;</span><br><span class="line">#worker节点</span><br><span class="line">workers=&quot;master197,slave198,slave199&quot;</span><br><span class="line">#alert服务节点</span><br><span class="line">alertServer=&quot;slave198&quot;</span><br><span class="line">#api服务节点</span><br><span class="line">apiServers=&quot;slave198&quot;</span><br><span class="line"># alert config</span><br><span class="line"># mail protocol</span><br><span class="line">mailProtocol=&quot;SMTP&quot;</span><br><span class="line"># mail server host</span><br><span class="line">mailServerHost=&quot;smtp.exmail.qq.com&quot;</span><br><span class="line"># mail server port</span><br><span class="line">mailServerPort=&quot;465&quot;</span><br><span class="line"># sender</span><br><span class="line">mailSender=&quot;xxx@qq.com&quot;</span><br><span class="line"># user</span><br><span class="line">mailUser=&quot;xxx&quot;</span><br><span class="line"># sender password</span><br><span class="line">mailPassword=&quot;passwd&quot;</span><br><span class="line"># 资源中心上传选择存储方式：HDFS,S3,NONE</span><br><span class="line">resUploadStartupType=&quot;HDFS&quot;</span><br><span class="line"># 如果resUploadStartupType为HDFS，defaultFS写namenode地址，支持HA,需要将core-site.xml和hdfs-site.xml放到conf目录下</span><br><span class="line"># 如果是S3，则写S3地址，比如说：s3a://escheduler，注意，一定要创建根目录/escheduler</span><br><span class="line">defaultFS=&quot;hdfs://slave198:8020&quot;</span><br><span class="line"># resourcemanager HA configuration, if it is a single resourcemanager, here is yarnHaIps=&quot;&quot;</span><br><span class="line">yarnHaIps=&quot;master197,slave199&quot;</span><br><span class="line">#如果是单 resourcemanager,只需要配置一个主机名称,如果是resourcemanager HA,则默认配置就好</span><br><span class="line">singleYarnIp=&quot;master197&quot;</span><br><span class="line">#部署scheduler用户的hdfs根路径</span><br><span class="line">hdfsPath=&quot;/big-data&quot;</span><br><span class="line">#hdfs集群的root用户</span><br><span class="line">hdfsRootUser=&quot;hdfs&quot;</span><br><span class="line"># common config</span><br><span class="line"># Program root path</span><br><span class="line">programPath=&quot;/tmp/dolphinscheduler&quot;</span><br><span class="line"># download path</span><br><span class="line">downloadPath=&quot;/tmp/dolphinscheduler/download&quot;</span><br><span class="line"># task execute path</span><br><span class="line">execPath=&quot;/tmp/dolphinscheduler/exec&quot;</span><br><span class="line"># SHELL environmental variable path</span><br><span class="line">shellEnvPath=&quot;$installPath/conf/env/.dolphinscheduler_env.sh&quot;</span><br><span class="line"># suffix of the resource file</span><br><span class="line">resSuffixs=&quot;txt,log,sh,conf,cfg,py,java,sql,hql,xml&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>将hadoop的配置文件hdfs-site.xml,以及core-site.xml拷贝到conf下:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/hadoop/conf/hdfs-site.xml conf/</span><br><span class="line">cp /etc/hadoop/conf/core-site.xml conf/</span><br></pre></td></tr></table></figure></li>
+<li><p>执行一键安装部署脚本:<br><code>sh install.sh</code></p>
+</li>
+<li><p>dolphinscheduler后端服务启停脚本:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  #启动</span><br><span class="line">/opt/dolphinScheduler/backend/script/start-all.sh</span><br><span class="line">  #停止</span><br><span class="line">  /opt/dolphinScheduler/backend/script/stop-all.sh</span><br></pre></td></tr></table></figure></li>
+<li><p>服务成功后,会看到如下相关进程</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[big-data@slave198 logs]$ jps</span><br><span class="line">28817 WorkerServer</span><br><span class="line">28995 ApiApplicationServer</span><br><span class="line">28756 MasterServer</span><br><span class="line">28936 AlertServer</span><br><span class="line">28875 LoggerServer</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>1.2报错解决<br>/opt/dolphinScheduler/backend/logs/*.out日志文件中发现有如下错误:</p>
+<blockquote>
+<p>nohup: failed to run command ‘/bin/java’: No such file or directory<br>将JAVA_HOME/bin下的java软连接到/bin下,(所有节点)<br><code>ln -s $JAVA_HOME/bin/java /bin/java</code></p>
+</blockquote>
+</li>
+</ul>
+<h5 id="2-部署前端"><a href="#2-部署前端" class="headerlink" title="2.部署前端"></a>2.部署前端</h5><ul>
+<li>2.1下载安装包并解压<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/dolphinScheduler</span><br><span class="line">mkdir  front</span><br><span class="line">tar -zxvf apache-dolphinscheduler-incubating-1.2.0-dolphinscheduler-front-bin.tar.gz -C front</span><br></pre></td></tr></table></figure></li>
+<li>2.2执行自动化安装部署脚本<br>sudo sh  ./install-dolphinscheduler-ui.sh<br><img src="/images/pasted-50.png" alt="upload successful"><blockquote>
+<p>使用自动化部署脚本会检查系统环境是否安装了Nginx，如果没有安装则会通过网络自动下载Nginx包安装，通过引导设置后的Nginx配置文件为 /etc/nginx/conf.d/dolphinscheduler.conf 。</p>
+</blockquote>
+</li>
+<li>2.3报错解决<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">安装nginx过程执行firewall-cmd报错：ModuleNotFoundError: No module named &apos;gi&apos;</span><br><span class="line">vim /usr/bin/firewall-cmd 将#！/usr/bin/python -Es 改为 #！/usr/bin/python2 -Es</span><br><span class="line">vim /usr/sbin/firewalld, 将#！/usr/bin/python -Es 改为 #！/usr/bin/python2 -Es </span><br><span class="line">#然后重启nginx服务即可！</span><br><span class="line">systemctl restart  nginx</span><br><span class="line">#查看nginx服务状态</span><br><span class="line">systemctl status nginx</span><br><span class="line">#停止nginx服务</span><br><span class="line">systemctl stop nginx</span><br><span class="line">#如果遇到nginx服务启动失败：</span><br><span class="line">#nginx: [error] open() &quot;/run/nginx.pid&quot; failed (2: No such file or directory)</span><br><span class="line">#执行： </span><br><span class="line">sudo nginx -c /etc/nginx/nginx.conf </span><br><span class="line">nginx -s reload</span><br><span class="line">#如果报错: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)</span><br><span class="line">#找到占用80端口的进程，然后kill掉即可！</span><br><span class="line">netstat -ntlp | grep 80</span><br><span class="line">kill pid</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="3-开始使用dolphinScheduler"><a href="#3-开始使用dolphinScheduler" class="headerlink" title="3.开始使用dolphinScheduler"></a>3.开始使用dolphinScheduler</h5><ul>
+<li>3.1访问：<a href="http://slave198:8888/" target="_blank" rel="noopener">http://slave198:8888/</a><br>使用dolphinscheduler的默认用户密码登录：admin/dolphinscheduler123<br><img src="/images/pasted-52.png" alt="upload successful"></li>
+<li>3.2创建一个队列：队列管理&gt;&gt;创建队列，输入名称和队列值，然后提交保存<br><img src="/images/pasted-53.png" alt="upload successful"></li>
+<li>3.3创建租户：租户管理&gt;&gt;创建租户，输入租户编码，名称，选择队列名称，然后提交<br><img src="/images/pasted-54.png" alt="upload successful"></li>
+<li>3.4创建普通用户：用户管理&gt;&gt;创建用户，输入用户名称、密码、租户名和邮箱，手机号选填 然后提交<br><img src="/images/pasted-56.png" alt="upload successful"></li>
+<li>3.5创建告警组：告警组管理&gt;&gt;创建告警组，输入组名称，类型<br><img src="/images/pasted-57.png" alt="upload successful"></li>
+<li>3.6切换到test用户登录,然后创建一个项目：项目管理&gt;&gt;<br><img src="/images/pasted-58.png" alt="upload successful"></li>
+<li>3.7给项目创建工作流：点击新建项目进入项目首页，点击工作流定义&gt;&gt;创建工作流&gt;&gt;点击shell图标（选择项有:SHELL、SUB_PROCESS、PROCEDURE、SQL、SPARK、FLINK、MR、PYTHON、DEPENDENT、HTTP），拖拽到画布，新增一个Shell任务，输入节点名称、描述、脚本；选择运行标志，任务优先级 （级别高的任务在执行队列中会优先执行，相同优先级的任务按照先进先出的顺序执行），超时告警，选择超市策略（当任务执行时间超过超时时长可以告警并且超时失败），填写超时时长 ,然后点击确认添加<br><img src="/images/pasted-61.png" alt="upload successful"></li>
+<li>3.8保存dag：工作流定义完成后，点击保存，输入dag名称，描述，选择租户，最后添加<br><img src="/images/pasted-62.png" alt="upload successful"></li>
+<li>3.9执行工作流：刚保存的dag处于下线状态，可以编辑但不能执行，需要上线，才能执行，点击操作栏下的上线图标按钮上线，然后点击运行，需要设置运行参数,参数说明如下:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">失败策略：当某一个任务节点执行失败时，其他并行的任务节点需要执行的策略。”继续“表示：其他任务节点正常执行，”结束“表示：终止所有正在执行的任务，并终止整个流程。</span><br><span class="line">通知策略：当流程结束，根据流程状态发送流程执行信息通知邮件。</span><br><span class="line">流程优先级：流程运行的优先级，分五个等级：最高（HIGHEST），高(HIGH),中（MEDIUM）,低（LOW），最低（LOWEST）。级别高的流程在执行队列中会优先执行，相同优先级的流程按照先进先出的顺序执行。</span><br><span class="line">worker分组： 这个流程只能在指定的机器组里执行。默认是Default，可以在任一worker上执行。</span><br><span class="line">通知组： 当流程结束，或者发生容错时，会发送流程信息邮件到通知组里所有成员。</span><br><span class="line">收件人：输入邮箱后按回车键保存。当流程结束、发生容错时，会发送告警邮件到收件人列表。</span><br><span class="line">抄送人：输入邮箱后按回车键保存。当流程结束、发生容错时，会抄送告警邮件到抄送人列表。</span><br></pre></td></tr></table></figure>
+<img src="/images/pasted-63.png" alt="upload successful"><br><img src="/images/pasted-64.png" alt="upload successful"><br><img src="/images/pasted-65.png" alt="upload successful"></li>
+<li>3.10查看执行结果：点击任务实例可以查看每个任务的列表信息，点击操作栏，查看日志信息。<br><img src="/images/pasted-67.png" alt="upload successful"></li>
+<li>3.11定时执行工作流：点击工作流定义，找到需要定时执行的任务，点击操作栏下定时图标按钮，选择起止时间，定时周期，失败策略，通知策略等，然后点创建，之后可以看到定时状态位下线，点击定时管理跳到定时管理页，点击上线，上线定时任务，定时任务的执行状态可以在操作栏下树形图中快速浏览到<br><img src="/images/pasted-70.png" alt="upload successful"><br><img src="/images/pasted-71.png" alt="upload successful"><br><img src="/images/pasted-72.png" alt="upload successful"><br><img src="/images/pasted-73.png" alt="upload successful"><br><img src="/images/pasted-74.png" alt="upload successful"></li>
+</ul>
+<h5 id="4-使用worker分组执行任务"><a href="#4-使用worker分组执行任务" class="headerlink" title="4.使用worker分组执行任务"></a>4.使用worker分组执行任务</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker分组，提供了一种让任务在指定的worker上运行的机制。管理员创建worker分组，在任务节点和运行参数中设置中可以指定该任务运行的worker分组，如果指定的分组被删除或者没有指定分组，则该任务会在任一worker上运行。worker分组内多个ip地址（不能写别名），以英文逗号分隔。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>4.1切换到admin用户登录，点击安全中心&gt;&gt;worker分组管理&gt;&gt;创建worker分组，输入组名称和ip，多个ip之间用英文,分割。提交后可通过操作栏下编辑按钮进行修改。<br><img src="/images/pasted-75.png" alt="upload successful"><br><img src="/images/pasted-76.png" alt="upload successful"></li>
+</ul>
+<h5 id="5-添加数据源"><a href="#5-添加数据源" class="headerlink" title="5.添加数据源"></a>5.添加数据源</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般SQL脚本执行时会用到多种数据源，例如MySQL、PostgreSQL、Hive、Impala、Spark、ClickHouse、Oracle、SQL Server，通过添加数据源在DolphinScheduler页面编写Job时直接选择，不用再指定驱动、连接、用户名和密码等信息，可以快速创建一个SQL脚本的工作流Job，同时这个数据源时用户隔离的，每个用户添加的数据源相互独立（admin用户除外，管理员用户可以看到所有用户添加的数据源）</span><br></pre></td></tr></table></figure>
+<ul>
+<li>5.1配置mysql数据源，点击数据源中心 &gt;&gt; 创建数据源,输入名称、主机名、端口、用户名密码、以及库名，然后点击测试连接，成功后点击提交即可.<br><img src="/images/pasted-77.png" alt="upload successful"></li>
+</ul>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/wyftb.png" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/wyfwx.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Apache Kylin3.0安装</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                <span class="level-item">Airflow简单使用</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/';
+        this.page.identifier = '2020/01/10/DolphinScheduler安装/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + '不能为空' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="月下独酌">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        月下独酌
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        过程比结果更重要
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        16
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tag
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/drinkatmoon" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/drinkatmoon">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://google.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Google</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">google.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://cn.bing.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bing</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">cn.bing.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/flume/">
+            <span class="level-start">
+                <span class="level-item">flume</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/kafka/">
+            <span class="level-start">
+                <span class="level-item">kafka</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" style="font-size: 10px;">日志采集</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
+                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
+                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
+                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
+                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="DolphinScheduler安装" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 John Doe&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                
+				<span id="busuanzi_container_site_pv" class="theme-info">
+				  |  本站总访问量<span id="busuanzi_value_site_pv"></span>次
+				 </span>
+				 <span id="busuanzi_container_site_uv" class="theme-info">
+				  |  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+				</span>
+				
+				<span id="timeDate" >载入天数...</span><span id="times">载入时分秒...</span>
+				<script>
+					var now = new Date(); 
+					function createtime() { 
+						var grt= new Date("12/10/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+						now.setTime(now.getTime()+250); 
+						days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+						hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+						if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+						mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+						seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+						snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+						document.getElementById("timeDate").innerHTML = "||本站已安全运行 "+dnum+" 天 "; 
+						document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+					} 
+				setInterval("createtime()",250);
+				</script>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+ 
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+<!-- 雪花特效 -->
+<script type="text/javascript">
+  var windowWidth = $(window).width();
+  if (windowWidth > 480) {
+	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
+  }
+</script>
+</body>
+</html>
