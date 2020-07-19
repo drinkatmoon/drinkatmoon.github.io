@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="zh">
 <head>
-    <meta charset="utf-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
 
 <meta name="generator" content="Hexo 4.0.0" />
 
@@ -67,10 +67,10 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
-    <nav class="navbar navbar-main">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
@@ -125,6 +125,525 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 read (About 162 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Airflow简单使用</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="基本命令使用"><a href="#基本命令使用" class="headerlink" title="基本命令使用"></a>基本命令使用</h5><ul>
+<li>1.查看dags: <code>airflow list_dags</code></li>
+<li>2.列出dag下tasks:<code>airflow list_tasks dag_id</code></li>
+<li>3.执行dag下某个task:<code>airflow run dag_id task_id start_time</code></li>
+<li>4.测试整个dag执行:<code>airflow backfill dag_id -s start_time -e end_time -l</code><blockquote>
+<p>backfill命令本身是用于回填的，-s表示开始时间，-e表示结束时间,使用该命令可以回填多个DAG Run,最后有个-l参数，表示些任务在本地机器上执行</p>
+</blockquote>
+</li>
+<li>4.运行整个dag文件:<code>airflow trigger_dag dag_id -r RUN_ID -e EXEC_DATE</code></li>
+<li>4.暂停任务:<code>airflow pause dag_id</code></li>
+<li>4.清楚执行记录:<code>airflow clear -s 开始日期 -e 结束日期 dag_id</code></li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 read (About 1385 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Airflow安装</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="1-使用python3-pip安装Airflow"><a href="#1-使用python3-pip安装Airflow" class="headerlink" title="1.使用python3 pip安装Airflow"></a>1.使用python3 pip安装Airflow</h5><p> pip install apache-airflow ,安装结束提示如下:<br> <img src="/images/pasted-36.png" alt="upload successful"></p>
+<p> airflow安装到目录:/usr/local/python3/lib/python3.7/site-packages/airflow/下</p>
+<h5 id="2-使用mysql作为airflow的元数据库"><a href="#2-使用mysql作为airflow的元数据库" class="headerlink" title="2.使用mysql作为airflow的元数据库"></a>2.使用mysql作为airflow的元数据库</h5><ul>
+<li>创建airflow数据库<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create database airflow;</span><br><span class="line">grant all on airflow.* to &apos;root&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="3-配置环境变量vi-etc-profile"><a href="#3-配置环境变量vi-etc-profile" class="headerlink" title="3.配置环境变量vi /etc/profile"></a>3.配置环境变量<code>vi /etc/profile</code></h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export AIRFLOW_HOME=/root/airflow</span><br><span class="line">export SITE_AIRFLOW_HOME=/usr/local/python3/lib/python3.7/site-packages/airflow/</span><br><span class="line">export PATH=$PATH:$SITE_AIRFLOW_HOME/bin</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生效环境变量 <code>source /etc/profile</code></li>
+</ul>
+<h5 id="4-执行airflow命令初始化操作"><a href="#4-执行airflow命令初始化操作" class="headerlink" title="4.执行airflow命令初始化操作"></a>4.执行airflow命令初始化操作</h5><ul>
+<li><p>添加python依赖,避免初始化失败,</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install sqlite sqlite-devel</span><br></pre></td></tr></table></figure>
+<p>若步骤一完成后，仍然报错： ModuleNotFoundError: No module named ‘_sqlite3’，则是由于python3不兼容_sqlite3,单独安装sqlite3:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.sqlite.org/2019/sqlite-autoconf-3300100.tar.gz  --no-check-certificate </span><br><span class="line">tar -zxvf sqlite-autoconf-3300100.tar.gz </span><br><span class="line">cd sqlite-autoconf-3300100</span><br><span class="line">$ mkdir /usr/local/sqlite3</span><br><span class="line">$ ./configure --prefix=/usr/local/sqlite3 --disable-static --enable-fts5 --enable-json1 CFLAGS=&quot;-g -O2 -DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_FTS4=1 -DSQLITE_ENABLE_RTREE=1&quot;</span><br><span class="line">$ make &amp;&amp; make install  </span><br><span class="line">$ cd /root/Python-3.7.6</span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib ./configure --prefix=/usr/local/python3 --with-ssl LDFLAGS=&quot;-L /usr/local/sqlite3/lib&quot; CPPFLAGS=&quot; -I /usr/local/sqlite3/include&quot; </span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib make</span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib make install</span><br></pre></td></tr></table></figure></li>
+<li><p>验证是否成功,进入python 命令行,import  sqlite3,若不报错说明安装成功!</p>
+</li>
+<li><p>执行airflow,执行结束如报如下错误,可略过<br><img src="/images/pasted-37.png" alt="upload successful"></p>
+</li>
+<li><p>给airflow安装mysql模块,采用mysql作为airflow的元数据库</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ pip install &apos;apache-airflow[mysql]&apos;</span><br><span class="line"> $ yum -y install mysql-devel</span><br><span class="line"> #完成后验证是否有mysql_config</span><br><span class="line"> $ find / -name mysql_config</span><br><span class="line"> $ pip install mysqlclient</span><br><span class="line"> $ pip install pymysql</span><br><span class="line"> $ pip install cryptography</span><br><span class="line">#避免之后产生错误,需要修改airflow.cfg (默认位于~/airflow/)里的fernet_key</span><br><span class="line">#修改方法</span><br><span class="line">$ python -c &quot;from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())&quot;</span><br><span class="line">#这个命令生成一个key，复制这个key然后替换airflow.cfg文件里的fernet_key的值，</span><br><span class="line">$ vi ~/airflow.cfg </span><br><span class="line">#修改fernet_key</span><br><span class="line">fernet_key = </span><br><span class="line">#修改airflow.cfg文件中的sql_alchemy_conn配置</span><br><span class="line">sql_alchemy_conn = mysql+mysqldb://user:passwd@localhost:3306/airflow</span><br></pre></td></tr></table></figure></li>
+<li><p>初始化airflow db</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ airflow initdb</span><br><span class="line">#如有如下报错</span><br><span class="line"> #Global variable explicit_defaults_for_timestamp needs to be on (1) for mysql</span><br><span class="line"> #修改MySQL配置文件my.cnf</span><br><span class="line"> #查找my.cnf位置</span><br><span class="line"> mysql --help | grep my.cnf</span><br><span class="line"> #修改my.cnf</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">#在[mysqld]下面添加如下配置:</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-38.png" alt="upload successful"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> #重启mysql服务使配置生效</span><br><span class="line"> $service mysqld restart</span><br><span class="line"> #检查配置是否生效</span><br><span class="line"> mysql&gt; select @@global.explicit_defaults_for_timestamp;</span><br><span class="line"> +------------------------------------------+</span><br><span class="line">| @@global.explicit_defaults_for_timestamp |</span><br><span class="line">+------------------------------------------+</span><br><span class="line">|                                        1 |</span><br><span class="line">+------------------------------------------+</span><br><span class="line">#然后再次执行$ airflow initdb 即可</span><br></pre></td></tr></table></figure></li>
+<li><p>修改airflow.cfg配置,调整webserver端口,executor,load_examples,以及时区</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#1.修改webserver端口</span><br><span class="line">base_url = http://localhost:8081</span><br><span class="line">web_server_port = 8081</span><br><span class="line">#2.修改executor</span><br><span class="line">#SequentialExecutor是单进程顺序执行任务，默认执行器，通常只用于测试</span><br><span class="line">#LocalExecutor是多进程本地执行任务使用的</span><br><span class="line">#CeleryExecutor是分布式调度使用（当然也可以单机），生产环境常用</span><br><span class="line">#DaskExecutor则用于动态任务调度，常用于数据分析</span><br><span class="line">executor = CeleryExecutor</span><br><span class="line">#不显示示例DAG</span><br><span class="line">load_examples = False</span><br><span class="line">#3.修改时区</span><br><span class="line">default_timezone = Asia/Shanghai</span><br><span class="line">#调整时区还需要修改另外三个文件:</span><br><span class="line">#3.1修改webserver页面上右上角展示的时间:</span><br><span class="line">vi $&#123;PYTHON_HOME&#125;/lib/python3.7/site-packages/airflow/www/templates/admin/master.html</span><br><span class="line">#注释://var UTCseconds = (x.getTime() + x.getTimezoneOffset()*60*1000);</span><br><span class="line">var UTCseconds = x.getTime();##修改后</span><br><span class="line">#3.2修改webserver lastRun时间,在指定位置添加如下内容，分别找到DagModel(Base),DAG(BaseDag, LoggingMixin)两个类,在get_last_dagrun方法前添加如下方法:</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/models/dag.py</span><br><span class="line">def utc2local(self,utc):</span><br><span class="line">       import time</span><br><span class="line">       epoch = time.mktime(utc.timetuple())</span><br><span class="line">       offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)</span><br><span class="line">       return utc + offset</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-41.png" alt="upload successful"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#3.3修改dags页面显示时间,根据execution_date定位</span><br><span class="line">vi $&#123;PYTHON_HOME&#125;/lib/python3.7/site-packages/airflow/www/templates/airflow/dags.html</span><br><span class="line">#将&#123;&#123; last_run.execution_date.strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;修改为:</span><br><span class="line">&#123;&#123; dag.utc2local(last_run.execution_date).strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;</span><br><span class="line">#将 &#123;&#123; last_run.start_date.strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;修改为:</span><br><span class="line">&#123;&#123; dag.utc2local(last_run.start_date).strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;</span><br><span class="line">#3.4修改timezone.py文件</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/utils/timezone.py</span><br><span class="line">在utc = pendulum.timezone(&apos;UTC&apos;)下面添加如下内容:</span><br><span class="line">from airflow import configuration as conf</span><br><span class="line">try:</span><br><span class="line">        tz = conf.get(&quot;core&quot;, &quot;default_timezone&quot;)</span><br><span class="line">        if tz == &quot;system&quot;:</span><br><span class="line">                utc = pendulum.local_timezone()</span><br><span class="line">        else:</span><br><span class="line">                utc = pendulum.timezone(tz)</span><br><span class="line">except Exception:</span><br><span class="line">        pass</span><br><span class="line">##修改utcnow()函数</span><br><span class="line">将d = dt.datetime.utcnow() 修改为d = dt.datetime.now()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-42.png" alt="upload successful"></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#3.5修改sqlalchemy.py文件</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/utils/sqlalchemy.py</span><br><span class="line">在utc = pendulum.timezone(&apos;UTC&apos;)下边添加如下代码:</span><br><span class="line">from airflow import configuration as conf</span><br><span class="line">try:</span><br><span class="line">	tz = conf.get(&quot;core&quot;, &quot;default_timezone&quot;)</span><br><span class="line">	if tz == &quot;system&quot;:</span><br><span class="line">		utc = pendulum.local_timezone()</span><br><span class="line">	else:</span><br><span class="line">		utc = pendulum.timezone(tz)</span><br><span class="line">except Exception:</span><br><span class="line">	pass</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-43.png" alt="upload successful"></p>
+</li>
+<li><p>初始化元数据库</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#初始化元数据库（其实也就是新建airflow依赖的表）</span><br><span class="line">$ airflow resetdb</span><br><span class="line">#或者使用airflow initdb</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="5-启动airflow相关组件"><a href="#5-启动airflow相关组件" class="headerlink" title="5.启动airflow相关组件"></a>5.启动airflow相关组件</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#安装如下依赖组件</span><br><span class="line">$ pip install celery</span><br><span class="line">#安装过程如遇如下Error:</span><br><span class="line">#ERROR: No matching distribution found for kombu&lt;4.7,&gt;=4.6.7 (from celery)</span><br><span class="line">#需要升级pip版本</span><br><span class="line">$ python -m pip install --upgrade pip</span><br><span class="line">$ pip install apache-airflow[&apos;kubernetes&apos;]</span><br><span class="line">#启动组件：</span><br><span class="line">#守护进程运行webserver</span><br><span class="line">$ airflow webserver -D</span><br><span class="line">#守护进程运行调度器,是一种使用 DAG 定义结合元数据中的任务状态来决定哪些任务需要被执行以及任务执行优先级的过程</span><br><span class="line">$ airflow scheduler -D</span><br><span class="line">#守护进程运行worker,是实际执行任务逻辑的进程</span><br><span class="line">$ airflow worker -D</span><br><span class="line">#守护进程Flower Web,建立Celery之上的Web UI，用于监控您的worker,可以不启动</span><br><span class="line">$ airflow flower -D</span><br><span class="line">####重启webserver和scheduler服务</span><br><span class="line">$ ps -ef|egrep &apos;scheduler|airflow-webserver&apos;|grep -v grep|awk &apos;&#123;print $2&#125;&apos;|xargs kill -9</span><br><span class="line">$ rm -rf /root/airflow/airflow-webserver.pid &amp;&amp;rm -rf /root/airflow/airflow-scheduler.pid</span><br><span class="line">$ airflow webserver -D</span><br><span class="line">$ airflow scheduler -D</span><br><span class="line">#查看日志,无错误则启动成功</span><br><span class="line">$ tail -f /root/airflow/airflow-scheduler.err </span><br><span class="line">#重启worker服务</span><br><span class="line">ps -ef|egrep &apos;serve_logs|celeryd&apos;|grep -v grep|awk &apos;&#123;print $2&#125;&apos;|xargs kill -9</span><br><span class="line">rm -rf /root/airflow/airflow-worker.pid</span><br><span class="line">airflow worker -D</span><br><span class="line">tail -f /root/airflow/airflow-worker.err</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-30T06:35:51.000Z">2019-12-30</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 read (About 207 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/12/30/centos7%E4%B8%8Apython2%E5%8D%87%E7%BA%A7python3/">python2升级python3</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="系统版本-centos7-5"><a href="#系统版本-centos7-5" class="headerlink" title="系统版本:centos7.5"></a>系统版本:centos7.5</h5><p>查看版本: cat /etc/redhat-release</p>
+<h6 id="1-下载python3安装包"><a href="#1-下载python3安装包" class="headerlink" title="1.下载python3安装包"></a>1.下载python3安装包</h6><p>下载地址:<a href="https://www.python.org/ftp/python/" target="_blank" rel="noopener">https://www.python.org/ftp/python/</a><br>wget <a href="https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tar.xz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tar.xz</a></p>
+<h6 id="2-解压安装包"><a href="#2-解压安装包" class="headerlink" title="2.解压安装包"></a>2.解压安装包</h6><p>xz -d Python-3.7.6.tar.xz<br>tar -xf Python-3.7.6.tar</p>
+<h6 id="3-在-usr-local路径下创建目录python3"><a href="#3-在-usr-local路径下创建目录python3" class="headerlink" title="3.在/usr/local路径下创建目录python3"></a>3.在/usr/local路径下创建目录python3</h6><p>mkdir /usr/local/python3</p>
+<h6 id="4-编译安装"><a href="#4-编译安装" class="headerlink" title="4.编译安装"></a>4.编译安装</h6><p>yum install -y libffi-devel<br>yum -y install gcc(安装C编译器gcc)<br>cd  Python-3.7.6<br>./configure –prefix=/usr/local/python3<br>make all &amp;&amp; make install</p>
+<h6 id="5-检查是否安装成功"><a href="#5-检查是否安装成功" class="headerlink" title="5.检查是否安装成功"></a>5.检查是否安装成功</h6><p>/usr/local/python3/bin/python3.7 -V</p>
+<h6 id="6-创建软连接使得系统默认使用python3"><a href="#6-创建软连接使得系统默认使用python3" class="headerlink" title="6.创建软连接使得系统默认使用python3"></a>6.创建软连接使得系统默认使用python3</h6><p>mv /usr/bin/python /usr/bin/python.bak<br>ln -s /usr/local/python3/bin/python3 /usr/bin/python<br>mv /usr/bin/pip /usr/bin/pip.bak<br>ln -s /usr/local/python3/bin/pip3 /usr/bin/pip</p>
+<h6 id="7-验证版本"><a href="#7-验证版本" class="headerlink" title="7.验证版本"></a>7.验证版本</h6><p>python -V<br>pip  -V</p>
+<h6 id="8-升级完python之后，yum就不好用了-需要修改yum源"><a href="#8-升级完python之后，yum就不好用了-需要修改yum源" class="headerlink" title="8.升级完python之后，yum就不好用了,需要修改yum源"></a>8.升级完python之后，yum就不好用了,需要修改yum源</h6><p>vi /usr/bin/yum<br>#!/usr/bin/python2.7<br>还要修改:<br>vi /usr/libexec/urlgrabber-ext-down</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-17T03:36:41.000Z">2019-12-17</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 read (About 25 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/12/17/azkaban%E5%AE%89%E8%A3%85/">azkaban安装</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="安装azkaban"><a href="#安装azkaban" class="headerlink" title="安装azkaban"></a>安装azkaban</h4><p>linux版本:7.4<br>jdk版本:1.8<br>azkaban版本:<br>server目录:/root/azkaban/azkaban-solo-server/build/install/azkaban-solo-server</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-15T03:36:03.000Z">2019-11-15</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 read (About 117 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/15/PostgreSQL%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85/">PostgreSQL客户端安装</a>
+            
+        </h1>
+        <div class="content">
+            <p>centos7安装PG 10客户端:<br>下载地址:<a href="https://yum.postgresql.org/rpmchart.php" target="_blank" rel="noopener">https://yum.postgresql.org/rpmchart.php</a><br>选择版本:<br><img src="/images/pasted-22.png" alt="upload successful"></p>
+<p>选择groups:<br><img src="/images/pasted-23.png" alt="upload successful"></p>
+<p>下载客户端包,以及公共包:<br><img src="/images/pasted-24.png" alt="upload successful"></p>
+<p>上传rpm包到linux环境:<br><img src="/images/pasted-25.png" alt="upload successful"></p>
+<p>先安装PG依赖包libiu,否则报错:<code>$ yum -y install libicu</code><br><img src="/images/pasted-26.png" alt="upload successful"></p>
+<p>在安装libs公共包:<code>$  rpm -ivh postgresql10-libs-10.11-1PGDG.rhel7.x86_64.rpm</code><br><img src="/images/pasted-27.png" alt="upload successful"><br>然后安装client包:<code>$  rpm -ivh postgresql10-10.11-1PGDG.rhel7.x86_64.rpm</code></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-12T02:48:29.000Z">2019-11-12</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 read (About 133 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/12/mysql%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">mysql基本使用</a>
+            
+        </h1>
+        <div class="content">
+            <h5 id="mysql-5-6"><a href="#mysql-5-6" class="headerlink" title="mysql 5.6"></a>mysql 5.6</h5><ul>
+<li><p>创建索引:<br>ALTER TABLE table_name ADD INDEX index_name(column_name);</p>
+</li>
+<li><p>修改列类型<br>alter table test modify address char(10) comment ‘’;</p>
+</li>
+<li><p>修改列名<br>alter table test change  column address address1 varchar(30)  comment ‘’;</p>
+</li>
+<li><p>赋权:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant all on *.* to &apos;user_name&apos;@&apos;ip&apos;  identified  by &apos;pwd&apos;; </span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
+<li><p>查看用户所有权限:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT CONCAT(&apos;User: &apos;&apos;&apos;,user,&apos;&apos;&apos;@&apos;&apos;&apos;,host,&apos;&apos;&apos;;&apos;) AS query FROM mysql.user where user=&apos;user_name&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回收权限:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">revoke all privileges,grant option from &apos;user_name&apos;@&apos;%&apos;;</span><br><span class="line">revoke all privileges,grant option from &apos;user_name&apos;@&apos;ip&apos;;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li>彻底的收权方法:删除mysql的user表中的数据，将没权限访问<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from mysql.user where user=&apos;root&apos; and host=&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-09T10:03:25.000Z">2019-11-09</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    16 分钟 read (About 2372 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/09/CDH6-2-0hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">CDH6.2.0 hadoop集群搭建</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="基于centos7-安装6-2版本CM以及CDH"><a href="#基于centos7-安装6-2版本CM以及CDH" class="headerlink" title="基于centos7 安装6.2版本CM以及CDH"></a>基于centos7 安装6.2版本CM以及CDH</h4><ul>
+<li>CM安装包下载地址:<br>rpm包:<a href="https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/" target="_blank" rel="noopener">https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/</a><br>   <img src="/images/pasted-10.png" alt="upload successful"><br>allkeys.asc文件:<a href https: archive.cloudera.com cm6 6.2.0 allkeys.asc"">https://archive.cloudera.com/cm6/6.2.0/allkeys.asc</a></li>
+<li>CDH安装包下载地址:<a href="https://archive.cloudera.com/cdh6/6.2.0/parcels/" target="_blank" rel="noopener">https://archive.cloudera.com/cdh6/6.2.0/parcels/</a><br>   <img src="/images/pasted-9.png" alt="upload successful"></li>
+</ul>
+<p>以下操作主要是在root用户下进行》》》</p>
+<ol>
+<li><p>修改hostname（每个节点）</p>
+<p> 1.1 临时修改 <code>$ hostname hdfs1</code></p>
+<p>1.2 长期修改 <code>$ vi /etc/hostname</code></p>
+</li>
+<li><p>配置 /etc/hosts（每个节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.101.1 	hdfs1</span><br><span class="line">192.168.101.2 	hdfs2</span><br><span class="line">192.168.101.3 	hdfs3</span><br><span class="line">192.168.101.4 	hdfs4</span><br><span class="line">192.168.101.5 	hdfs5</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中选择hdfs1作为主节点</p>
+</blockquote>
+</li>
+<li><p>关闭防火墙、禁止防火墙开机自启（每个节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld  #关闭防火墙</span><br><span class="line">$ systemctl disable firewalld #禁止防火墙开机自启</span><br><span class="line">$ vi /etc/selinux/config  #SELINUX=disabled (修改)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置ssh免密登录（可以不用配置）<br><del>登录各节点执行ssh-keygen -t rsa 一路回车到结束，在/root/.ssh/下面会生成一个公钥文件id_rsa.pub<br>cat /home/root/.ssh/id_rsa.pub &gt;&gt; /home/root/.ssh/authorized_keys 将公钥追加到authorized_keys<br>$ chmod 600 /home/root/.ssh/authorized_keys 修改权限<br>将/home/root/.ssh/authorized_keys从当前节点分发到其他各个节点。如：scp   /home/root/.ssh/authorized_keys root@hdfs1:/home/root/.ssh/</del></p>
+</li>
+<li><p>配置NTP服务（所有节点）<br>修改时区（改为中国标准时区）<br>$ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br>安装ntp <code>$ yum -y install ntp</code><br>配置ntp主机服务器，注释掉其他ntp服务器<br>$ vim /etc/ntp.conf<br>server hdfs1</p>
+<p> <img src="/images/pasted-3.png" alt="upload successful"></p>
+<p>重新启动 ntp服务：<code>$ service ntpd restart</code><br>设置开机自启：<code>$ systemctl enable ntpd.service</code><br>ntpdc -c loopinfo #查看与时间同步服务器的时间偏差<br>ntpq -p #查看当前同步的时间服务器<br>ntpstat #查看状态</p>
+</li>
+<li><p>修改Linux swappiness参数(所有节点）<br>为了避免服务器使用swap功能而影响服务器性能，一般都会把vm.swappiness修改为0（cloudera建议10以下）<br><code>$ cd /usr/lib/tuned/</code><br><code>$ grep  &quot;vm.swappiness&quot; * -R</code> #查询出后依次修改</p>
+</li>
+<li><p>禁用透明页(所有节点）<br>在/etc/rc.local 添加命令：<br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag</code><br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code><br>添加可执行权限：chmod +x /etc/rc.d/rc.local </p>
+</li>
+<li><p>JDK安装（所有节点）<br><code>$ rpm -qa | grep java</code> # 查询已安装的java<br><code>$ yum remove java*</code> # 卸载<br><code>$ rpm -ivh oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code><br><code>$ vi /etc/profile</code> #末尾添加</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
+<p><code>$ source /etc/profile</code><br><code>$ java -version</code> #验证安装是否成功</p>
+</li>
+<li><p>创建/usr/share/java目录，将mysql-jdbc包放进去（所有节点）<br><code>$ mkdir -p /usr/share/java</code><br><code>$ mv /opt/mysql-j/mysql-connector-java-5.1.34.jar /usr/share/java/</code><br>注意:mysql-connector-java-5.1.34.jar 一定要命名为mysql-connector-java.jar</p>
+</li>
+<li><p>Mysql安装(选择一个节点)</p>
+<ul>
+<li><p>卸载旧的mysql(如有)以及mariadb：rpm -qa|grep mariadb<br><code>$ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64</code></p>
+</li>
+<li><p>解压mysql安装包并进行安装:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvf mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">$ rpm -ivh mysql-community-common-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-client-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-server-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-compat-5.7.26-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
+<li><p>MYSQL配置:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mysqld --initialize --user=mysql # 初始化mysql使mysql目录的拥有者为mysql用户</span><br><span class="line">$ cat /var/log/mysqld.log # 最后一行会有随机生成的密码 </span><br><span class="line">$ systemctl start mysqld.service # 设置mysql服务自启</span><br><span class="line">$ mysql -uroot –ppwd</span><br></pre></td></tr></table></figure>
+<p>登录进去后,ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.需要修改访问密码:</p>
+<blockquote>
+<p>ALTER USER USER() IDENTIFIED BY ‘rootpwd’;<br>如果是5.7之前版本,可以使用如下方式: SET PASSWORD = PASSWORD(‘rootpwd’);<br>如果不能登陆,设置免密登录并重启mysql服务:<br><code>vi /etc/my.cnf</code>  #在[mysqld]的段中加上一句：skip-grant-tables ,<br>然后重启mysql： systemctl restart mysqld</p>
+</blockquote>
+</li>
+<li><p>创建库(后续安装服务等使用)　</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create database metastore default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database amon default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database rman default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database hue default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database oozie default charset utf8 collate utf8_general_ci; </span><br><span class="line">grant all on metastore.*  to &apos;metastore&apos;@&apos;%&apos;  identified  by &apos;metastore&apos;;</span><br><span class="line">grant all on amon.*  to &apos;amon&apos;@&apos;%&apos;  identified  by &apos;amon&apos;;</span><br><span class="line">grant all on rman.*  to &apos;rman&apos;@&apos;%&apos;  identified  by &apos;rman&apos;;</span><br><span class="line">grant all on hue.*  to &apos;hue&apos;@&apos;%&apos;  identified  by &apos;hue&apos;;</span><br><span class="line">grant all on oozie.*  to &apos;oozie&apos;@&apos;%&apos;  identified  by &apos;oozie&apos;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>权限回收:revoke all privileges,grant option  from ‘root’@’%’;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>安装Httpd服务（hdfs1节点）</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yum install httpd</span><br><span class="line">$ service httpd start</span><br><span class="line">$ systemctl enable httpd.service 设置httpd服务开机自启</span><br><span class="line">$ ps -ef | grep httpd 查看httpd服务是否启动</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Cloudera Manager包yum源（hdfs1）</p>
+<ul>
+<li><p>配置Web服务器</p>
+<p><code>$ mkdir -p /var/www/html/cloudera-repos/cdh6.2</code><br>把 CDH 6.2 的三个文件放到该目录下,注意把sha256后缀的文件名修改为sha<br><img src="/images/pasted-5.png" alt="upload successful"></p>
+<p><code>$ mkdir -p /var/www/html/cloudera-repos/cm6.2</code><br>将Cloudera Manager安装需要的5个rpm包,asc文件以及jdk文件下载到本地，放在同一目录，执行createrepo命令生成rpm元数据。 </p>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /var/www/html/cloudera-repos/cm6.2 </span><br><span class="line">$ yum install createrepo </span><br><span class="line">$ createrepo .#（注意此命令的最后带一个点） 最终 cm6.2目录下多了一个repodata目录</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li>修改 /etc/httpd/conf/httpd.conf 配置文件，在IfModule mime_module中修改以下内容: 把AddType application/x-gzip .gz .tgz 修改为 AddType application/x-gzip .gz .tgz .parcel<br><img src="/images/pasted-7.png" alt="upload successful"></li>
+<li>重启httpd服务 <code>systemctl restart httpd</code>,并在浏览器访问:<br><a href="http://hdfs1/cloudera-repos/" target="_blank" rel="noopener">http://hdfs1/cloudera-repos/</a></li>
+</ul>
+</li>
+<li><p>制作Cloudera Manager的repo源(hdfs1)</p>
+<ul>
+<li>$ vi /etc/yum.repos.d/cloudera-manager.repo <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[cloudera-manager]</span><br><span class="line">  name=ClouderaManager</span><br><span class="line">  baseurl=http://hdfs1/cloudera-repos/cm6.2</span><br><span class="line">  enabled=1 # 或者enable=true </span><br><span class="line">  gpgcheck=0 # 或者gpgcheck=false</span><br></pre></td></tr></table></figure></li>
+<li>更新yum源 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum clean all </span><br><span class="line">$ yum makecache </span><br><span class="line">$ yum repolist</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<ul>
+<li>重启httpd服务 <code>$ systemctl restart httpd</code></li>
+</ul>
+</li>
+<li><p>安装Cloudera Manager Server(hdfs1)</p>
+<ul>
+<li><p>安装CM6.2时，没安装jdk的要在各节点先安装官方提供的JDK：oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</p>
+<ul>
+<li><p>第一种方式：因为已经配置好repo仓库所以yum时会到hdfs1/cm6.2目录下找到oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm进行安装</p>
+<p><code>$ yum -y install oracle-j2sdk1.8-1.8.0+update181-1.x86_64</code><br>默认安装在 /usr/java/jdk1.8.0_181-cloudera</p>
+<p><code>$ vim /etc/profile</code> 文件中添加如下内容</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>重新加载profile配置文件，让配置文件生效：<code>$ source /etc/profile</code><br>检查是否已配置好新的JDK：<code>$ java -version</code><br>然后scp到其他节点.</p>
+</li>
+<li><p>第二种方式<br>直接使用 rpm -ivh 命令安装 rpm 文件的方式<br><code>$ rpm -ivh /var/www/html/cm6.2/oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code> </p>
+</li>
+</ul>
+</li>
+<li><p>导入GPG key（避免cm服务安装失败） <code>rpm --import https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPM-GPG-KEY-cloudera</code></p>
+</li>
+<li><p>通过yum安装Cloudera Manager Server：（Cloudera Manager Server的源 已经配置到了repo库中） <code>$ yum -y install cloudera-manager-daemons  cloudera-manager-server  cloudera-manager-agent</code></p>
+<blockquote>
+<p>最后一行显示 Complete!安装完CM后/opt/ 下会出现cloudera目录</p>
+</blockquote>
+<p>   <code>$ mv /opt/parcels/* /opt/cloudera/parcel-repo</code> # 将parcel包移动到指定位置     </p>
+</li>
+<li><p>初始化数据库,格式:/opt/cloudera/cm/schema/scm_prepare_database.sh mysql cm cm password<br>   <code>/opt/cloudera/cm/schema/scm_prepare_database.sh mysql -hmysql_host -uroot -p&#39;root&#39; --scm-host hdfs1 cm cm_user cm_pwd</code></p>
+<pre><code>注意:如果cm库已经存在,会报错,需要删除
+执行成功最后一行显示 All done, your SCM database is configured correctly!
+必须保证/usr/share/java目录中已经存在 mysql-connector-java.jar 的软连接：ln -s mysql-connector-java-5.1.46.jar mysql-connector-java.jar    </code></pre></li>
+<li><p>启动Cloudera Manager Server</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start cloudera-scm-server</span><br><span class="line">$ ps -ef | grep cloudera-scm-server #查看是否启动</span><br><span class="line">$ systemctl status cloudera-scm-server #显示 Active: active (running)</span><br></pre></td></tr></table></figure></li>
+<li><p>检查端口是否监听</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install net-tools #安装 netstat</span><br><span class="line">$ netstat -lnpt | grep 7180 #要等一段时间启动完全启动成功后，才能看到端口被使用，然后才能真正访问到CM的登录网页</span><br><span class="line">tcp 0  0 0.0.0.0:7180  0.0.0.0:*  LISTEN  68289/java</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 hdfs1:7180/cmf/login 访问 CM,之后相关组件可在页面进行安装了</p>
+</li>
+</ul>
+</li>
+<li><p>遇到的问题:        </p>
+<ul>
+<li>在部署agent时出现错误：<br>MainThread agent        ERROR    Failed to connect to previous supervisor.<br>这时候要确认一下：hostname 和ip是否对应 （/etc/sysconfig/network 和 /etc/hosts  ）<br>(hostname 临时修改方法: hostname master)<br>如果对的话，还存在问题，那么尝试用这种方法（杀掉进程）：<br>kill -9 $(pgrep -f supervisord) 然后重启agent即可。</li>
+<li>如果在界面安装部署agent过程出现中断导致无法继续安装:<br>需要kill掉agent节点两个进程:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 $&#123;pgrep -f &apos;cloudera-scm-agent/events&apos;&#125;</span><br><span class="line">kill -9 $(pgrep -f supervisord)或service supervisord stop</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>通过界面安装CDH:</p>
+<ul>
+<li>1)欢迎界面,直接点继续即可</li>
+<li>2)需要输入集群名称:<br><img src="/images/pasted-125.png" alt="upload successful"></li>
+<li>3)输入主机名进行搜索,选择后会纳入CDH集群<br><img src="/images/pasted-126.png" alt="upload successful"></li>
+<li>4)指定cloudera manager service安装包路径,以及CDH parcels包的位置(在更多选项中配置)<br><img src="/images/pasted-127.png" alt="upload successful"><br><img src="/images/pasted-129.png" alt="upload successful"><br><img src="/images/pasted-128.png" alt="upload successful"></li>
+<li>5)JDK安装选项,如果已安装无需勾选</li>
+<li>6)配置ssh免密访问用户,默认是root<br><img src="/images/pasted-130.png" alt="upload successful"></li>
+<li>7)进行cloudera-manager-agent包的安装<br><img src="/images/pasted-131.png" alt="upload successful"><br>如果服务器上有过安装记录,需要停止相关服务,删除相关目录<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#停止服务:</span><br><span class="line">for u in hdfs mapred cloudera-scm hbase hue zookeeper oozie hive impala flume; do   kill -9 $(ps -u $u -o pid=); done</span><br><span class="line">#删除目录</span><br><span class="line">rm -rf /var/lib/hadoop-* /var/lib/impala /var/lib/solr /var/lib/zookeeper /var/lib/hue /var/lib/oozie  /var/lib/pgsql  /var/lib/sqoop2  /data/dfs/  /data/impala/ /data/yarn/  /dfs/ /impala/ /yarn/  /var/run/hadoop-*/ /var/run/hdfs-*/ /usr/bin/hadoop* /usr/bin/zookeeper* /usr/bin/hbase* /usr/bin/hive* /usr/bin/hdfs /usr/bin/mapred /usr/bin/yarn /usr/bin/sqoop* /usr/bin/oozie /etc/hadoop* /etc/zookeeper* /etc/hive* /etc/hue /etc/impala /etc/sqoop* /etc/oozie /etc/hbase* /etc/hcatalog /var/lib/cloudera-scm-agent/*</span><br></pre></td></tr></table></figure></li>
+<li>8)安装CDH</li>
+<li>9)检查集群状态,选择红框中选项,继续即可<br><img src="/images/pasted-132.png" alt="upload successful"></li>
+<li>10)选择集群要部署的服务,可以用推荐的组合,也可以自定义安装<br><img src="/images/pasted-133.png" alt="upload successful"></li>
+<li>11)分配角色<br><img src="/images/pasted-134.png" alt="upload successful"></li>
+</ul>
+</li>
+</ol>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
     
 <div class="card">
     
@@ -294,162 +813,6 @@
 
 
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-01T09:03:03.000Z">2019-11-01</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    4 分钟 read (About 589 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/01/spark-streaming%E6%B6%88%E8%B4%B9kafka/">spark streaming消费kafka</a>
-            
-        </h1>
-        <div class="content">
-            <p>Spark Streaming 消费kafka有两种形式：</p>
-<h5 id="使用no-revivers方式消费kafka"><a href="#使用no-revivers方式消费kafka" class="headerlink" title="使用no revivers方式消费kafka"></a>使用no revivers方式消费kafka</h5><p>spark版本：2.4.0-cdh6.2.0<br>使用spark streaming消费kafka数据并写入hive中：</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/01/spark-streaming%E6%B6%88%E8%B4%B9kafka/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-01T03:04:00.000Z">2019-11-01</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/kafka/">kafka</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 117 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/01/kafka%E4%BD%BF%E7%94%A8/">kafka简单使用</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="kafka版本-2-1-0-基于CDH6-2版本安装"><a href="#kafka版本-2-1-0-基于CDH6-2版本安装" class="headerlink" title="kafka版本:2.1.0(基于CDH6.2版本安装)"></a>kafka版本:2.1.0(基于CDH6.2版本安装)</h4><h6 id="1-创建topic"><a href="#1-创建topic" class="headerlink" title="1.创建topic"></a>1.创建topic</h6>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/01/kafka%E4%BD%BF%E7%94%A8/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-28T07:03:00.000Z">2019-10-28</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/flume/">flume</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 read (About 1166 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/28/flume%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/">flume安装测试</a>
-            
-        </h1>
-        <div class="content">
-            <h3 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h3><p>下载地址：<a href="http://flume.apache.org/download.html" target="_blank" rel="noopener" title="http://flume.apache.org/download.html">Apache flume 1.9.0</a>  </p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/28/flume%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95/#more">Read More</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -457,7 +820,7 @@
         <div class="pagination-previous">
             <a class="is-flex-grow has-text-black-ter" href="/">Previous</a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
+        <div class="pagination-next">
             <a class="is-flex-grow has-text-black-ter" href="/page/3/">Next</a>
         </div>
         <ul class="pagination-list is-hidden-mobile">
@@ -465,6 +828,8 @@
             <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
             
             <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
             
         </ul>
     </nav>
@@ -513,7 +878,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        23
                     </p>
                 </div>
             </div>
@@ -666,16 +1031,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -685,16 +1050,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -704,16 +1069,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -723,16 +1088,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -742,16 +1107,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -769,6 +1134,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -858,16 +1256,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -877,16 +1275,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -896,16 +1294,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -915,16 +1313,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -934,16 +1332,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -961,6 +1359,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1248,6 +1679,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (windowWidth > 480) {
 	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

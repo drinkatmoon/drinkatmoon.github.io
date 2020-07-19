@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="zh">
 <head>
-    <meta charset="utf-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
 
 <meta name="generator" content="Hexo 4.0.0" />
 
@@ -10,15 +10,15 @@
 <title>Apache Kylin3.0安装 - Hexo</title>
 
 
-    <meta name="description" content="为了体验apache kylin 3.0在测试环境进行了安装使用:下载地址:http:&#x2F;&#x2F;kylin.apache.org&#x2F;download&#x2F; 1.安装参考官网文档:http:&#x2F;&#x2F;kylin.apache.org&#x2F;cn&#x2F;docs&#x2F;tutorial&#x2F;kylin_sample.html 12345678910111213141516解压:tar -zxvf apache-kylin-3.0.0-bin">
+    <meta name="description" content="为了体验apache kylin 3.0在测试环境进行了安装使用:下载地址:http:&#x2F;&#x2F;kylin.apache.org&#x2F;download&#x2F; 1.安装参考官网文档:http:&#x2F;&#x2F;kylin.apache.org&#x2F;cn&#x2F;docs&#x2F;tutorial&#x2F;kylin_sample.html 123456789101112131415161718192021解压:tar -zxvf apache-kylin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apache Kylin3.0安装">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;17&#x2F;Kylin%E5%AE%89%E8%A3%85&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="为了体验apache kylin 3.0在测试环境进行了安装使用:下载地址:http:&#x2F;&#x2F;kylin.apache.org&#x2F;download&#x2F; 1.安装参考官网文档:http:&#x2F;&#x2F;kylin.apache.org&#x2F;cn&#x2F;docs&#x2F;tutorial&#x2F;kylin_sample.html 12345678910111213141516解压:tar -zxvf apache-kylin-3.0.0-bin">
+<meta property="og:description" content="为了体验apache kylin 3.0在测试环境进行了安装使用:下载地址:http:&#x2F;&#x2F;kylin.apache.org&#x2F;download&#x2F; 1.安装参考官网文档:http:&#x2F;&#x2F;kylin.apache.org&#x2F;cn&#x2F;docs&#x2F;tutorial&#x2F;kylin_sample.html 123456789101112131415161718192021解压:tar -zxvf apache-kylin">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2020-01-22T08:00:59.980Z">
+<meta property="og:updated_time" content="2020-04-02T03:14:15.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -70,10 +70,10 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
-    <nav class="navbar navbar-main">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
@@ -140,7 +140,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 read (About 636 words)
+                    5 分钟 read (About 745 words)
                 </span>
                 
                 
@@ -160,9 +160,11 @@
         <div class="content">
             <p>为了体验apache kylin 3.0在测试环境进行了安装使用:<br>下载地址:<a href="http://kylin.apache.org/download/" target="_blank" rel="noopener">http://kylin.apache.org/download/</a></p>
 <h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>参考官网文档:<a href="http://kylin.apache.org/cn/docs/tutorial/kylin_sample.html" target="_blank" rel="noopener">http://kylin.apache.org/cn/docs/tutorial/kylin_sample.html</a></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">解压:tar -zxvf apache-kylin-3.0.0-bin-cdh60.tar.gz </span><br><span class="line">配置KYLIN_HOME: export KYLIN_HOME=/home/kylin-3.0.0-cdh60</span><br><span class="line">检查安装环境:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">遇到错误:</span><br><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">找到hbase环境目录:ll /etc/alternatives/hbase </span><br><span class="line">vi /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/bin/hbase</span><br><span class="line">找到HBASE_CLASSPATH那一行,追加:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hbase/lib/*</span><br><span class="line">再次执行:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">如果还是报错,暂时忽略</span><br><span class="line">export HBASE_CLASSPATH=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-server-2.1.0-cdh6.2.0.jar:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-common-2.1.0-cdh6.2.0.jar</span><br><span class="line"></span><br><span class="line">启动异常:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">cp /opt/cloudera/cm/common_jars/commons-configuration-1.9.cf57559743f64f0b3a504aba449c9649.jar /home/big-data/kylin-3.0.0-cdh60/tomcat/lib/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">解压:tar -zxvf apache-kylin-3.0.0-bin-cdh60.tar.gz </span><br><span class="line">配置KYLIN_HOME: export KYLIN_HOME=/home/big-data/kylin-3.0.0-cdh60</span><br><span class="line">检查安装环境:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">遇到错误:</span><br><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">找到hbase环境目录:ll /etc/alternatives/hbase </span><br><span class="line">vi /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/bin/hbase</span><br><span class="line">找到HBASE_CLASSPATH那一行,追加:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hbase/lib/*</span><br><span class="line">再次执行:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">如果报错如下:</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">$ sudo  vim /opt/cloudera/parcels/CDH/lib/hbase/bin/hbase</span><br><span class="line">CLASSPATH=$&#123;CLASSPATH&#125;:$JAVA_HOME/lib/tools.jar:/opt/cloudera/parcels/CDH/lib/hbase/lib/*</span><br><span class="line"></span><br><span class="line">如果还是报错,暂时忽略</span><br><span class="line">export HBASE_CLASSPATH=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-server-2.1.0-cdh6.2.0.jar:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-common-2.1.0-cdh6.2.0.jar</span><br><span class="line"></span><br><span class="line">启动异常:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">cp /opt/cloudera/cm/common_jars/commons-configuration-1.9.cf57559743f64f0b3a504aba449c9649.jar /home/big-data/kylin-3.0.0-cdh60/tomcat/lib/</span><br></pre></td></tr></table></figure>
 <p><img src="/images/pasted-80.png" alt="upload successful"></p>
-<h5 id="2-运行"><a href="#2-运行" class="headerlink" title="2.运行"></a>2.运行</h5><p>sh $KYLIN_HOME/bin/kylin.sh start<br>成功启动后日志中会有访问链接:<a href="http://slave198:7070/kylin" target="_blank" rel="noopener">http://slave198:7070/kylin</a><br><img src="/images/pasted-81.png" alt="upload successful"><br>等待1分钟就可以访问了,初始用户名密码为ADMIN/KYLIN(注意是大写)<br><img src="/images/pasted-82.png" alt="upload successful"><br>登录进去后看到如下页面:<br><img src="/images/pasted-83.png" alt="upload successful"><br>停止kylin:sh $KYLIN_HOME/bin/kylin.sh stop</p>
+<h5 id="2-运行"><a href="#2-运行" class="headerlink" title="2.运行"></a>2.运行</h5><p>sh $KYLIN_HOME/bin/kylin.sh start<br>成功启动后日志中会有访问链接:<a href="http://slave198:7070/kylin" target="_blank" rel="noopener">http://slave198:7070/kylin</a> </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果没找到SPARK_HOME,需要配置spark_home:</span><br><span class="line">export SPARK_HOME=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/spark</span><br><span class="line">如果启动报错:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">导入commons-configuration.jar到lib目录:</span><br><span class="line"> cp /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/commons-configuration2-2.1.1.jar kylin-2.6.5-cdh60/lib/</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-81.png" alt="upload successful"><br>等待1分钟就可以访问了,初始用户名密码为ADMIN/KYLIN(注意是大写)<br><img src="/images/pasted-82.png" alt="upload successful"><br>登录进去后看到如下页面:<br><img src="/images/pasted-83.png" alt="upload successful"><br>停止kylin:sh $KYLIN_HOME/bin/kylin.sh stop</p>
 <h5 id="3-使用demo"><a href="#3-使用demo" class="headerlink" title="3.使用demo"></a>3.使用demo</h5><ul>
 <li><p>3.1运行sh $KYLIN_HOME/bin/sample.sh ,执行成功后,有如下日志:</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sample cube is created successfully in project &apos;learn_kylin&apos;.</span><br><span class="line">Restart Kylin Server or click Web UI =&gt; System Tab =&gt; Reload Metadata to take effect</span><br></pre></td></tr></table></figure>
@@ -313,7 +315,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        23
                     </p>
                 </div>
             </div>
@@ -466,16 +468,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -485,16 +487,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -504,16 +506,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -523,16 +525,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -542,16 +544,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -569,6 +571,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -658,16 +693,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -677,16 +712,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -696,16 +731,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -715,16 +750,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -734,16 +769,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -761,6 +796,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1048,6 +1116,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (windowWidth > 480) {
 	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

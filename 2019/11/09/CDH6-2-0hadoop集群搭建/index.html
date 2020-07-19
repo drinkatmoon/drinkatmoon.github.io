@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="zh">
 <head>
-    <meta charset="utf-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
 
 <meta name="generator" content="Hexo 4.0.0" />
 
@@ -18,7 +18,7 @@
 <meta property="og:description" content="基于centos7 安装6.2版本CM以及CDH CM安装包下载地址:rpm包:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;redhat7&#x2F;yum&#x2F;RPMS&#x2F;x86_64&#x2F;   allkeys.asc文件:https:&#x2F;&#x2F;archive.cloudera.com&#x2F;cm6&#x2F;6.2.0&#x2F;allkeys.asc CDH安装包下载地址:https:&#x2F;&#x2F;archive.cl">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-12T10:02:50.543Z">
+<meta property="og:updated_time" content="2020-04-24T02:41:32.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -70,10 +70,10 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
-    <nav class="navbar navbar-main">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
@@ -140,7 +140,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    13 分钟 read (About 1982 words)
+                    16 分钟 read (About 2372 words)
                 </span>
                 
                 
@@ -233,7 +233,7 @@
 </li>
 <li><p>制作Cloudera Manager的repo源(hdfs1)</p>
 <ul>
-<li>$ vi /etc/yum.repos.d/cloudera-manager.repo <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name=ClouderaManager</span><br><span class="line">baseurl=http://hdfs1/cloudera-repos/cm6.2</span><br><span class="line">enabled=1 # 或者enable=true </span><br><span class="line">gpgcheck=0 # 或者gpgcheck=false</span><br></pre></td></tr></table></figure></li>
+<li>$ vi /etc/yum.repos.d/cloudera-manager.repo <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[cloudera-manager]</span><br><span class="line">  name=ClouderaManager</span><br><span class="line">  baseurl=http://hdfs1/cloudera-repos/cm6.2</span><br><span class="line">  enabled=1 # 或者enable=true </span><br><span class="line">  gpgcheck=0 # 或者gpgcheck=false</span><br></pre></td></tr></table></figure></li>
 <li>更新yum源 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum clean all </span><br><span class="line">$ yum makecache </span><br><span class="line">$ yum repolist</span><br></pre></td></tr></table></figure>
 
 </li>
@@ -256,7 +256,9 @@
 </li>
 </ul>
 </li>
-<li><p>通过yum安装Cloudera Manager Server：（Cloudera Manager Server的源 已经配置到了repo库中） <code>$ yum -y install cloudera-manager-server  cloudera-manager-agent</code></p>
+<li><p>导入GPG key（避免cm服务安装失败） <code>rpm --import https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPM-GPG-KEY-cloudera</code></p>
+</li>
+<li><p>通过yum安装Cloudera Manager Server：（Cloudera Manager Server的源 已经配置到了repo库中） <code>$ yum -y install cloudera-manager-daemons  cloudera-manager-server  cloudera-manager-agent</code></p>
 <blockquote>
 <p>最后一行显示 Complete!安装完CM后/opt/ 下会出现cloudera目录</p>
 </blockquote>
@@ -278,7 +280,23 @@
 <li><p>遇到的问题:        </p>
 <ul>
 <li>在部署agent时出现错误：<br>MainThread agent        ERROR    Failed to connect to previous supervisor.<br>这时候要确认一下：hostname 和ip是否对应 （/etc/sysconfig/network 和 /etc/hosts  ）<br>(hostname 临时修改方法: hostname master)<br>如果对的话，还存在问题，那么尝试用这种方法（杀掉进程）：<br>kill -9 $(pgrep -f supervisord) 然后重启agent即可。</li>
-<li>如果在界面安装部署agent过程出现中断导致无法继续安装:<br>需要kill掉agent节点两个进程:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 $&#123;pgrep -f &apos;cloudera-scm-agent/events&apos;&#125;</span><br><span class="line">kill -9 $(pgrep -f supervisord)</span><br></pre></td></tr></table></figure></li>
+<li>如果在界面安装部署agent过程出现中断导致无法继续安装:<br>需要kill掉agent节点两个进程:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 $&#123;pgrep -f &apos;cloudera-scm-agent/events&apos;&#125;</span><br><span class="line">kill -9 $(pgrep -f supervisord)或service supervisord stop</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>通过界面安装CDH:</p>
+<ul>
+<li>1)欢迎界面,直接点继续即可</li>
+<li>2)需要输入集群名称:<br><img src="/images/pasted-125.png" alt="upload successful"></li>
+<li>3)输入主机名进行搜索,选择后会纳入CDH集群<br><img src="/images/pasted-126.png" alt="upload successful"></li>
+<li>4)指定cloudera manager service安装包路径,以及CDH parcels包的位置(在更多选项中配置)<br><img src="/images/pasted-127.png" alt="upload successful"><br><img src="/images/pasted-129.png" alt="upload successful"><br><img src="/images/pasted-128.png" alt="upload successful"></li>
+<li>5)JDK安装选项,如果已安装无需勾选</li>
+<li>6)配置ssh免密访问用户,默认是root<br><img src="/images/pasted-130.png" alt="upload successful"></li>
+<li>7)进行cloudera-manager-agent包的安装<br><img src="/images/pasted-131.png" alt="upload successful"><br>如果服务器上有过安装记录,需要停止相关服务,删除相关目录<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#停止服务:</span><br><span class="line">for u in hdfs mapred cloudera-scm hbase hue zookeeper oozie hive impala flume; do   kill -9 $(ps -u $u -o pid=); done</span><br><span class="line">#删除目录</span><br><span class="line">rm -rf /var/lib/hadoop-* /var/lib/impala /var/lib/solr /var/lib/zookeeper /var/lib/hue /var/lib/oozie  /var/lib/pgsql  /var/lib/sqoop2  /data/dfs/  /data/impala/ /data/yarn/  /dfs/ /impala/ /yarn/  /var/run/hadoop-*/ /var/run/hdfs-*/ /usr/bin/hadoop* /usr/bin/zookeeper* /usr/bin/hbase* /usr/bin/hive* /usr/bin/hdfs /usr/bin/mapred /usr/bin/yarn /usr/bin/sqoop* /usr/bin/oozie /etc/hadoop* /etc/zookeeper* /etc/hive* /etc/hue /etc/impala /etc/sqoop* /etc/oozie /etc/hbase* /etc/hcatalog /var/lib/cloudera-scm-agent/*</span><br></pre></td></tr></table></figure></li>
+<li>8)安装CDH</li>
+<li>9)检查集群状态,选择红框中选项,继续即可<br><img src="/images/pasted-132.png" alt="upload successful"></li>
+<li>10)选择集群要部署的服务,可以用推荐的组合,也可以自定义安装<br><img src="/images/pasted-133.png" alt="upload successful"></li>
+<li>11)分配角色<br><img src="/images/pasted-134.png" alt="upload successful"></li>
 </ul>
 </li>
 </ol>
@@ -417,7 +435,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        23
                     </p>
                 </div>
             </div>
@@ -570,16 +588,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -589,16 +607,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -608,16 +626,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -627,16 +645,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -646,16 +664,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -673,6 +691,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -762,16 +813,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -781,16 +832,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -800,16 +851,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -819,16 +870,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -838,16 +889,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -865,6 +916,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1152,6 +1236,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (windowWidth > 480) {
 	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

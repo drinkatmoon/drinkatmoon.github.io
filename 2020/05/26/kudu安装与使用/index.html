@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>kudu使用 - Hexo</title>
+
+
+    <meta name="description" content="CDH6.2安装的kudu版本: 1.9.0-cdh6.2.01.为何选择kudu 参考1:https:&#x2F;&#x2F;www.cnblogs.com&#x2F;maoxiangyi&#x2F;p&#x2F;11249109.html 参考2:https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;83290cd817ac  2.kudu怎么用 参考:https:&#x2F;&#x2F;github.com&#x2F;apache&#x2F;kudu&#x2F;tree&#x2F;master&#x2F;exa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kudu使用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;26&#x2F;kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CDH6.2安装的kudu版本: 1.9.0-cdh6.2.01.为何选择kudu 参考1:https:&#x2F;&#x2F;www.cnblogs.com&#x2F;maoxiangyi&#x2F;p&#x2F;11249109.html 参考2:https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;83290cd817ac  2.kudu怎么用 参考:https:&#x2F;&#x2F;github.com&#x2F;apache&#x2F;kudu&#x2F;tree&#x2F;master&#x2F;exa">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2020-07-19T01:45:54.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-3-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.png" alt="kudu使用" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://drinkatmoon.github.io">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 分钟 read (About 1717 words)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span> visits
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                kudu使用
+            
+        </h1>
+        <div class="content">
+            <h6 id="CDH6-2安装的kudu版本-1-9-0-cdh6-2-0"><a href="#CDH6-2安装的kudu版本-1-9-0-cdh6-2-0" class="headerlink" title="CDH6.2安装的kudu版本: 1.9.0-cdh6.2.0"></a>CDH6.2安装的kudu版本: 1.9.0-cdh6.2.0</h6><h6 id="1-为何选择kudu"><a href="#1-为何选择kudu" class="headerlink" title="1.为何选择kudu"></a>1.为何选择kudu</h6><ul>
+<li>参考1:<a href="https://www.cnblogs.com/maoxiangyi/p/11249109.html" target="_blank" rel="noopener">https://www.cnblogs.com/maoxiangyi/p/11249109.html</a></li>
+<li>参考2:<a href="https://www.jianshu.com/p/83290cd817ac" target="_blank" rel="noopener">https://www.jianshu.com/p/83290cd817ac</a></li>
+</ul>
+<h6 id="2-kudu怎么用"><a href="#2-kudu怎么用" class="headerlink" title="2.kudu怎么用"></a>2.kudu怎么用</h6><ul>
+<li><p>参考:<a href="https://github.com/apache/kudu/tree/master/examples/quickstart/impala" target="_blank" rel="noopener">https://github.com/apache/kudu/tree/master/examples/quickstart/impala</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#创建内部表:</span><br><span class="line">CREATE TABLE my_first_table</span><br><span class="line">(</span><br><span class="line">  id BIGINT,</span><br><span class="line">  name STRING,</span><br><span class="line">  PRIMARY KEY(id)</span><br><span class="line">)</span><br><span class="line">PARTITION BY HASH PARTITIONS 4</span><br><span class="line">STORED AS KUDU;</span><br><span class="line">DESCRIBE my_first_table;</span><br><span class="line">#执行CURD操作</span><br><span class="line">INSERT INTO my_first_table VALUES (99, &quot;sarah&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">INSERT INTO my_first_table VALUES (1, &quot;john&quot;), (2, &quot;jane&quot;), (3, &quot;jim&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">UPDATE my_first_table SET name=&quot;bob&quot; where id = 3;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">UPSERT INTO my_first_table VALUES (3, &quot;bobby&quot;), (4, &quot;grant&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">DELETE FROM my_first_table WHERE id = 99;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">DELETE FROM my_first_table WHERE id &lt; 3;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">#执行ddl操作</span><br><span class="line">DESCRIBE my_first_table;</span><br><span class="line">DROP TABLE my_first_table;</span><br><span class="line">#使用impala创建外部表,将kudu的表映射到impala上</span><br><span class="line">CREATE EXTERNAL TABLE my_mapping_table</span><br><span class="line">STORED AS KUDU</span><br><span class="line">TBLPROPERTIES (</span><br><span class="line">  &apos;kudu.master_addresses&apos; = &apos;hadoop01:7051,hadoop02:7051,hadoop03:7051&apos;, </span><br><span class="line">  &apos;kudu.table_name&apos; = &apos;PERSON&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h5 id="kudu基础"><a href="#kudu基础" class="headerlink" title="kudu基础"></a>kudu基础</h5><h6 id="1-kudu基础类型"><a href="#1-kudu基础类型" class="headerlink" title="1.kudu基础类型"></a>1.kudu基础类型</h6>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">kudu列类型</span><br><span class="line">布尔</span><br><span class="line">8位有符号整数</span><br><span class="line">16位有符号整数</span><br><span class="line">32位有符号整数</span><br><span class="line">64位有符号整数</span><br><span class="line">unixtime_micros（Unix时代以来的64位微秒）</span><br><span class="line">单精度（32位）IEEE-754浮点数</span><br><span class="line">双精度（64位）IEEE-754浮点数</span><br><span class="line">十进制（详见十进制类型）</span><br><span class="line">UTF-8编码字符串（最多64KB未压缩）</span><br><span class="line">二进制（最多64KB未压缩）</span><br></pre></td></tr></table></figure>
+<h6 id="2-kudu分区"><a href="#2-kudu分区" class="headerlink" title="2.kudu分区"></a>2.kudu分区</h6><ul>
+<li>范围分区</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Kudu允许在运行时动态添加和删除范围分区，而不会影响其他分区的可用性。删除分区将删除属于该分区的平板电脑以及其中包含的数据。后续插入到已删除的分区中将失败。可以添加新分区，但它们不得与任何现有范围分区重叠。Kudu允许在单个事务更改表操作中删除和添加任意数量的范围分区。 动态添加和删除范围分区对于时间序列用例特别有用。随着时间的推移，可以添加范围分区以覆盖即将到来的时间范围。例如，存储事件日志的表可以在每个月开始之前添加月份分区，以便保存即将发生的事件。可以删除旧范围分区，以便根据需要有效地删除历史数据。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>范围分区的键必须是主键列的一个子集<ul>
+<li>在没有散列分区的范围分区表中，每个范围分区将恰好对应于一个tablet</li>
+<li>kudu允许在运行时添加或删除范围分区，而不会影响其他分区的可用性。删除分区将删除属于该分区的tablet以及其中包含的数据。后续插入到已删除的分区的数据将失败。添加的新分区不能与现有的范围分区重叠。</li>
+<li>动态添加和删除范围分区对于时间序列用例特别有用。随着时间的推移，可以添加范围分区以覆盖即将到来的时间范围。例如，存储事件日志的表可以在每个月开始之前添加月份分区，以便保存即将发生的事件。可以删除旧范围分区，以便在必要时有效地删除历史数据。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>哈希分区<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">散列分区按散列值将行分配到许多存储桶之一。在单级散列分区表中，每个桶只对应一个tablet。在表创建期间设置桶的数量。通常，主键列用作要散列的列，但与范围分区一样，可以使用主键列的任何子集。 当不需要对表进行有序访问时，散列分区是一种有效的策略。散列分区对于在tablet之间随机传播写入非常有效，这有助于缓解热点和不均匀的tablet大小。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>哈希分区不允许动态添加和删除<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优缺点:</span><br><span class="line">散列分区可以最大限度地提高写入吞吐量，而范围分区可以避免无限制的tablet增长问题。这两种策略都可以利用分区修剪来优化不同场景下的扫描。使用多级分区，可以将这两种策略结合起来，以获得两者的好处，同时最大限度地减少每种策略的缺点。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>kudu主键设计<ul>
+<li>每个Kudu表必须声明由一列或多列组成的主键。与RDBMS主键一样，Kudu主键强制执行唯一性约束。尝试插入具有与现有行相同的主键值的行将导致重复键错误。</li>
+<li>主键列必须是非可空的，并且可能不是boolean，float或double类型。</li>
+<li>在表创建期间设置后，主键中的列集可能不会更改。</li>
+<li>与RDBMS不同，Kudu不提供自动递增列功能，因此应用程序必须始终在插入期间提供完整的主键。</li>
+<li>行删除和更新操作还必须指定要更改的行的完整主键。Kudu本身不支持范围删除或更新。</li>
+<li>插入行后，可能无法更新列的主键值。但是，可以删除行并使用更新的值重新插入。</li>
+</ul>
+</li>
+</ul>
+<h5 id="kudu存在的已知限制"><a href="#kudu存在的已知限制" class="headerlink" title="kudu存在的已知限制"></a>kudu存在的已知限制</h5><h6 id="列数"><a href="#列数" class="headerlink" title="列数"></a>列数</h6><blockquote>
+<p>默认情况下，Kudu不允许创建超过300列的表。我们建议使用较少列的架构设计以获得最佳性能。</p>
+</blockquote>
+<h6 id="单元格大小"><a href="#单元格大小" class="headerlink" title="单元格大小"></a>单元格大小</h6><blockquote>
+<p>在编码或压缩之前，单个单元不得大于64KB。在Kudu完成内部复合密钥编码之后，构成复合密钥的单元限制为总共16KB。插入不符合这些限制的行将导致错误返回给客户端.</p>
+</blockquote>
+<h6 id="行的大小"><a href="#行的大小" class="headerlink" title="行的大小"></a>行的大小</h6><blockquote>
+<p>虽然单个单元可能高达64KB，而Kudu最多支持300列，但建议单行不要大于几百KB。</p>
+</blockquote>
+<h6 id="有效标识符"><a href="#有效标识符" class="headerlink" title="有效标识符"></a>有效标识符</h6><blockquote>
+<p>表名和列名等标识符必须是有效的UTF-8序列且不超过256个字节。</p>
+</blockquote>
+<h6 id="不可变主键"><a href="#不可变主键" class="headerlink" title="不可变主键"></a>不可变主键</h6><blockquote>
+<p>Kudu不允许您更新一行的主键列。</p>
+</blockquote>
+<h6 id="不可更改的主键"><a href="#不可更改的主键" class="headerlink" title="不可更改的主键"></a>不可更改的主键</h6><blockquote>
+<p>Kudu不允许您在创建表后更改主键列。</p>
+</blockquote>
+<h6 id="不可更改的分区"><a href="#不可更改的分区" class="headerlink" title="不可更改的分区"></a>不可更改的分区</h6><blockquote>
+<p>除了添加或删除范围分区之外，Kudu不允许您在创建后更改表的分区方式。</p>
+</blockquote>
+<h6 id="不可改变的列类型"><a href="#不可改变的列类型" class="headerlink" title="不可改变的列类型"></a>不可改变的列类型</h6><blockquote>
+<p>Kudu不允许更改列的类型。</p>
+</blockquote>
+<h6 id="分区拆分"><a href="#分区拆分" class="headerlink" title="分区拆分"></a>分区拆分</h6><blockquote>
+<p>创建表后，无法拆分或合并分区。</p>
+</blockquote>
+<h6 id="主键列必须在非主键列之前"><a href="#主键列必须在非主键列之前" class="headerlink" title="主键列必须在非主键列之前"></a>主键列必须在非主键列之前</h6><h6 id="表的副本为奇数，且不能大于7，在建表时指定，且不可修改"><a href="#表的副本为奇数，且不能大于7，在建表时指定，且不可修改" class="headerlink" title="表的副本为奇数，且不能大于7，在建表时指定，且不可修改"></a>表的副本为奇数，且不能大于7，在建表时指定，且不可修改</h6><h6 id="kudu创建分区参考"><a href="#kudu创建分区参考" class="headerlink" title="kudu创建分区参考:"></a>kudu创建分区参考:</h6><p><a href="https://blog.csdn.net/u011250186/article/details/104840477" target="_blank" rel="noopener">https://blog.csdn.net/u011250186/article/details/104840477</a></p>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/wyftb.png" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>Wechat</span>
+    <div class="qrcode"><img src="/images/wyfwx.png" alt="Wechat"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/24/jupyter/">
+                <span class="level-item">jupyter</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/';
+        this.page.identifier = '2020/05/26/kudu安装与使用/';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + '不能为空' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="月下独酌">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        月下独酌
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        过程比结果更重要
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>China,Shanghai</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        23
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        2
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tag
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/drinkatmoon" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/drinkatmoon">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://google.com" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Google</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">google.com</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://cn.bing.com/" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Bing</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">cn.bing.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/flume/">
+            <span class="level-start">
+                <span class="level-item">flume</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/kafka/">
+            <span class="level-start">
+                <span class="level-item">kafka</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/" style="font-size: 10px;">日志采集</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/24/jupyter/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/05/24/jupyter/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E6%97%A5%E5%BF%97%E9%87%87%E9%9B%86/">
+                        <span class="tag">日志采集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.png" alt="kudu使用" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 John Doe&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                <br>
+                
+				<span id="busuanzi_container_site_pv" class="theme-info">
+				  |  本站总访问量<span id="busuanzi_value_site_pv"></span>次
+				 </span>
+				 <span id="busuanzi_container_site_uv" class="theme-info">
+				  |  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+				</span>
+				
+				<span id="timeDate" >载入天数...</span><span id="times">载入时分秒...</span>
+				<script>
+					var now = new Date(); 
+					function createtime() { 
+						var grt= new Date("12/10/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+						now.setTime(now.getTime()+250); 
+						days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+						hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+						if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+						mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+						seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+						snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+						document.getElementById("timeDate").innerHTML = "||本站已安全运行 "+dnum+" 天 "; 
+						document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+					} 
+				setInterval("createtime()",250);
+				</script>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+ 
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+<!-- 雪花特效 -->
+<script type="text/javascript">
+  var windowWidth = $(window).width();
+  if (windowWidth > 480) {
+	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
+  }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

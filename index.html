@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="zh">
 <head>
-    <meta charset="utf-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
 
 <meta name="generator" content="Hexo 4.0.0" />
 
@@ -67,10 +67,10 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
-    <nav class="navbar navbar-main">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
@@ -132,13 +132,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time>
+                <time class="level-item has-text-grey" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 read (About 1524 words)
+                    11 分钟 read (About 1717 words)
                 </span>
                 
                 
@@ -147,41 +147,147 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/">Apache Atlas2.0安装</a>
+                <a class="has-link-black-ter" href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">kudu使用</a>
             
         </h1>
         <div class="content">
-            <p>下载地址:<a href="https://atlas.apache.org/#/Downloads" target="_blank" rel="noopener">https://atlas.apache.org/#/Downloads</a></p>
-<h6 id="上传到服务器并解压"><a href="#上传到服务器并解压" class="headerlink" title="上传到服务器并解压:"></a>上传到服务器并解压:</h6><p><code>tar -zxvf apache-atlas-2.0.0-sources.tar.gz</code></p>
-<h6 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h6><ul>
-<li>配置maven环境 </li>
+            <h6 id="CDH6-2安装的kudu版本-1-9-0-cdh6-2-0"><a href="#CDH6-2安装的kudu版本-1-9-0-cdh6-2-0" class="headerlink" title="CDH6.2安装的kudu版本: 1.9.0-cdh6.2.0"></a>CDH6.2安装的kudu版本: 1.9.0-cdh6.2.0</h6><h6 id="1-为何选择kudu"><a href="#1-为何选择kudu" class="headerlink" title="1.为何选择kudu"></a>1.为何选择kudu</h6><ul>
+<li>参考1:<a href="https://www.cnblogs.com/maoxiangyi/p/11249109.html" target="_blank" rel="noopener">https://www.cnblogs.com/maoxiangyi/p/11249109.html</a></li>
+<li>参考2:<a href="https://www.jianshu.com/p/83290cd817ac" target="_blank" rel="noopener">https://www.jianshu.com/p/83290cd817ac</a></li>
 </ul>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#下载maven安装包</span><br><span class="line">$ wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">$ tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">#修改setting.xml,添加阿里镜像:</span><br><span class="line">$ cd apache-maven-3.6.3</span><br><span class="line">$ vi conf/settings.xml</span><br><span class="line">     &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">     &lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-98.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#配置mvn环境变量</span><br><span class="line">$ vi /etc/profile</span><br><span class="line">export MAVEN_HOME=/root/apache-maven-3.6.3</span><br><span class="line">export PATH=$MAVEN_HOME/bin:$PATH</span><br><span class="line">$ source /etc/profile</span><br><span class="line">#查看maven版本</span><br><span class="line">$ mvn -v</span><br><span class="line">#开始编译atlas,将hbase与solr一起进行编译</span><br><span class="line">$ cd ~/apache-atlas-sources-2.0.0</span><br><span class="line">#2.0 版本已经内部设置 MAVEN_OPTS，可省略该步</span><br><span class="line"># export MAVEN_OPTS=&quot;-Xms2g -Xmx2g&quot; </span><br><span class="line">$ mvn clean -DskipTests package -Pdist,embedded-hbase-solr</span><br><span class="line">#编译完成后如下图,安装包位于distro/target目录下</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-99.png" alt="upload successful"><br><img src="/images/pasted-100.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#将target目录下的apache-atlas-2.0.0-bin.tar.gz解压到/opt</span><br><span class="line">$ tar -zxvf distro/target/apache-atlas-2.0.0-bin.tar.gz  -C /opt</span><br><span class="line">$ chown big-data:big-data -R /opt/apache-atlas-2.0.0/</span><br><span class="line">$ cd /opt/apache-atlas-2.0.0</span><br><span class="line">$ vim conf/atlas-env.sh</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">#如果没有使用内嵌的hbase,需要修改conf/atlas-application.properties中相关配置</span><br><span class="line">#启动atlas(由于该节点上部署的impalad进程占用了21000端口,需要调整)</span><br><span class="line">$ bin/atlas_start.py</span><br><span class="line">#停止atlas服务</span><br><span class="line">$ bin/atlas_stop.py</span><br><span class="line">#通过日志可知atlas启动了内置的hbase,solr</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-102.png" alt="upload successful"></p>
-<h6 id="访问atlas"><a href="#访问atlas" class="headerlink" title="访问atlas"></a>访问atlas</h6><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">启动成功后,浏览器输入:http://slave199:21000 ,默认用户名密码为admin/admin</span><br><span class="line">solr的UI地址:http://slave199:9838/solr</span><br><span class="line">运行示例数据:bin/quick_start.py</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- admin</span><br><span class="line">#过程日志如下:</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- </span><br><span class="line"></span><br><span class="line">Creating sample types: </span><br><span class="line">Created type [DB]</span><br><span class="line">Created type [Table]</span><br><span class="line">Created type [StorageDesc]</span><br><span class="line">Created type [Column]</span><br><span class="line">Created type [LoadProcess]</span><br><span class="line">Created type [View]</span><br><span class="line">Created type [JdbcAccess]</span><br><span class="line">Created type [ETL]</span><br><span class="line">Created type [Metric]</span><br><span class="line">Created type [PII]</span><br><span class="line">Created type [Fact]</span><br><span class="line">Created type [Dimension]</span><br><span class="line">Created type [Log Data]</span><br><span class="line">Created type [Table_DB]</span><br><span class="line">Created type [View_DB]</span><br><span class="line">Created type [View_Tables]</span><br><span class="line">Created type [Table_Columns]</span><br><span class="line">Created type [Table_StorageDesc]</span><br><span class="line"></span><br><span class="line">Creating sample entities: </span><br><span class="line">Created entity of type [DB], guid: 72bf5b6f-7eb7-4f80-8c7f-7ae7e9b0dbd1</span><br><span class="line">Created entity of type [DB], guid: a4392aec-9b36-4d2f-b2d7-2ef2f4a83c10</span><br><span class="line">Created entity of type [DB], guid: 0c18f24a-d157-4f85-bd56-c93965371338</span><br><span class="line">Created entity of type [Table], guid: d1a30c78-2939-4624-8e17-abf16855e5e0</span><br><span class="line">Created entity of type [Table], guid: 47527a26-f176-4bb5-8eb4-57b72c7928b4</span><br><span class="line">Created entity of type [Table], guid: 8829432f-932f-43ec-9bab-38603b1bc5df</span><br><span class="line">Created entity of type [Table], guid: 4faafd4d-2f6d-4046-8356-333837966e1f</span><br><span class="line">Created entity of type [Table], guid: f9562fc1-8eab-4a99-be99-ffc22f632cfd</span><br><span class="line">Created entity of type [Table], guid: 8e4fe39a-48ca-4cd4-8a51-6e359645859e</span><br><span class="line">Created entity of type [Table], guid: 37a931d6-a4d2-439d-9401-668260fb7727</span><br><span class="line">Created entity of type [Table], guid: 9e8a05dd-6ec8-4bd4-b42d-3d32f7c28f77</span><br><span class="line">Created entity of type [View], guid: dfcf25d4-1081-41ca-9e88-15ec2ad5cce7</span><br><span class="line">Created entity of type [View], guid: 3cd7452a-e2ab-495e-abe1-c826975a2757</span><br><span class="line">Created entity of type [LoadProcess], guid: fd60947e-4235-4a45-9dd1-31fe702ca360</span><br><span class="line">Created entity of type [LoadProcess], guid: 7e45dd12-da78-48c2-911f-88d09c1f3797</span><br><span class="line">Created entity of type [LoadProcess], guid: a16c8a80-4c36-40d3-9702-57dbc427ee1d</span><br><span class="line"></span><br><span class="line">Sample DSL Queries: </span><br><span class="line">query [from DB] returned [3] rows.</span><br><span class="line">query [DB] returned [3] rows.</span><br><span class="line">query [DB where name=%22Reporting%22] returned [1] rows.</span><br><span class="line">query [DB where name=%22encode_db_name%22] returned [ 0 ] rows.</span><br><span class="line">query [Table where name=%2522sales_fact%2522] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB DB.name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB has name] returned [3] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [from Table] returned [8] rows.</span><br><span class="line">query [Table] returned [8] rows.</span><br><span class="line">query [Table is Dimension] returned [5] rows.</span><br><span class="line">query [Column where Column isa PII] returned [3] rows.</span><br><span class="line">query [View is Dimension] returned [2] rows.</span><br><span class="line">query [Column select Column.name] returned [10] rows.</span><br><span class="line">query [Column select name] returned [9] rows.</span><br><span class="line">query [Column where Column.name=&quot;customer_id&quot;] returned [1] rows.</span><br><span class="line">query [from Table select Table.name] returned [8] rows.</span><br><span class="line">query [DB where (name = &quot;Reporting&quot;)] returned [1] rows.</span><br><span class="line">query [DB where DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB as db1 Table where (db1.name = &quot;Reporting&quot;)] returned [ 0 ] rows.</span><br><span class="line">query [Dimension] returned [9] rows.</span><br><span class="line">query [JdbcAccess] returned [2] rows.</span><br><span class="line">query [ETL] returned [6] rows.</span><br><span class="line">query [Metric] returned [4] rows.</span><br><span class="line">query [PII] returned [3] rows.</span><br><span class="line">query [`Log Data`] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns as column select column.name, column.dataType, column.comment] returned [4] rows.</span><br><span class="line">query [from DataSet] returned [10] rows.</span><br><span class="line">query [from Process] returned [3] rows.</span><br><span class="line"></span><br><span class="line">Sample Lineage Info: </span><br><span class="line">loadSalesDaily(LoadProcess) -&gt; sales_fact_daily_mv(Table)</span><br><span class="line">loadSalesMonthly(LoadProcess) -&gt; sales_fact_monthly_mv(Table)</span><br><span class="line">sales_fact(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">sales_fact_daily_mv(Table) -&gt; loadSalesMonthly(LoadProcess)</span><br><span class="line">time_dim(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">Sample data added to Apache Atlas Server.</span><br></pre></td></tr></table></figure>
-<h6 id="配置HA模式Atlas"><a href="#配置HA模式Atlas" class="headerlink" title="配置HA模式Atlas"></a>配置HA模式Atlas</h6><h6 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h6><p>参考:<a href="https://blog.csdn.net/czq850114000/article/details/95463461" target="_blank" rel="noopener">https://blog.csdn.net/czq850114000/article/details/95463461</a></p>
-<h6 id="引入hive-hook"><a href="#引入hive-hook" class="headerlink" title="引入hive hook"></a>引入hive hook</h6><ul>
-<li><p>1.修改配置文件 atlas-application.properties </p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#########  Hive Hook Configs  #########</span><br><span class="line">atlas.hook.hive.synchronous=false</span><br><span class="line">atlas.hook.hive.numRetries=3</span><br><span class="line">atlas.hook.hive.queueSize=10000</span><br><span class="line">atlas.cluster.name=primary</span><br></pre></td></tr></table></figure></li>
-<li><p>2.将配置文件打包到atlas-plugin-classloader-2.0.0.jar中<br><code>zip -u /opt/apache-atlas-2.0.0/hook/hive/atlas-plugin-classloader-2.0.0.jar /opt/apache-atlas-2.0.0/conf/atlas-application.properties</code></p>
-</li>
-<li><p>3.hive-site.xml以及hive-env.sh,CM可通过界面进行,配置完成后需要重启</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;hive.exec.post.hooks&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;org.apache.atlas.hive.hook.HiveHook&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-111.png" alt="upload successful"><br><code>HIVE_AUX_JARS_PATH=/opt/apache-atlas-2.0.0/hook/hive</code><br><img src="/images/pasted-105.png" alt="upload successful"></p>
-</li>
-<li><p>4.将配置文件atlas-application.properties复制到集群hive节点的/etc/hive/conf 目录下<br><code>sudo cp /opt/apache-atlas-2.0.0/conf/atlas-application.properties /etc/hive/conf/</code></p>
-</li>
-<li><p>5.执行import-hive.sh，用于将Apache Hive数据库和表的元数据导入Apache Atlas，该脚本支持导入特定表，特定数据库中的表或所有数据库和表的元数据：<code>import-hive.sh [-d &lt;database regex&gt; OR --database &lt;database regex&gt;] [-t &lt;table regex&gt; OR --table &lt;table regex&gt;]</code></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ export HIVE_HOME=/opt/cloudera/parcels/CDH/lib/hive </span><br><span class="line">$ sh bin/import-hive.sh </span><br><span class="line">#如果hive库中表很多，执行会花很长时间，可查看import日志： /opt/apache-atlas-2.0.0/logs/application.log ，执行完成后控制台会输出：Hive Meta Data imported successfully!!!</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-107.png" alt="upload successful"></p>
+<h6 id="2-kudu怎么用"><a href="#2-kudu怎么用" class="headerlink" title="2.kudu怎么用"></a>2.kudu怎么用</h6><ul>
+<li><p>参考:<a href="https://github.com/apache/kudu/tree/master/examples/quickstart/impala" target="_blank" rel="noopener">https://github.com/apache/kudu/tree/master/examples/quickstart/impala</a></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#创建内部表:</span><br><span class="line">CREATE TABLE my_first_table</span><br><span class="line">(</span><br><span class="line">  id BIGINT,</span><br><span class="line">  name STRING,</span><br><span class="line">  PRIMARY KEY(id)</span><br><span class="line">)</span><br><span class="line">PARTITION BY HASH PARTITIONS 4</span><br><span class="line">STORED AS KUDU;</span><br><span class="line">DESCRIBE my_first_table;</span><br><span class="line">#执行CURD操作</span><br><span class="line">INSERT INTO my_first_table VALUES (99, &quot;sarah&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">INSERT INTO my_first_table VALUES (1, &quot;john&quot;), (2, &quot;jane&quot;), (3, &quot;jim&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">UPDATE my_first_table SET name=&quot;bob&quot; where id = 3;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">UPSERT INTO my_first_table VALUES (3, &quot;bobby&quot;), (4, &quot;grant&quot;);</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">DELETE FROM my_first_table WHERE id = 99;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">DELETE FROM my_first_table WHERE id &lt; 3;</span><br><span class="line">SELECT * FROM my_first_table;</span><br><span class="line">#执行ddl操作</span><br><span class="line">DESCRIBE my_first_table;</span><br><span class="line">DROP TABLE my_first_table;</span><br><span class="line">#使用impala创建外部表,将kudu的表映射到impala上</span><br><span class="line">CREATE EXTERNAL TABLE my_mapping_table</span><br><span class="line">STORED AS KUDU</span><br><span class="line">TBLPROPERTIES (</span><br><span class="line">  &apos;kudu.master_addresses&apos; = &apos;hadoop01:7051,hadoop02:7051,hadoop03:7051&apos;, </span><br><span class="line">  &apos;kudu.table_name&apos; = &apos;PERSON&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h5 id="kudu基础"><a href="#kudu基础" class="headerlink" title="kudu基础"></a>kudu基础</h5><h6 id="1-kudu基础类型"><a href="#1-kudu基础类型" class="headerlink" title="1.kudu基础类型"></a>1.kudu基础类型</h6>  <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">kudu列类型</span><br><span class="line">布尔</span><br><span class="line">8位有符号整数</span><br><span class="line">16位有符号整数</span><br><span class="line">32位有符号整数</span><br><span class="line">64位有符号整数</span><br><span class="line">unixtime_micros（Unix时代以来的64位微秒）</span><br><span class="line">单精度（32位）IEEE-754浮点数</span><br><span class="line">双精度（64位）IEEE-754浮点数</span><br><span class="line">十进制（详见十进制类型）</span><br><span class="line">UTF-8编码字符串（最多64KB未压缩）</span><br><span class="line">二进制（最多64KB未压缩）</span><br></pre></td></tr></table></figure>
+<h6 id="2-kudu分区"><a href="#2-kudu分区" class="headerlink" title="2.kudu分区"></a>2.kudu分区</h6><ul>
+<li>范围分区</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Kudu允许在运行时动态添加和删除范围分区，而不会影响其他分区的可用性。删除分区将删除属于该分区的平板电脑以及其中包含的数据。后续插入到已删除的分区中将失败。可以添加新分区，但它们不得与任何现有范围分区重叠。Kudu允许在单个事务更改表操作中删除和添加任意数量的范围分区。 动态添加和删除范围分区对于时间序列用例特别有用。随着时间的推移，可以添加范围分区以覆盖即将到来的时间范围。例如，存储事件日志的表可以在每个月开始之前添加月份分区，以便保存即将发生的事件。可以删除旧范围分区，以便根据需要有效地删除历史数据。</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>6.查看hive元数据导入结果，点击search功能按钮，在按类型选择下拉选里选择hive_table，点击漏斗图标，弹出属性过滤器，选择名称-包含-pica，点击搜索，结果中显示出了导入元数据的表<br><img src="/images/pasted-108.png" alt="upload successful"><br><img src="/images/pasted-109.png" alt="upload successful"><br><img src="/images/pasted-110.png" alt="upload successful"></li>
-<li>7.导入指定数据库表元数据<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hive -e &quot;create table test_atlas(id int ,name string)&quot;</span><br><span class="line">$ sh bin/import-hive.sh -t test_atlas </span><br><span class="line">#然后在页面上搜索</span><br></pre></td></tr></table></figure>
-<img src="/images/pasted-112.png" alt="upload successful"></li>
+<li>范围分区的键必须是主键列的一个子集<ul>
+<li>在没有散列分区的范围分区表中，每个范围分区将恰好对应于一个tablet</li>
+<li>kudu允许在运行时添加或删除范围分区，而不会影响其他分区的可用性。删除分区将删除属于该分区的tablet以及其中包含的数据。后续插入到已删除的分区的数据将失败。添加的新分区不能与现有的范围分区重叠。</li>
+<li>动态添加和删除范围分区对于时间序列用例特别有用。随着时间的推移，可以添加范围分区以覆盖即将到来的时间范围。例如，存储事件日志的表可以在每个月开始之前添加月份分区，以便保存即将发生的事件。可以删除旧范围分区，以便在必要时有效地删除历史数据。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>哈希分区<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">散列分区按散列值将行分配到许多存储桶之一。在单级散列分区表中，每个桶只对应一个tablet。在表创建期间设置桶的数量。通常，主键列用作要散列的列，但与范围分区一样，可以使用主键列的任何子集。 当不需要对表进行有序访问时，散列分区是一种有效的策略。散列分区对于在tablet之间随机传播写入非常有效，这有助于缓解热点和不均匀的tablet大小。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>哈希分区不允许动态添加和删除<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">优缺点:</span><br><span class="line">散列分区可以最大限度地提高写入吞吐量，而范围分区可以避免无限制的tablet增长问题。这两种策略都可以利用分区修剪来优化不同场景下的扫描。使用多级分区，可以将这两种策略结合起来，以获得两者的好处，同时最大限度地减少每种策略的缺点。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>kudu主键设计<ul>
+<li>每个Kudu表必须声明由一列或多列组成的主键。与RDBMS主键一样，Kudu主键强制执行唯一性约束。尝试插入具有与现有行相同的主键值的行将导致重复键错误。</li>
+<li>主键列必须是非可空的，并且可能不是boolean，float或double类型。</li>
+<li>在表创建期间设置后，主键中的列集可能不会更改。</li>
+<li>与RDBMS不同，Kudu不提供自动递增列功能，因此应用程序必须始终在插入期间提供完整的主键。</li>
+<li>行删除和更新操作还必须指定要更改的行的完整主键。Kudu本身不支持范围删除或更新。</li>
+<li>插入行后，可能无法更新列的主键值。但是，可以删除行并使用更新的值重新插入。</li>
+</ul>
+</li>
+</ul>
+<h5 id="kudu存在的已知限制"><a href="#kudu存在的已知限制" class="headerlink" title="kudu存在的已知限制"></a>kudu存在的已知限制</h5><h6 id="列数"><a href="#列数" class="headerlink" title="列数"></a>列数</h6><blockquote>
+<p>默认情况下，Kudu不允许创建超过300列的表。我们建议使用较少列的架构设计以获得最佳性能。</p>
+</blockquote>
+<h6 id="单元格大小"><a href="#单元格大小" class="headerlink" title="单元格大小"></a>单元格大小</h6><blockquote>
+<p>在编码或压缩之前，单个单元不得大于64KB。在Kudu完成内部复合密钥编码之后，构成复合密钥的单元限制为总共16KB。插入不符合这些限制的行将导致错误返回给客户端.</p>
+</blockquote>
+<h6 id="行的大小"><a href="#行的大小" class="headerlink" title="行的大小"></a>行的大小</h6><blockquote>
+<p>虽然单个单元可能高达64KB，而Kudu最多支持300列，但建议单行不要大于几百KB。</p>
+</blockquote>
+<h6 id="有效标识符"><a href="#有效标识符" class="headerlink" title="有效标识符"></a>有效标识符</h6><blockquote>
+<p>表名和列名等标识符必须是有效的UTF-8序列且不超过256个字节。</p>
+</blockquote>
+<h6 id="不可变主键"><a href="#不可变主键" class="headerlink" title="不可变主键"></a>不可变主键</h6><blockquote>
+<p>Kudu不允许您更新一行的主键列。</p>
+</blockquote>
+<h6 id="不可更改的主键"><a href="#不可更改的主键" class="headerlink" title="不可更改的主键"></a>不可更改的主键</h6><blockquote>
+<p>Kudu不允许您在创建表后更改主键列。</p>
+</blockquote>
+<h6 id="不可更改的分区"><a href="#不可更改的分区" class="headerlink" title="不可更改的分区"></a>不可更改的分区</h6><blockquote>
+<p>除了添加或删除范围分区之外，Kudu不允许您在创建后更改表的分区方式。</p>
+</blockquote>
+<h6 id="不可改变的列类型"><a href="#不可改变的列类型" class="headerlink" title="不可改变的列类型"></a>不可改变的列类型</h6><blockquote>
+<p>Kudu不允许更改列的类型。</p>
+</blockquote>
+<h6 id="分区拆分"><a href="#分区拆分" class="headerlink" title="分区拆分"></a>分区拆分</h6><blockquote>
+<p>创建表后，无法拆分或合并分区。</p>
+</blockquote>
+<h6 id="主键列必须在非主键列之前"><a href="#主键列必须在非主键列之前" class="headerlink" title="主键列必须在非主键列之前"></a>主键列必须在非主键列之前</h6><h6 id="表的副本为奇数，且不能大于7，在建表时指定，且不可修改"><a href="#表的副本为奇数，且不能大于7，在建表时指定，且不可修改" class="headerlink" title="表的副本为奇数，且不能大于7，在建表时指定，且不可修改"></a>表的副本为奇数，且不能大于7，在建表时指定，且不可修改</h6><h6 id="kudu创建分区参考"><a href="#kudu创建分区参考" class="headerlink" title="kudu创建分区参考:"></a>kudu创建分区参考:</h6><p><a href="https://blog.csdn.net/u011250186/article/details/104840477" target="_blank" rel="noopener">https://blog.csdn.net/u011250186/article/details/104840477</a></p>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 read (About 163 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/05/24/jupyter/">jupyter</a>
+            
+        </h1>
+        <div class="content">
+            <h6 id="先安装anaconda3在安装jupyter"><a href="#先安装anaconda3在安装jupyter" class="headerlink" title="先安装anaconda3在安装jupyter"></a>先安装anaconda3在安装jupyter</h6><ul>
+<li>启动：<ul>
+<li>后台启动nohup jupyter notebook</li>
+</ul>
+</li>
+<li>列出packages<ul>
+<li>conda list</li>
+</ul>
+</li>
+<li>安装package<ul>
+<li>conda install numpy (conda install 会安装或更新库所依赖的各种库，pip install 不会更新)</li>
+</ul>
+</li>
+<li>删除单元格 <ul>
+<li>双击D，删除当前的单元格（删除之后，Crtl + Z还原无效）</li>
+</ul>
+</li>
+<li>插入单元格<ul>
+<li>插入一行：b（bellow），a（above）</li>
+</ul>
+</li>
+<li>执行单元程序<ul>
+<li>CTRL+ENTER（运行本单元，选择本单元）</li>
+<li>shift+enter（运行本单元，选中下个单元）<ul>
+<li>alt+enter（运行本单元，向下插入一个单元）</li>
+<li>魔法指令查看</li>
+<li>%lsmagic</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -207,13 +313,360 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 read (About 297 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/">centos7安装mysql5.7</a>
+            
+        </h1>
+        <div class="content">
+            <h6 id="使用yum安装mysql5-7"><a href="#使用yum安装mysql5-7" class="headerlink" title="使用yum安装mysql5.7"></a>使用yum安装mysql5.7</h6><p>参考: <a href="https://www.cnblogs.com/luohanguo/p/9045391.html" target="_blank" rel="noopener">https://www.cnblogs.com/luohanguo/p/9045391.html</a></p>
+<ul>
+<li>mysql5.7登录之后需要设置密码:</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">登录mysql后需要修改密码:SET PASSWORD = PASSWORD(&apos;rootpwd&apos;);</span><br><span class="line">报错如下:ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><br><span class="line">设置的密码不符合密码策略配置导致报错,set global validate_password_policy=LOW; </span><br><span class="line">设置为low后就只验证密码长度了!</span><br><span class="line">如果不想调整密码策略，设置符合策略的密码即可（大小写字母，数字，特殊字符，8位长度）。</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;Root12#$&apos;;(符合初始策略)</span><br></pre></td></tr></table></figure>
+<h5 id="更改mysql的数据存储目录"><a href="#更改mysql的数据存储目录" class="headerlink" title="更改mysql的数据存储目录"></a>更改mysql的数据存储目录</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql的数据目录默认存储：/var/lib/mysql，存储空间不够，需要更改</span><br></pre></td></tr></table></figure>
+<ul>
+<li>1.停止mysql服务<br>service mysqld stop</li>
+<li>2.拷贝data数据，变更权限<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv /var/lib/mysql /data</span><br><span class="line">chown -R mysql:mysql /data/mysql</span><br></pre></td></tr></table></figure></li>
+<li>3.修改配置文件<br>vi /etc/my.cnf<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#datadir=/var/lib/mysql</span><br><span class="line">datadir=/data/mysql</span><br><span class="line">#socket=/var/lib/mysql/mysql.sock</span><br><span class="line">socket=/data/mysql/mysql.sock</span><br></pre></td></tr></table></figure></li>
+<li>4.启动mysql<br><code>service mysqld start</code> </li>
+</ul>
+<ul>
+<li>问题：mysql -u -p连接数据库报错如下:<pre><code>ERROR 2002 (HY000): Can&apos;t connect to local MySQL server through socket &apos;/var/lib/mysql/mysql.sock&apos; (2)</code></pre></li>
+<li>解决：<br>mkdir -p /var/lib/mysql/<br>ln -s /data/mysql/mysql.sock /var/lib/mysql/mysql.sock</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 read (About 501 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/">neo4j安装</a>
+            
+        </h1>
+        <div class="content">
+            <p>下载地址:<a href="https://neo4j.com/download/other-releases/#releases" target="_blank" rel="noopener">https://neo4j.com/download/other-releases/#releases</a><br>安装参考:<a href="https://www.cnblogs.com/hello_word/p/12015121.html" target="_blank" rel="noopener">https://www.cnblogs.com/hello_word/p/12015121.html</a></p>
+<p>在安装neo4j之前，需要安装Java JRE，并配置Java开发环境，然后安装neo4j服务。<br>一、CentOS下安装<br>1.下载Neo4j<br>去官网下载最新的neo4j，选择社区版。地址：<a href="https://neo4j.com/download/other-releases/#releases" target="_blank" rel="noopener">https://neo4j.com/download/other-releases/#releases</a></p>
+<p>将本地下载好的Neo4j压缩包上传至CentOS服务器，命令：rz -be<br>neo4j-community-3.5.17-unix.tar.gz  </p>
+<p>将上传的neo4j压缩包解压，命令：tar -xzvf neo4j-community-3.5.13-unix.tar.gz</p>
+<p>解压成功之后再Neo4j目录下启动，进入Neo4j目录下，启动命令：./bin/neo4j console</p>
+<p>如果得到以下信息，说明是java版本过低，Neo4j官方要求jdk1.8</p>
+<p>ERROR: Unable to find Java executable.</p>
+<ul>
+<li><p>Please use Oracle(R) Java(TM) 8, OpenJDK(TM) or IBM J9 to run Neo4j.</p>
+</li>
+<li><p>Please see <a href="https://neo4j.com/docs/" target="_blank" rel="noopener">https://neo4j.com/docs/</a> for Neo4j installation instructions.<br>启动成功后控制台日志如下：<br><img src="/images/pasted-135.png" alt="upload successful"></p>
+<p>在本地打开浏览器，输入url：http://服务器ip:7474/browser，如果无法访问：<br><img src="/images/pasted-136.png" alt="upload successful"></p>
+</li>
+</ul>
+<p>编辑配置文件  vi  ~/neo4j/conf/neo4j.conf</p>
+<p>在浏览器执行CQL报错:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ServiceUnavailable: WebSocket connection failure. Due to security constraints in your web</span><br><span class="line"> browser, the reason for the failure is not available to this Neo4j Driver. Please use your</span><br><span class="line"> browsers development console to determine the root cause of the failure. Common reasons </span><br><span class="line">include the database being unavailable, using the wrong connection URL or temporary network</span><br><span class="line"> problems. If you have enabled encryption, ensure your browser is configured to trust the </span><br><span class="line">certificate Neo4j is configured to use. WebSocket `readyState` is: 3</span><br></pre></td></tr></table></figure>
+<p>错误原因：</p>
+<p>浏览器使用了代理服务器，因此导致请求失败<br>解决方案：<br>更改浏览器代理服务器设置，将请求加入白名单，不走代理服务器<br>更改路径：打开Internet属性面板，在”连接”页签中，点击“局域网设置”—&gt;点击“高级”—-&gt;在”例外”的文本框中添加”bolt://*”,保存即可。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 read (About 426 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Tigergraph安装使用</a>
+            
+        </h1>
+        <div class="content">
+            <ul>
+<li>下载地址:<br><a href="https://dl.tigergraph.com/download.html#Developer" target="_blank" rel="noopener">https://dl.tigergraph.com/download.html#Developer</a> (个人开发版免费,企业版收费)</li>
+<li>参考:<a href="https://blog.csdn.net/haveanybody/article/details/86720591" target="_blank" rel="noopener">https://blog.csdn.net/haveanybody/article/details/86720591</a></li>
+</ul>
+<h6 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤:"></a>安装步骤:</h6><ul>
+<li>tar xzf <your_tigergraph_package>.tar.gz</your_tigergraph_package></li>
+<li>cd tigergraph-*/</li>
+<li>sudo ./install.sh</li>
+</ul>
+<h6 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h6><ul>
+<li><p>查看配置信息</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">##查看TG占用的端口</span><br><span class="line">gadmin --dump-config | grep -i port </span><br><span class="line">##查看gadmin命令信息       </span><br><span class="line">gadmin -h                     </span><br><span class="line">##修改UI端口号                           </span><br><span class="line">gadmin –configure nginx.services.port   </span><br><span class="line">##再执行下面命令</span><br><span class="line">gadmin config-apply &amp;&amp; gadmin restart -fy</span><br><span class="line">##停止服务</span><br><span class="line">gadmin stop -fy</span><br></pre></td></tr></table></figure>
+<h6 id="常用的GADMIN命令"><a href="#常用的GADMIN命令" class="headerlink" title="常用的GADMIN命令"></a>常用的GADMIN命令</h6><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 查看服务状态：gadmin status  ##如果某个服务出现问题，可以先用此条命令查看状态</span><br><span class="line">启动服务： gadmin start</span><br><span class="line">停止服务： gadmin stop -fy</span><br><span class="line">重启服务： gadmin restart -fy</span><br><span class="line">修改配置： gadmin --configure</span><br><span class="line">应用配置： gadmin config-apply</span><br><span class="line">修改runtime变量： gadmin --configure runtime</span><br><span class="line">查看license有效期： gadmin status license</span><br><span class="line">更新license： gadmin set-license-key [new_license]</span><br><span class="line">查看gse log位置： gadmin log -v gse</span><br><span class="line">查看节点和边总个数： gadmin status -v graph</span><br><span class="line">详细信息可以使用 gadmin -h 查看</span><br></pre></td></tr></table></figure>
+<h6 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h6><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> gadmin stop -fy</span><br><span class="line"> pkill ts3svc</span><br><span class="line"> pkill gadmin_server</span><br><span class="line"> ##下面这条命令默认没有更改TG的用户名tigergraph，也没有改变安装目录，如果更改了默认信息，请以实际为准</span><br><span class="line"> rm -rf ~/tigergraph ~/tigergraph_coredump ~/.gium ~/.gsql ~/.gsql_fcgi ~/.syspre ~/.venv</span><br><span class="line">切换到root用户，kill掉tigergraph相关进程</span><br><span class="line">运行下面命令，删除tigergraph用户：</span><br><span class="line">userdel -r tigergraph</span><br></pre></td></tr></table></figure>
+<h6 id="配置license"><a href="#配置license" class="headerlink" title="配置license"></a>配置license</h6><ul>
+<li><p>访问<a href="https://info.tigergraph.com.cn/hubfs/How%20to%20update%20Graph%20Studio%20developer_GraphStudio_license%20(dev%20edition).html?utm_campaign=2018%20Chinese%20Website%20developer%20edition_PPC&amp;utm_source=hs_automation&amp;utm_medium=email&amp;utm_content=67943558&amp;_hsenc=p2ANqtz-9q2u7BZVYmyrMftiUL4KU27DTw6uImgUW-QevPo4X5f5fHAHNb7pBFi7aY19ZPXp1NFW-NmGEeGB04EVZrIAGxq7wEBg&amp;_hsmi=67943558" target="_blank" rel="noopener">https://info.tigergraph.com.cn/hubfs/How%20to%20update%20Graph%20Studio%20developer_GraphStudio_license%20(dev%20edition).html?utm_campaign=2018%20Chinese%20Website%20developer%20edition_PPC&amp;utm_source=hs_automation&amp;utm_medium=email&amp;utm_content=67943558&amp;_hsenc=p2ANqtz-9q2u7BZVYmyrMftiUL4KU27DTw6uImgUW-QevPo4X5f5fHAHNb7pBFi7aY19ZPXp1NFW-NmGEeGB04EVZrIAGxq7wEBg&amp;_hsmi=67943558</a></p>
+</li>
+<li><p>进入graphStudio web配置界面:http://<hostname>:14240/admin/#/configuration</hostname></p>
+</li>
+<li><p>Paste the GraphStudio License and click “Update”</p>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-04-16T10:29:40.000Z">2020-04-16</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 read (About 358 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/04/16/HugeGraph%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/">HugeGraph安装部署</a>
+            
+        </h1>
+        <div class="content">
+            <ul>
+<li>下载地址：<a href="https://hugegraph.github.io/hugegraph-doc/download.html" target="_blank" rel="noopener">https://hugegraph.github.io/hugegraph-doc/download.html</a><br>需要下载HugeGraph server以及studio(slave198上)<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/hugegraph/hugegraph/releases/download/v0.10.4/hugegraph-0.10.4.tar.gz</span><br><span class="line">wget https://github.com/hugegraph/hugegraph-studio/releases/download/v0.10.0/hugegraph-studio-0.10.0.tar.gz</span><br></pre></td></tr></table></figure>
+<h6 id="部署安装"><a href="#部署安装" class="headerlink" title="部署安装"></a>部署安装</h6></li>
+<li>上传安装包到服务器：rz -be</li>
+<li>解压tar包：tar -zxvf hugegraph-0.10.4.tar.gz</li>
+<li>修改配置文件：vi conf/rest-server.properties<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># restserver.url=http://127.0.0.1:8080</span><br><span class="line">restserver.url=http://hostname:8080</span><br></pre></td></tr></table></figure></li>
+<li>修改hugegraph.properties使用hbase作为server库<br><code>vi conf/hugegraph.properties</code><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#backend=rocksdb</span><br><span class="line">backend=hbase</span><br><span class="line">#serializer=binary</span><br><span class="line">serializer=hbase</span><br><span class="line"># hbase backend config</span><br><span class="line">hbase.hosts=slave198</span><br><span class="line">hbase.port=2181</span><br><span class="line">hbase.znode_parent=/hbsae</span><br><span class="line">hbase.threads_max=64</span><br></pre></td></tr></table></figure></li>
+<li>初始化数据库（第一次启动时需要）：<br><code>sh bin/init-store.sh</code><br><img src="/images/pasted-121.png" alt="upload successful"><br>执行成功后，可以在hbase中看到相关表，namespace为hugegraph</li>
+<li>启动hugegraph<br><code>sh  bin/start-hugegraph.sh</code><br><img src="/images/pasted-123.png" alt="upload successful"><br>启动成功后，通过jps可以看到对应的服务名：HugeGraphServer</li>
+<li>通过curl请求restfulApi：<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo `curl -o /dev/null -s -w %&#123;http_code&#125; &quot;http://hostname:8080/graphs/hugegraph/graph/vertices&quot;`</span><br><span class="line">返回结果200，则hugegraph server运行正常</span><br></pre></td></tr></table></figure></li>
+<li>停止hugegraph server<br><code>sh bin/stop-hugegraph.sh</code></li>
+</ul>
+<h6 id="使用hugegraph-studio访问hugegraph-server"><a href="#使用hugegraph-studio访问hugegraph-server" class="headerlink" title="使用hugegraph-studio访问hugegraph-server"></a>使用hugegraph-studio访问hugegraph-server</h6><ul>
+<li>解压hugegraph-studio-0.10.0.tar.gz<br><code>tar -zxvf hugegraph-studio-0.10.0.tar.gz</code><br>cd hugegraph-studio-0.10.0 </li>
+<li>修改配置文件<code>vim conf/hugegraph-studio.properties</code><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#HugeGraphStudio 对外提供服务的port</span><br><span class="line">studio.server.port=8088</span><br><span class="line">#localhost修改成机器名或 IP</span><br><span class="line">studio.server.host=localhost</span><br><span class="line">#HugeGraphServer的host</span><br><span class="line">graph.server.host=localhost</span><br><span class="line">#HugeGraphServer的port</span><br><span class="line">graph.server.port=8080</span><br><span class="line">#连接的 HugeGraphServer 的图名，目前只允许连接一个图</span><br><span class="line">graph.name=hugegraph</span><br></pre></td></tr></table></figure></li>
+<li>启动HugeGraphStudio<code>sh bin/hugegraph-studio.sh</code></li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-24T09:06:43.000Z">2020-03-24</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 read (About 293 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/03/24/canal%E5%90%8C%E6%AD%A5mysql/">canal同步mysql</a>
+            
+        </h1>
+        <div class="content">
+            <p>环境及使用版本:<br>系统:centos7<br>canal版本:1.1.4<br>mysql版本:5.6.41 </p>
+<h6 id="开启bin-log功能"><a href="#开启bin-log功能" class="headerlink" title="开启bin_log功能"></a>开启bin_log功能</h6><ul>
+<li>修改数据库配置:vi /etc/my.cnf,在[mysqld]配置后边添加如下配置</li>
+</ul>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"># Server Id.数据库服务器id，这个id用来在主从服务器中标记唯一mysql服务器</span><br><span class="line">server-id=1</span><br><span class="line"># 开启 binlog,选择 ROW 模式</span><br><span class="line">log-bin=mysql-bin </span><br><span class="line">binlog-format=ROW</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重启mysql服务,并查看bin_log功能是否开启<br><code>show variables like &#39;log_bin%&#39;;#值为ON表示开启</code></li>
+<li>创建访问用户canal并赋权<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create  user &apos;canal&apos;@&apos;%&apos; IDENTIFIED BY &apos;canal&apos;;</span><br><span class="line">GRANT SHOW VIEW, SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO &apos;canal&apos;@&apos;%&apos;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure></li>
+<li>下载canal1.1.4相关压缩包,官网地址:<a href="https://github.com/alibaba/canal/releases" target="_blank" rel="noopener">https://github.com/alibaba/canal/releases</a><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/canal</span><br><span class="line">wget https://github.com/alibaba/canal/releases/download/canal-1.1.4/canal.deployer-1.1.4.tar.gz</span><br><span class="line">tar –zxvf canal.deployer-1.1.4.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>修改配置文件vi ~/canal/conf/example/instance.properties,主要修改以下配置<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## mysql serverId</span><br><span class="line">canal.instance.mysql.slaveId=12</span><br><span class="line"># position info,设置为mysql地址</span><br><span class="line">canal.instance.master.address=127.0.0.1:3306</span><br><span class="line"># username/password</span><br><span class="line">canal.instance.dbUsername=canal</span><br><span class="line">canal.instance.dbPassword=canal</span><br><span class="line">canal.instance.connectionCharset = UTF-8</span><br></pre></td></tr></table></figure></li>
+<li>启动canal服务<code>sh ~/canal/bin/startup.sh</code></li>
+<li>查看服务日志:<code>tail -f logs/canal/canal.log</code>,如下说明启动成功<br><img src="/images/pasted-114.png" alt="upload successful"></li>
+<li>查看instance日志:<code>tail -f logs/example/example.log</code><br><img src="/images/pasted-115.png" alt="upload successful"></li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 分钟 read (About 1525 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/">Apache Atlas2.0安装</a>
+            
+        </h1>
+        <div class="content">
+            <p>下载地址:<a href="https://atlas.apache.org/#/Downloads" target="_blank" rel="noopener">https://atlas.apache.org/#/Downloads</a></p>
+<h6 id="上传到服务器并解压"><a href="#上传到服务器并解压" class="headerlink" title="上传到服务器并解压:"></a>上传到服务器并解压:</h6><p><code>tar -zxvf apache-atlas-2.0.0-sources.tar.gz</code></p>
+<h6 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h6><ul>
+<li>配置maven环境</li></ul>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/#more">Read More</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 read (About 636 words)
+                    5 分钟 read (About 745 words)
                 </span>
                 
                 
@@ -228,9 +681,11 @@
         <div class="content">
             <p>为了体验apache kylin 3.0在测试环境进行了安装使用:<br>下载地址:<a href="http://kylin.apache.org/download/" target="_blank" rel="noopener">http://kylin.apache.org/download/</a></p>
 <h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>参考官网文档:<a href="http://kylin.apache.org/cn/docs/tutorial/kylin_sample.html" target="_blank" rel="noopener">http://kylin.apache.org/cn/docs/tutorial/kylin_sample.html</a></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">解压:tar -zxvf apache-kylin-3.0.0-bin-cdh60.tar.gz </span><br><span class="line">配置KYLIN_HOME: export KYLIN_HOME=/home/kylin-3.0.0-cdh60</span><br><span class="line">检查安装环境:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">遇到错误:</span><br><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">找到hbase环境目录:ll /etc/alternatives/hbase </span><br><span class="line">vi /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/bin/hbase</span><br><span class="line">找到HBASE_CLASSPATH那一行,追加:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hbase/lib/*</span><br><span class="line">再次执行:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">如果还是报错,暂时忽略</span><br><span class="line">export HBASE_CLASSPATH=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-server-2.1.0-cdh6.2.0.jar:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-common-2.1.0-cdh6.2.0.jar</span><br><span class="line"></span><br><span class="line">启动异常:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">cp /opt/cloudera/cm/common_jars/commons-configuration-1.9.cf57559743f64f0b3a504aba449c9649.jar /home/big-data/kylin-3.0.0-cdh60/tomcat/lib/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">解压:tar -zxvf apache-kylin-3.0.0-bin-cdh60.tar.gz </span><br><span class="line">配置KYLIN_HOME: export KYLIN_HOME=/home/big-data/kylin-3.0.0-cdh60</span><br><span class="line">检查安装环境:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">遇到错误:</span><br><span class="line">Retrieving hadoop conf dir...</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">找到hbase环境目录:ll /etc/alternatives/hbase </span><br><span class="line">vi /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/bin/hbase</span><br><span class="line">找到HBASE_CLASSPATH那一行,追加:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/hbase/lib/*</span><br><span class="line">再次执行:$KYLIN_HOME/bin/check-env.sh</span><br><span class="line">如果报错如下:</span><br><span class="line">Error: Could not find or load main class org.apache.hadoop.hbase.util.GetJavaProperty</span><br><span class="line">$ sudo  vim /opt/cloudera/parcels/CDH/lib/hbase/bin/hbase</span><br><span class="line">CLASSPATH=$&#123;CLASSPATH&#125;:$JAVA_HOME/lib/tools.jar:/opt/cloudera/parcels/CDH/lib/hbase/lib/*</span><br><span class="line"></span><br><span class="line">如果还是报错,暂时忽略</span><br><span class="line">export HBASE_CLASSPATH=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-server-2.1.0-cdh6.2.0.jar:/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/hbase-common-2.1.0-cdh6.2.0.jar</span><br><span class="line"></span><br><span class="line">启动异常:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">cp /opt/cloudera/cm/common_jars/commons-configuration-1.9.cf57559743f64f0b3a504aba449c9649.jar /home/big-data/kylin-3.0.0-cdh60/tomcat/lib/</span><br></pre></td></tr></table></figure>
 <p><img src="/images/pasted-80.png" alt="upload successful"></p>
-<h5 id="2-运行"><a href="#2-运行" class="headerlink" title="2.运行"></a>2.运行</h5><p>sh $KYLIN_HOME/bin/kylin.sh start<br>成功启动后日志中会有访问链接:<a href="http://slave198:7070/kylin" target="_blank" rel="noopener">http://slave198:7070/kylin</a><br><img src="/images/pasted-81.png" alt="upload successful"><br>等待1分钟就可以访问了,初始用户名密码为ADMIN/KYLIN(注意是大写)<br><img src="/images/pasted-82.png" alt="upload successful"><br>登录进去后看到如下页面:<br><img src="/images/pasted-83.png" alt="upload successful"><br>停止kylin:sh $KYLIN_HOME/bin/kylin.sh stop</p>
+<h5 id="2-运行"><a href="#2-运行" class="headerlink" title="2.运行"></a>2.运行</h5><p>sh $KYLIN_HOME/bin/kylin.sh start<br>成功启动后日志中会有访问链接:<a href="http://slave198:7070/kylin" target="_blank" rel="noopener">http://slave198:7070/kylin</a> </p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如果没找到SPARK_HOME,需要配置spark_home:</span><br><span class="line">export SPARK_HOME=/opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/lib/spark</span><br><span class="line">如果启动报错:</span><br><span class="line">Caused by: java.lang.NoClassDefFoundError: org/apache/commons/configuration/ConfigurationException</span><br><span class="line">导入commons-configuration.jar到lib目录:</span><br><span class="line"> cp /opt/cloudera/parcels/CDH-6.2.0-1.cdh6.2.0.p0.967373/jars/commons-configuration2-2.1.1.jar kylin-2.6.5-cdh60/lib/</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-81.png" alt="upload successful"><br>等待1分钟就可以访问了,初始用户名密码为ADMIN/KYLIN(注意是大写)<br><img src="/images/pasted-82.png" alt="upload successful"><br>登录进去后看到如下页面:<br><img src="/images/pasted-83.png" alt="upload successful"><br>停止kylin:sh $KYLIN_HOME/bin/kylin.sh stop</p>
 <h5 id="3-使用demo"><a href="#3-使用demo" class="headerlink" title="3.使用demo"></a>3.使用demo</h5><ul>
 <li><p>3.1运行sh $KYLIN_HOME/bin/sample.sh ,执行成功后,有如下日志:</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sample cube is created successfully in project &apos;learn_kylin&apos;.</span><br><span class="line">Restart Kylin Server or click Web UI =&gt; System Tab =&gt; Reload Metadata to take effect</span><br></pre></td></tr></table></figure>
@@ -376,507 +831,6 @@
 
 
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 162 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Airflow简单使用</a>
-            
-        </h1>
-        <div class="content">
-            <h5 id="基本命令使用"><a href="#基本命令使用" class="headerlink" title="基本命令使用"></a>基本命令使用</h5><ul>
-<li>1.查看dags: <code>airflow list_dags</code></li>
-<li>2.列出dag下tasks:<code>airflow list_tasks dag_id</code></li>
-<li>3.执行dag下某个task:<code>airflow run dag_id task_id start_time</code></li>
-<li>4.测试整个dag执行:<code>airflow backfill dag_id -s start_time -e end_time -l</code><blockquote>
-<p>backfill命令本身是用于回填的，-s表示开始时间，-e表示结束时间,使用该命令可以回填多个DAG Run,最后有个-l参数，表示些任务在本地机器上执行</p>
-</blockquote>
-</li>
-<li>4.运行整个dag文件:<code>airflow trigger_dag dag_id -r RUN_ID -e EXEC_DATE</code></li>
-<li>4.暂停任务:<code>airflow pause dag_id</code></li>
-<li>4.清楚执行记录:<code>airflow clear -s 开始日期 -e 结束日期 dag_id</code></li>
-</ul>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 read (About 1385 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/">Airflow安装</a>
-            
-        </h1>
-        <div class="content">
-            <h5 id="1-使用python3-pip安装Airflow"><a href="#1-使用python3-pip安装Airflow" class="headerlink" title="1.使用python3 pip安装Airflow"></a>1.使用python3 pip安装Airflow</h5><p> pip install apache-airflow ,安装结束提示如下:<br> <img src="/images/pasted-36.png" alt="upload successful"></p>
-<p> airflow安装到目录:/usr/local/python3/lib/python3.7/site-packages/airflow/下</p>
-<h5 id="2-使用mysql作为airflow的元数据库"><a href="#2-使用mysql作为airflow的元数据库" class="headerlink" title="2.使用mysql作为airflow的元数据库"></a>2.使用mysql作为airflow的元数据库</h5><ul>
-<li>创建airflow数据库<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create database airflow;</span><br><span class="line">grant all on airflow.* to &apos;root&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h5 id="3-配置环境变量vi-etc-profile"><a href="#3-配置环境变量vi-etc-profile" class="headerlink" title="3.配置环境变量vi /etc/profile"></a>3.配置环境变量<code>vi /etc/profile</code></h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export AIRFLOW_HOME=/root/airflow</span><br><span class="line">export SITE_AIRFLOW_HOME=/usr/local/python3/lib/python3.7/site-packages/airflow/</span><br><span class="line">export PATH=$PATH:$SITE_AIRFLOW_HOME/bin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>生效环境变量 <code>source /etc/profile</code></li>
-</ul>
-<h5 id="4-执行airflow命令初始化操作"><a href="#4-执行airflow命令初始化操作" class="headerlink" title="4.执行airflow命令初始化操作"></a>4.执行airflow命令初始化操作</h5><ul>
-<li><p>添加python依赖,避免初始化失败,</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install sqlite sqlite-devel</span><br></pre></td></tr></table></figure>
-<p>若步骤一完成后，仍然报错： ModuleNotFoundError: No module named ‘_sqlite3’，则是由于python3不兼容_sqlite3,单独安装sqlite3:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.sqlite.org/2019/sqlite-autoconf-3300100.tar.gz  --no-check-certificate </span><br><span class="line">tar -zxvf sqlite-autoconf-3300100.tar.gz </span><br><span class="line">cd sqlite-autoconf-3300100</span><br><span class="line">$ mkdir /usr/local/sqlite3</span><br><span class="line">$ ./configure --prefix=/usr/local/sqlite3 --disable-static --enable-fts5 --enable-json1 CFLAGS=&quot;-g -O2 -DSQLITE_ENABLE_FTS3=1 -DSQLITE_ENABLE_FTS4=1 -DSQLITE_ENABLE_RTREE=1&quot;</span><br><span class="line">$ make &amp;&amp; make install  </span><br><span class="line">$ cd /root/Python-3.7.6</span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib ./configure --prefix=/usr/local/python3 --with-ssl LDFLAGS=&quot;-L /usr/local/sqlite3/lib&quot; CPPFLAGS=&quot; -I /usr/local/sqlite3/include&quot; </span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib make</span><br><span class="line">$ LD_RUN_PATH=/usr/local/sqlite3/lib make install</span><br></pre></td></tr></table></figure></li>
-<li><p>验证是否成功,进入python 命令行,import  sqlite3,若不报错说明安装成功!</p>
-</li>
-<li><p>执行airflow,执行结束如报如下错误,可略过<br><img src="/images/pasted-37.png" alt="upload successful"></p>
-</li>
-<li><p>给airflow安装mysql模块,采用mysql作为airflow的元数据库</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ pip install &apos;apache-airflow[mysql]&apos;</span><br><span class="line"> $ yum -y install mysql-devel</span><br><span class="line"> #完成后验证是否有mysql_config</span><br><span class="line"> $ find / -name mysql_config</span><br><span class="line"> $ pip install mysqlclient</span><br><span class="line"> $ pip install pymysql</span><br><span class="line"> $ pip install cryptography</span><br><span class="line">#避免之后产生错误,需要修改airflow.cfg (默认位于~/airflow/)里的fernet_key</span><br><span class="line">#修改方法</span><br><span class="line">$ python -c &quot;from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())&quot;</span><br><span class="line">#这个命令生成一个key，复制这个key然后替换airflow.cfg文件里的fernet_key的值，</span><br><span class="line">$ vi ~/airflow.cfg </span><br><span class="line">#修改fernet_key</span><br><span class="line">fernet_key = </span><br><span class="line">#修改airflow.cfg文件中的sql_alchemy_conn配置</span><br><span class="line">sql_alchemy_conn = mysql+mysqldb://user:passwd@localhost:3306/airflow</span><br></pre></td></tr></table></figure></li>
-<li><p>初始化airflow db</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ airflow initdb</span><br><span class="line">#如有如下报错</span><br><span class="line"> #Global variable explicit_defaults_for_timestamp needs to be on (1) for mysql</span><br><span class="line"> #修改MySQL配置文件my.cnf</span><br><span class="line"> #查找my.cnf位置</span><br><span class="line"> mysql --help | grep my.cnf</span><br><span class="line"> #修改my.cnf</span><br><span class="line">vi /etc/my.cnf</span><br><span class="line">#在[mysqld]下面添加如下配置:</span><br><span class="line">explicit_defaults_for_timestamp=true</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-38.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> #重启mysql服务使配置生效</span><br><span class="line"> $service mysqld restart</span><br><span class="line"> #检查配置是否生效</span><br><span class="line"> mysql&gt; select @@global.explicit_defaults_for_timestamp;</span><br><span class="line"> +------------------------------------------+</span><br><span class="line">| @@global.explicit_defaults_for_timestamp |</span><br><span class="line">+------------------------------------------+</span><br><span class="line">|                                        1 |</span><br><span class="line">+------------------------------------------+</span><br><span class="line">#然后再次执行$ airflow initdb 即可</span><br></pre></td></tr></table></figure></li>
-<li><p>修改airflow.cfg配置,调整webserver端口,executor,load_examples,以及时区</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#1.修改webserver端口</span><br><span class="line">base_url = http://localhost:8081</span><br><span class="line">web_server_port = 8081</span><br><span class="line">#2.修改executor</span><br><span class="line">#SequentialExecutor是单进程顺序执行任务，默认执行器，通常只用于测试</span><br><span class="line">#LocalExecutor是多进程本地执行任务使用的</span><br><span class="line">#CeleryExecutor是分布式调度使用（当然也可以单机），生产环境常用</span><br><span class="line">#DaskExecutor则用于动态任务调度，常用于数据分析</span><br><span class="line">executor = CeleryExecutor</span><br><span class="line">#不显示示例DAG</span><br><span class="line">load_examples = False</span><br><span class="line">#3.修改时区</span><br><span class="line">default_timezone = Asia/Shanghai</span><br><span class="line">#调整时区还需要修改另外三个文件:</span><br><span class="line">#3.1修改webserver页面上右上角展示的时间:</span><br><span class="line">vi $&#123;PYTHON_HOME&#125;/lib/python3.7/site-packages/airflow/www/templates/admin/master.html</span><br><span class="line">#注释://var UTCseconds = (x.getTime() + x.getTimezoneOffset()*60*1000);</span><br><span class="line">var UTCseconds = x.getTime();##修改后</span><br><span class="line">#3.2修改webserver lastRun时间,在指定位置添加如下内容，分别找到DagModel(Base),DAG(BaseDag, LoggingMixin)两个类,在get_last_dagrun方法前添加如下方法:</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/models/dag.py</span><br><span class="line">def utc2local(self,utc):</span><br><span class="line">       import time</span><br><span class="line">       epoch = time.mktime(utc.timetuple())</span><br><span class="line">       offset = datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)</span><br><span class="line">       return utc + offset</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-41.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#3.3修改dags页面显示时间,根据execution_date定位</span><br><span class="line">vi $&#123;PYTHON_HOME&#125;/lib/python3.7/site-packages/airflow/www/templates/airflow/dags.html</span><br><span class="line">#将&#123;&#123; last_run.execution_date.strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;修改为:</span><br><span class="line">&#123;&#123; dag.utc2local(last_run.execution_date).strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;</span><br><span class="line">#将 &#123;&#123; last_run.start_date.strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;修改为:</span><br><span class="line">&#123;&#123; dag.utc2local(last_run.start_date).strftime(&quot;%Y-%m-%d %H:%M&quot;) &#125;&#125;</span><br><span class="line">#3.4修改timezone.py文件</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/utils/timezone.py</span><br><span class="line">在utc = pendulum.timezone(&apos;UTC&apos;)下面添加如下内容:</span><br><span class="line">from airflow import configuration as conf</span><br><span class="line">try:</span><br><span class="line">        tz = conf.get(&quot;core&quot;, &quot;default_timezone&quot;)</span><br><span class="line">        if tz == &quot;system&quot;:</span><br><span class="line">                utc = pendulum.local_timezone()</span><br><span class="line">        else:</span><br><span class="line">                utc = pendulum.timezone(tz)</span><br><span class="line">except Exception:</span><br><span class="line">        pass</span><br><span class="line">##修改utcnow()函数</span><br><span class="line">将d = dt.datetime.utcnow() 修改为d = dt.datetime.now()</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-42.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#3.5修改sqlalchemy.py文件</span><br><span class="line">vi /usr/local/python3/lib/python3.7/site-packages/airflow/utils/sqlalchemy.py</span><br><span class="line">在utc = pendulum.timezone(&apos;UTC&apos;)下边添加如下代码:</span><br><span class="line">from airflow import configuration as conf</span><br><span class="line">try:</span><br><span class="line">	tz = conf.get(&quot;core&quot;, &quot;default_timezone&quot;)</span><br><span class="line">	if tz == &quot;system&quot;:</span><br><span class="line">		utc = pendulum.local_timezone()</span><br><span class="line">	else:</span><br><span class="line">		utc = pendulum.timezone(tz)</span><br><span class="line">except Exception:</span><br><span class="line">	pass</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-43.png" alt="upload successful"></p>
-</li>
-<li><p>初始化元数据库</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#初始化元数据库（其实也就是新建airflow依赖的表）</span><br><span class="line">$ airflow resetdb</span><br><span class="line">#或者使用airflow initdb</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h5 id="5-启动airflow相关组件"><a href="#5-启动airflow相关组件" class="headerlink" title="5.启动airflow相关组件"></a>5.启动airflow相关组件</h5><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#安装如下依赖组件</span><br><span class="line">$ pip install celery</span><br><span class="line">#安装过程如遇如下Error:</span><br><span class="line">#ERROR: No matching distribution found for kombu&lt;4.7,&gt;=4.6.7 (from celery)</span><br><span class="line">#需要升级pip版本</span><br><span class="line">$ python -m pip install --upgrade pip</span><br><span class="line">$ pip install apache-airflow[&apos;kubernetes&apos;]</span><br><span class="line">#启动组件：</span><br><span class="line">#守护进程运行webserver</span><br><span class="line">$ airflow webserver -D</span><br><span class="line">#守护进程运行调度器,是一种使用 DAG 定义结合元数据中的任务状态来决定哪些任务需要被执行以及任务执行优先级的过程</span><br><span class="line">$ airflow scheduler -D</span><br><span class="line">#守护进程运行worker,是实际执行任务逻辑的进程</span><br><span class="line">$ airflow worker -D</span><br><span class="line">#守护进程Flower Web,建立Celery之上的Web UI，用于监控您的worker,可以不启动</span><br><span class="line">$ airflow flower -D</span><br><span class="line">####重启webserver和scheduler服务</span><br><span class="line">$ ps -ef|egrep &apos;scheduler|airflow-webserver&apos;|grep -v grep|awk &apos;&#123;print $2&#125;&apos;|xargs kill -9</span><br><span class="line">$ rm -rf /root/airflow/airflow-webserver.pid &amp;&amp;rm -rf /root/airflow/airflow-scheduler.pid</span><br><span class="line">$ airflow webserver -D</span><br><span class="line">$ airflow scheduler -D</span><br><span class="line">#查看日志,无错误则启动成功</span><br><span class="line">$ tail -f /root/airflow/airflow-scheduler.err </span><br><span class="line">#重启worker服务</span><br><span class="line">ps -ef|egrep &apos;serve_logs|celeryd&apos;|grep -v grep|awk &apos;&#123;print $2&#125;&apos;|xargs kill -9</span><br><span class="line">rm -rf /root/airflow/airflow-worker.pid</span><br><span class="line">airflow worker -D</span><br><span class="line">tail -f /root/airflow/airflow-worker.err</span><br></pre></td></tr></table></figure>
-
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-30T06:35:51.000Z">2019-12-30</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 207 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/30/centos7%E4%B8%8Apython2%E5%8D%87%E7%BA%A7python3/">python2升级python3</a>
-            
-        </h1>
-        <div class="content">
-            <h5 id="系统版本-centos7-5"><a href="#系统版本-centos7-5" class="headerlink" title="系统版本:centos7.5"></a>系统版本:centos7.5</h5><p>查看版本: cat /etc/redhat-release</p>
-<h6 id="1-下载python3安装包"><a href="#1-下载python3安装包" class="headerlink" title="1.下载python3安装包"></a>1.下载python3安装包</h6><p>下载地址:<a href="https://www.python.org/ftp/python/" target="_blank" rel="noopener">https://www.python.org/ftp/python/</a><br>wget <a href="https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tar.xz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tar.xz</a></p>
-<h6 id="2-解压安装包"><a href="#2-解压安装包" class="headerlink" title="2.解压安装包"></a>2.解压安装包</h6><p>xz -d Python-3.7.6.tar.xz<br>tar -xf Python-3.7.6.tar</p>
-<h6 id="3-在-usr-local路径下创建目录python3"><a href="#3-在-usr-local路径下创建目录python3" class="headerlink" title="3.在/usr/local路径下创建目录python3"></a>3.在/usr/local路径下创建目录python3</h6><p>mkdir /usr/local/python3</p>
-<h6 id="4-编译安装"><a href="#4-编译安装" class="headerlink" title="4.编译安装"></a>4.编译安装</h6><p>yum install -y libffi-devel<br>yum -y install gcc(安装C编译器gcc)<br>cd  Python-3.7.6<br>./configure –prefix=/usr/local/python3<br>make all &amp;&amp; make install</p>
-<h6 id="5-检查是否安装成功"><a href="#5-检查是否安装成功" class="headerlink" title="5.检查是否安装成功"></a>5.检查是否安装成功</h6><p>/usr/local/python3/bin/python3.7 -V</p>
-<h6 id="6-创建软连接使得系统默认使用python3"><a href="#6-创建软连接使得系统默认使用python3" class="headerlink" title="6.创建软连接使得系统默认使用python3"></a>6.创建软连接使得系统默认使用python3</h6><p>mv /usr/bin/python /usr/bin/python.bak<br>ln -s /usr/local/python3/bin/python3 /usr/bin/python<br>mv /usr/bin/pip /usr/bin/pip.bak<br>ln -s /usr/local/python3/bin/pip3 /usr/bin/pip</p>
-<h6 id="7-验证版本"><a href="#7-验证版本" class="headerlink" title="7.验证版本"></a>7.验证版本</h6><p>python -V<br>pip  -V</p>
-<h6 id="8-升级完python之后，yum就不好用了-需要修改yum源"><a href="#8-升级完python之后，yum就不好用了-需要修改yum源" class="headerlink" title="8.升级完python之后，yum就不好用了,需要修改yum源"></a>8.升级完python之后，yum就不好用了,需要修改yum源</h6><p>vi /usr/bin/yum<br>#!/usr/bin/python2.7<br>还要修改:<br>vi /usr/libexec/urlgrabber-ext-down</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-17T03:36:41.000Z">2019-12-17</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 read (About 25 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/17/azkaban%E5%AE%89%E8%A3%85/">azkaban安装</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="安装azkaban"><a href="#安装azkaban" class="headerlink" title="安装azkaban"></a>安装azkaban</h4><p>linux版本:7.4<br>jdk版本:1.8<br>azkaban版本:<br>server目录:/root/azkaban/azkaban-solo-server/build/install/azkaban-solo-server</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-15T03:36:03.000Z">2019-11-15</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 117 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/15/PostgreSQL%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85/">PostgreSQL客户端安装</a>
-            
-        </h1>
-        <div class="content">
-            <p>centos7安装PG 10客户端:<br>下载地址:<a href="https://yum.postgresql.org/rpmchart.php" target="_blank" rel="noopener">https://yum.postgresql.org/rpmchart.php</a><br>选择版本:<br><img src="/images/pasted-22.png" alt="upload successful"></p>
-<p>选择groups:<br><img src="/images/pasted-23.png" alt="upload successful"></p>
-<p>下载客户端包,以及公共包:<br><img src="/images/pasted-24.png" alt="upload successful"></p>
-<p>上传rpm包到linux环境:<br><img src="/images/pasted-25.png" alt="upload successful"></p>
-<p>先安装PG依赖包libiu,否则报错:<code>$ yum -y install libicu</code><br><img src="/images/pasted-26.png" alt="upload successful"></p>
-<p>在安装libs公共包:<code>$  rpm -ivh postgresql10-libs-10.11-1PGDG.rhel7.x86_64.rpm</code><br><img src="/images/pasted-27.png" alt="upload successful"><br>然后安装client包:<code>$  rpm -ivh postgresql10-10.11-1PGDG.rhel7.x86_64.rpm</code></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-12T02:48:29.000Z">2019-11-12</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 read (About 133 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/12/mysql%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">mysql基本使用</a>
-            
-        </h1>
-        <div class="content">
-            <h5 id="mysql-5-6"><a href="#mysql-5-6" class="headerlink" title="mysql 5.6"></a>mysql 5.6</h5><ul>
-<li><p>创建索引:<br>ALTER TABLE table_name ADD INDEX index_name(column_name);</p>
-</li>
-<li><p>修改列类型<br>alter table test modify address char(10) comment ‘’;</p>
-</li>
-<li><p>修改列名<br>alter table test change  column address address1 varchar(30)  comment ‘’;</p>
-</li>
-<li><p>赋权:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grant all on *.* to &apos;user_name&apos;@&apos;ip&apos;  identified  by &apos;pwd&apos;; </span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
-<li><p>查看用户所有权限:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT CONCAT(&apos;User: &apos;&apos;&apos;,user,&apos;&apos;&apos;@&apos;&apos;&apos;,host,&apos;&apos;&apos;;&apos;) AS query FROM mysql.user where user=&apos;user_name&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>回收权限:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">revoke all privileges,grant option from &apos;user_name&apos;@&apos;%&apos;;</span><br><span class="line">revoke all privileges,grant option from &apos;user_name&apos;@&apos;ip&apos;;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<ul>
-<li>彻底的收权方法:删除mysql的user表中的数据，将没权限访问<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">delete from mysql.user where user=&apos;root&apos; and host=&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-09T10:03:25.000Z">2019-11-09</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    13 分钟 read (About 1982 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/09/CDH6-2-0hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">CDH6.2.0 hadoop集群搭建</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="基于centos7-安装6-2版本CM以及CDH"><a href="#基于centos7-安装6-2版本CM以及CDH" class="headerlink" title="基于centos7 安装6.2版本CM以及CDH"></a>基于centos7 安装6.2版本CM以及CDH</h4><ul>
-<li>CM安装包下载地址:<br>rpm包:<a href="https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/" target="_blank" rel="noopener">https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/</a><br>   <img src="/images/pasted-10.png" alt="upload successful"><br>allkeys.asc文件:<a href https: archive.cloudera.com cm6 6.2.0 allkeys.asc"">https://archive.cloudera.com/cm6/6.2.0/allkeys.asc</a></li>
-<li>CDH安装包下载地址:<a href="https://archive.cloudera.com/cdh6/6.2.0/parcels/" target="_blank" rel="noopener">https://archive.cloudera.com/cdh6/6.2.0/parcels/</a><br>   <img src="/images/pasted-9.png" alt="upload successful"></li>
-</ul>
-<p>以下操作主要是在root用户下进行》》》</p>
-<ol>
-<li><p>修改hostname（每个节点）</p>
-<p> 1.1 临时修改 <code>$ hostname hdfs1</code></p>
-<p>1.2 长期修改 <code>$ vi /etc/hostname</code></p>
-</li>
-<li><p>配置 /etc/hosts（每个节点）</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">192.168.101.1 	hdfs1</span><br><span class="line">192.168.101.2 	hdfs2</span><br><span class="line">192.168.101.3 	hdfs3</span><br><span class="line">192.168.101.4 	hdfs4</span><br><span class="line">192.168.101.5 	hdfs5</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>其中选择hdfs1作为主节点</p>
-</blockquote>
-</li>
-<li><p>关闭防火墙、禁止防火墙开机自启（每个节点）</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld  #关闭防火墙</span><br><span class="line">$ systemctl disable firewalld #禁止防火墙开机自启</span><br><span class="line">$ vi /etc/selinux/config  #SELINUX=disabled (修改)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置ssh免密登录（可以不用配置）<br><del>登录各节点执行ssh-keygen -t rsa 一路回车到结束，在/root/.ssh/下面会生成一个公钥文件id_rsa.pub<br>cat /home/root/.ssh/id_rsa.pub &gt;&gt; /home/root/.ssh/authorized_keys 将公钥追加到authorized_keys<br>$ chmod 600 /home/root/.ssh/authorized_keys 修改权限<br>将/home/root/.ssh/authorized_keys从当前节点分发到其他各个节点。如：scp   /home/root/.ssh/authorized_keys root@hdfs1:/home/root/.ssh/</del></p>
-</li>
-<li><p>配置NTP服务（所有节点）<br>修改时区（改为中国标准时区）<br>$ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<br>安装ntp <code>$ yum -y install ntp</code><br>配置ntp主机服务器，注释掉其他ntp服务器<br>$ vim /etc/ntp.conf<br>server hdfs1</p>
-<p> <img src="/images/pasted-3.png" alt="upload successful"></p>
-<p>重新启动 ntp服务：<code>$ service ntpd restart</code><br>设置开机自启：<code>$ systemctl enable ntpd.service</code><br>ntpdc -c loopinfo #查看与时间同步服务器的时间偏差<br>ntpq -p #查看当前同步的时间服务器<br>ntpstat #查看状态</p>
-</li>
-<li><p>修改Linux swappiness参数(所有节点）<br>为了避免服务器使用swap功能而影响服务器性能，一般都会把vm.swappiness修改为0（cloudera建议10以下）<br><code>$ cd /usr/lib/tuned/</code><br><code>$ grep  &quot;vm.swappiness&quot; * -R</code> #查询出后依次修改</p>
-</li>
-<li><p>禁用透明页(所有节点）<br>在/etc/rc.local 添加命令：<br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/defrag</code><br><code>$ echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled</code><br>添加可执行权限：chmod +x /etc/rc.d/rc.local </p>
-</li>
-<li><p>JDK安装（所有节点）<br><code>$ rpm -qa | grep java</code> # 查询已安装的java<br><code>$ yum remove java*</code> # 卸载<br><code>$ rpm -ivh oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code><br><code>$ vi /etc/profile</code> #末尾添加</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
-<p><code>$ source /etc/profile</code><br><code>$ java -version</code> #验证安装是否成功</p>
-</li>
-<li><p>创建/usr/share/java目录，将mysql-jdbc包放进去（所有节点）<br><code>$ mkdir -p /usr/share/java</code><br><code>$ mv /opt/mysql-j/mysql-connector-java-5.1.34.jar /usr/share/java/</code><br>注意:mysql-connector-java-5.1.34.jar 一定要命名为mysql-connector-java.jar</p>
-</li>
-<li><p>Mysql安装(选择一个节点)</p>
-<ul>
-<li><p>卸载旧的mysql(如有)以及mariadb：rpm -qa|grep mariadb<br><code>$ rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64</code></p>
-</li>
-<li><p>解压mysql安装包并进行安装:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ tar -xvf mysql-5.7.26-1.el7.x86_64.rpm-bundle.tar</span><br><span class="line">$ rpm -ivh mysql-community-common-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-client-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-server-5.7.26-1.el7.x86_64.rpm </span><br><span class="line">$ rpm -ivh mysql-community-libs-compat-5.7.26-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure></li>
-<li><p>MYSQL配置:</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mysqld --initialize --user=mysql # 初始化mysql使mysql目录的拥有者为mysql用户</span><br><span class="line">$ cat /var/log/mysqld.log # 最后一行会有随机生成的密码 </span><br><span class="line">$ systemctl start mysqld.service # 设置mysql服务自启</span><br><span class="line">$ mysql -uroot –ppwd</span><br></pre></td></tr></table></figure>
-<p>登录进去后,ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.需要修改访问密码:</p>
-<blockquote>
-<p>ALTER USER USER() IDENTIFIED BY ‘rootpwd’;<br>如果是5.7之前版本,可以使用如下方式: SET PASSWORD = PASSWORD(‘rootpwd’);<br>如果不能登陆,设置免密登录并重启mysql服务:<br><code>vi /etc/my.cnf</code>  #在[mysqld]的段中加上一句：skip-grant-tables ,<br>然后重启mysql： systemctl restart mysqld</p>
-</blockquote>
-</li>
-<li><p>创建库(后续安装服务等使用)　</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create database metastore default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database amon default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database rman default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database hue default charset utf8 collate utf8_general_ci;</span><br><span class="line">create database oozie default charset utf8 collate utf8_general_ci; </span><br><span class="line">grant all on metastore.*  to &apos;metastore&apos;@&apos;%&apos;  identified  by &apos;metastore&apos;;</span><br><span class="line">grant all on amon.*  to &apos;amon&apos;@&apos;%&apos;  identified  by &apos;amon&apos;;</span><br><span class="line">grant all on rman.*  to &apos;rman&apos;@&apos;%&apos;  identified  by &apos;rman&apos;;</span><br><span class="line">grant all on hue.*  to &apos;hue&apos;@&apos;%&apos;  identified  by &apos;hue&apos;;</span><br><span class="line">grant all on oozie.*  to &apos;oozie&apos;@&apos;%&apos;  identified  by &apos;oozie&apos;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>权限回收:revoke all privileges,grant option  from ‘root’@’%’;</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>安装Httpd服务（hdfs1节点）</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yum install httpd</span><br><span class="line">$ service httpd start</span><br><span class="line">$ systemctl enable httpd.service 设置httpd服务开机自启</span><br><span class="line">$ ps -ef | grep httpd 查看httpd服务是否启动</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置Cloudera Manager包yum源（hdfs1）</p>
-<ul>
-<li><p>配置Web服务器</p>
-<p><code>$ mkdir -p /var/www/html/cloudera-repos/cdh6.2</code><br>把 CDH 6.2 的三个文件放到该目录下,注意把sha256后缀的文件名修改为sha<br><img src="/images/pasted-5.png" alt="upload successful"></p>
-<p><code>$ mkdir -p /var/www/html/cloudera-repos/cm6.2</code><br>将Cloudera Manager安装需要的5个rpm包,asc文件以及jdk文件下载到本地，放在同一目录，执行createrepo命令生成rpm元数据。 </p>
- <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /var/www/html/cloudera-repos/cm6.2 </span><br><span class="line">$ yum install createrepo </span><br><span class="line">$ createrepo .#（注意此命令的最后带一个点） 最终 cm6.2目录下多了一个repodata目录</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<ul>
-<li>修改 /etc/httpd/conf/httpd.conf 配置文件，在IfModule mime_module中修改以下内容: 把AddType application/x-gzip .gz .tgz 修改为 AddType application/x-gzip .gz .tgz .parcel<br><img src="/images/pasted-7.png" alt="upload successful"></li>
-<li>重启httpd服务 <code>systemctl restart httpd</code>,并在浏览器访问:<br><a href="http://hdfs1/cloudera-repos/" target="_blank" rel="noopener">http://hdfs1/cloudera-repos/</a></li>
-</ul>
-</li>
-<li><p>制作Cloudera Manager的repo源(hdfs1)</p>
-<ul>
-<li>$ vi /etc/yum.repos.d/cloudera-manager.repo <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name=ClouderaManager</span><br><span class="line">baseurl=http://hdfs1/cloudera-repos/cm6.2</span><br><span class="line">enabled=1 # 或者enable=true </span><br><span class="line">gpgcheck=0 # 或者gpgcheck=false</span><br></pre></td></tr></table></figure></li>
-<li>更新yum源 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum clean all </span><br><span class="line">$ yum makecache </span><br><span class="line">$ yum repolist</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<ul>
-<li>重启httpd服务 <code>$ systemctl restart httpd</code></li>
-</ul>
-</li>
-<li><p>安装Cloudera Manager Server(hdfs1)</p>
-<ul>
-<li><p>安装CM6.2时，没安装jdk的要在各节点先安装官方提供的JDK：oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</p>
-<ul>
-<li><p>第一种方式：因为已经配置好repo仓库所以yum时会到hdfs1/cm6.2目录下找到oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm进行安装</p>
-<p><code>$ yum -y install oracle-j2sdk1.8-1.8.0+update181-1.x86_64</code><br>默认安装在 /usr/java/jdk1.8.0_181-cloudera</p>
-<p><code>$ vim /etc/profile</code> 文件中添加如下内容</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>重新加载profile配置文件，让配置文件生效：<code>$ source /etc/profile</code><br>检查是否已配置好新的JDK：<code>$ java -version</code><br>然后scp到其他节点.</p>
-</li>
-<li><p>第二种方式<br>直接使用 rpm -ivh 命令安装 rpm 文件的方式<br><code>$ rpm -ivh /var/www/html/cm6.2/oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm</code> </p>
-</li>
-</ul>
-</li>
-<li><p>通过yum安装Cloudera Manager Server：（Cloudera Manager Server的源 已经配置到了repo库中） <code>$ yum -y install cloudera-manager-server  cloudera-manager-agent</code></p>
-<blockquote>
-<p>最后一行显示 Complete!安装完CM后/opt/ 下会出现cloudera目录</p>
-</blockquote>
-<p>   <code>$ mv /opt/parcels/* /opt/cloudera/parcel-repo</code> # 将parcel包移动到指定位置     </p>
-</li>
-<li><p>初始化数据库,格式:/opt/cloudera/cm/schema/scm_prepare_database.sh mysql cm cm password<br>   <code>/opt/cloudera/cm/schema/scm_prepare_database.sh mysql -hmysql_host -uroot -p&#39;root&#39; --scm-host hdfs1 cm cm_user cm_pwd</code></p>
-<pre><code>注意:如果cm库已经存在,会报错,需要删除
-执行成功最后一行显示 All done, your SCM database is configured correctly!
-必须保证/usr/share/java目录中已经存在 mysql-connector-java.jar 的软连接：ln -s mysql-connector-java-5.1.46.jar mysql-connector-java.jar    </code></pre></li>
-<li><p>启动Cloudera Manager Server</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start cloudera-scm-server</span><br><span class="line">$ ps -ef | grep cloudera-scm-server #查看是否启动</span><br><span class="line">$ systemctl status cloudera-scm-server #显示 Active: active (running)</span><br></pre></td></tr></table></figure></li>
-<li><p>检查端口是否监听</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yum install net-tools #安装 netstat</span><br><span class="line">$ netstat -lnpt | grep 7180 #要等一段时间启动完全启动成功后，才能看到端口被使用，然后才能真正访问到CM的登录网页</span><br><span class="line">tcp 0  0 0.0.0.0:7180  0.0.0.0:*  LISTEN  68289/java</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过 hdfs1:7180/cmf/login 访问 CM,之后相关组件可在页面进行安装了</p>
-</li>
-</ul>
-</li>
-<li><p>遇到的问题:        </p>
-<ul>
-<li>在部署agent时出现错误：<br>MainThread agent        ERROR    Failed to connect to previous supervisor.<br>这时候要确认一下：hostname 和ip是否对应 （/etc/sysconfig/network 和 /etc/hosts  ）<br>(hostname 临时修改方法: hostname master)<br>如果对的话，还存在问题，那么尝试用这种方法（杀掉进程）：<br>kill -9 $(pgrep -f supervisord) 然后重启agent即可。</li>
-<li>如果在界面安装部署agent过程出现中断导致无法继续安装:<br>需要kill掉agent节点两个进程:<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -9 $&#123;pgrep -f &apos;cloudera-scm-agent/events&apos;&#125;</span><br><span class="line">kill -9 $(pgrep -f supervisord)</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -892,6 +846,8 @@
             <li><a class="pagination-link is-current" href="/">1</a></li>
             
             <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/3/">3</a></li>
             
         </ul>
     </nav>
@@ -940,7 +896,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        23
                     </p>
                 </div>
             </div>
@@ -1093,16 +1049,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1112,16 +1068,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1131,16 +1087,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1150,16 +1106,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1169,16 +1125,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1196,6 +1152,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1285,16 +1274,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1304,16 +1293,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1323,16 +1312,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1342,16 +1331,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1361,16 +1350,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1388,6 +1377,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1675,6 +1697,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (windowWidth > 480) {
 	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html  lang="zh">
 <head>
-    <meta charset="utf-8" />
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
 
 <meta name="generator" content="Hexo 4.0.0" />
 
@@ -10,15 +10,15 @@
 <title>Apache Atlas2.0安装 - Hexo</title>
 
 
-    <meta name="description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境   123456789101112#下载maven安装包$ wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;bi">
+    <meta name="description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apache Atlas2.0安装">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;Apache-Atlas2-0%E5%AE%89%E8%A3%85&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境   123456789101112#下载maven安装包$ wget http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;apache&#x2F;maven&#x2F;maven-3&#x2F;3.6.3&#x2F;bi">
+<meta property="og:description" content="下载地址:https:&#x2F;&#x2F;atlas.apache.org&#x2F;#&#x2F;Downloads 上传到服务器并解压:tar -zxvf apache-atlas-2.0.0-sources.tar.gz 编译安装 配置maven环境">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2020-01-22T05:50:21.031Z">
+<meta property="og:updated_time" content="2020-01-27T08:28:17.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -70,10 +70,10 @@
     
 
 
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
-    <nav class="navbar navbar-main">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
@@ -140,7 +140,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 read (About 1524 words)
+                    10 分钟 read (About 1525 words)
                 </span>
                 
                 
@@ -161,14 +161,12 @@
             <p>下载地址:<a href="https://atlas.apache.org/#/Downloads" target="_blank" rel="noopener">https://atlas.apache.org/#/Downloads</a></p>
 <h6 id="上传到服务器并解压"><a href="#上传到服务器并解压" class="headerlink" title="上传到服务器并解压:"></a>上传到服务器并解压:</h6><p><code>tar -zxvf apache-atlas-2.0.0-sources.tar.gz</code></p>
 <h6 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h6><ul>
-<li>配置maven环境 </li>
-</ul>
+<li>配置maven环境 <a id="more"></a>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#下载maven安装包</span><br><span class="line">$ wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">$ tar -zxvf apache-maven-3.6.3-bin.tar.gz</span><br><span class="line">#修改setting.xml,添加阿里镜像:</span><br><span class="line">$ cd apache-maven-3.6.3</span><br><span class="line">$ vi conf/settings.xml</span><br><span class="line">     &lt;mirror&gt;</span><br><span class="line">      &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">      &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;</span><br><span class="line">     &lt;/mirror&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-98.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#配置mvn环境变量</span><br><span class="line">$ vi /etc/profile</span><br><span class="line">export MAVEN_HOME=/root/apache-maven-3.6.3</span><br><span class="line">export PATH=$MAVEN_HOME/bin:$PATH</span><br><span class="line">$ source /etc/profile</span><br><span class="line">#查看maven版本</span><br><span class="line">$ mvn -v</span><br><span class="line">#开始编译atlas,将hbase与solr一起进行编译</span><br><span class="line">$ cd ~/apache-atlas-sources-2.0.0</span><br><span class="line">#2.0 版本已经内部设置 MAVEN_OPTS，可省略该步</span><br><span class="line"># export MAVEN_OPTS=&quot;-Xms2g -Xmx2g&quot; </span><br><span class="line">$ mvn clean -DskipTests package -Pdist,embedded-hbase-solr</span><br><span class="line">#编译完成后如下图,安装包位于distro/target目录下</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-99.png" alt="upload successful"><br><img src="/images/pasted-100.png" alt="upload successful"></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#将target目录下的apache-atlas-2.0.0-bin.tar.gz解压到/opt</span><br><span class="line">$ tar -zxvf distro/target/apache-atlas-2.0.0-bin.tar.gz  -C /opt</span><br><span class="line">$ chown big-data:big-data -R /opt/apache-atlas-2.0.0/</span><br><span class="line">$ cd /opt/apache-atlas-2.0.0</span><br><span class="line">$ vim conf/atlas-env.sh</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">#如果没有使用内嵌的hbase,需要修改conf/atlas-application.properties中相关配置</span><br><span class="line">#启动atlas(由于该节点上部署的impalad进程占用了21000端口,需要调整)</span><br><span class="line">$ bin/atlas_start.py</span><br><span class="line">#停止atlas服务</span><br><span class="line">$ bin/atlas_stop.py</span><br><span class="line">#通过日志可知atlas启动了内置的hbase,solr</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-102.png" alt="upload successful"></p>
+<img src="/images/pasted-98.png" alt="upload successful"><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#配置mvn环境变量</span><br><span class="line">$ vi /etc/profile</span><br><span class="line">export MAVEN_HOME=/root/apache-maven-3.6.3</span><br><span class="line">export PATH=$MAVEN_HOME/bin:$PATH</span><br><span class="line">$ source /etc/profile</span><br><span class="line">#查看maven版本</span><br><span class="line">$ mvn -v</span><br><span class="line">#开始编译atlas,将hbase与solr一起进行编译</span><br><span class="line">$ cd ~/apache-atlas-sources-2.0.0</span><br><span class="line">#2.0 版本已经内部设置 MAVEN_OPTS，可省略该步</span><br><span class="line"># export MAVEN_OPTS=&quot;-Xms2g -Xmx2g&quot; </span><br><span class="line">$ mvn clean -DskipTests package -Pdist,embedded-hbase-solr</span><br><span class="line">#编译完成后如下图,安装包位于distro/target目录下</span><br></pre></td></tr></table></figure>
+<img src="/images/pasted-99.png" alt="upload successful"><br><img src="/images/pasted-100.png" alt="upload successful"><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#将target目录下的apache-atlas-2.0.0-bin.tar.gz解压到/opt</span><br><span class="line">$ tar -zxvf distro/target/apache-atlas-2.0.0-bin.tar.gz  -C /opt</span><br><span class="line">$ chown big-data:big-data -R /opt/apache-atlas-2.0.0/</span><br><span class="line">$ cd /opt/apache-atlas-2.0.0</span><br><span class="line">$ vim conf/atlas-env.sh</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera/</span><br><span class="line">#如果没有使用内嵌的hbase,需要修改conf/atlas-application.properties中相关配置</span><br><span class="line">#启动atlas(由于该节点上部署的impalad进程占用了21000端口,需要调整)</span><br><span class="line">$ bin/atlas_start.py</span><br><span class="line">#停止atlas服务</span><br><span class="line">$ bin/atlas_stop.py</span><br><span class="line">#通过日志可知atlas启动了内置的hbase,solr</span><br></pre></td></tr></table></figure>
+<img src="/images/pasted-102.png" alt="upload successful"></li>
+</ul>
 <h6 id="访问atlas"><a href="#访问atlas" class="headerlink" title="访问atlas"></a>访问atlas</h6><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">启动成功后,浏览器输入:http://slave199:21000 ,默认用户名密码为admin/admin</span><br><span class="line">solr的UI地址:http://slave199:9838/solr</span><br><span class="line">运行示例数据:bin/quick_start.py</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- admin</span><br><span class="line">#过程日志如下:</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxFileSize] in org.apache.log4j.PatternLayout.</span><br><span class="line">log4j:WARN No such property [maxBackupIndex] in org.apache.log4j.PatternLayout.</span><br><span class="line">Enter username for atlas :- admin</span><br><span class="line">Enter password for atlas :- </span><br><span class="line"></span><br><span class="line">Creating sample types: </span><br><span class="line">Created type [DB]</span><br><span class="line">Created type [Table]</span><br><span class="line">Created type [StorageDesc]</span><br><span class="line">Created type [Column]</span><br><span class="line">Created type [LoadProcess]</span><br><span class="line">Created type [View]</span><br><span class="line">Created type [JdbcAccess]</span><br><span class="line">Created type [ETL]</span><br><span class="line">Created type [Metric]</span><br><span class="line">Created type [PII]</span><br><span class="line">Created type [Fact]</span><br><span class="line">Created type [Dimension]</span><br><span class="line">Created type [Log Data]</span><br><span class="line">Created type [Table_DB]</span><br><span class="line">Created type [View_DB]</span><br><span class="line">Created type [View_Tables]</span><br><span class="line">Created type [Table_Columns]</span><br><span class="line">Created type [Table_StorageDesc]</span><br><span class="line"></span><br><span class="line">Creating sample entities: </span><br><span class="line">Created entity of type [DB], guid: 72bf5b6f-7eb7-4f80-8c7f-7ae7e9b0dbd1</span><br><span class="line">Created entity of type [DB], guid: a4392aec-9b36-4d2f-b2d7-2ef2f4a83c10</span><br><span class="line">Created entity of type [DB], guid: 0c18f24a-d157-4f85-bd56-c93965371338</span><br><span class="line">Created entity of type [Table], guid: d1a30c78-2939-4624-8e17-abf16855e5e0</span><br><span class="line">Created entity of type [Table], guid: 47527a26-f176-4bb5-8eb4-57b72c7928b4</span><br><span class="line">Created entity of type [Table], guid: 8829432f-932f-43ec-9bab-38603b1bc5df</span><br><span class="line">Created entity of type [Table], guid: 4faafd4d-2f6d-4046-8356-333837966e1f</span><br><span class="line">Created entity of type [Table], guid: f9562fc1-8eab-4a99-be99-ffc22f632cfd</span><br><span class="line">Created entity of type [Table], guid: 8e4fe39a-48ca-4cd4-8a51-6e359645859e</span><br><span class="line">Created entity of type [Table], guid: 37a931d6-a4d2-439d-9401-668260fb7727</span><br><span class="line">Created entity of type [Table], guid: 9e8a05dd-6ec8-4bd4-b42d-3d32f7c28f77</span><br><span class="line">Created entity of type [View], guid: dfcf25d4-1081-41ca-9e88-15ec2ad5cce7</span><br><span class="line">Created entity of type [View], guid: 3cd7452a-e2ab-495e-abe1-c826975a2757</span><br><span class="line">Created entity of type [LoadProcess], guid: fd60947e-4235-4a45-9dd1-31fe702ca360</span><br><span class="line">Created entity of type [LoadProcess], guid: 7e45dd12-da78-48c2-911f-88d09c1f3797</span><br><span class="line">Created entity of type [LoadProcess], guid: a16c8a80-4c36-40d3-9702-57dbc427ee1d</span><br><span class="line"></span><br><span class="line">Sample DSL Queries: </span><br><span class="line">query [from DB] returned [3] rows.</span><br><span class="line">query [DB] returned [3] rows.</span><br><span class="line">query [DB where name=%22Reporting%22] returned [1] rows.</span><br><span class="line">query [DB where name=%22encode_db_name%22] returned [ 0 ] rows.</span><br><span class="line">query [Table where name=%2522sales_fact%2522] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB DB.name = &quot;Reporting&quot;] returned [1] rows.</span><br><span class="line">query [DB where name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB where DB.name=&quot;Reporting&quot; select name, owner] returned [1] rows.</span><br><span class="line">query [DB has name] returned [3] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [from Table] returned [8] rows.</span><br><span class="line">query [Table] returned [8] rows.</span><br><span class="line">query [Table is Dimension] returned [5] rows.</span><br><span class="line">query [Column where Column isa PII] returned [3] rows.</span><br><span class="line">query [View is Dimension] returned [2] rows.</span><br><span class="line">query [Column select Column.name] returned [10] rows.</span><br><span class="line">query [Column select name] returned [9] rows.</span><br><span class="line">query [Column where Column.name=&quot;customer_id&quot;] returned [1] rows.</span><br><span class="line">query [from Table select Table.name] returned [8] rows.</span><br><span class="line">query [DB where (name = &quot;Reporting&quot;)] returned [1] rows.</span><br><span class="line">query [DB where DB is JdbcAccess] returned [ 0 ] rows.</span><br><span class="line">query [DB where DB has name] returned [3] rows.</span><br><span class="line">query [DB as db1 Table where (db1.name = &quot;Reporting&quot;)] returned [ 0 ] rows.</span><br><span class="line">query [Dimension] returned [9] rows.</span><br><span class="line">query [JdbcAccess] returned [2] rows.</span><br><span class="line">query [ETL] returned [6] rows.</span><br><span class="line">query [Metric] returned [4] rows.</span><br><span class="line">query [PII] returned [3] rows.</span><br><span class="line">query [`Log Data`] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns] returned [4] rows.</span><br><span class="line">query [Table where name=&quot;sales_fact&quot;, columns as column select column.name, column.dataType, column.comment] returned [4] rows.</span><br><span class="line">query [from DataSet] returned [10] rows.</span><br><span class="line">query [from Process] returned [3] rows.</span><br><span class="line"></span><br><span class="line">Sample Lineage Info: </span><br><span class="line">loadSalesDaily(LoadProcess) -&gt; sales_fact_daily_mv(Table)</span><br><span class="line">loadSalesMonthly(LoadProcess) -&gt; sales_fact_monthly_mv(Table)</span><br><span class="line">sales_fact(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">sales_fact_daily_mv(Table) -&gt; loadSalesMonthly(LoadProcess)</span><br><span class="line">time_dim(Table) -&gt; loadSalesDaily(LoadProcess)</span><br><span class="line">Sample data added to Apache Atlas Server.</span><br></pre></td></tr></table></figure>
 <h6 id="配置HA模式Atlas"><a href="#配置HA模式Atlas" class="headerlink" title="配置HA模式Atlas"></a>配置HA模式Atlas</h6><h6 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h6><p>参考:<a href="https://blog.csdn.net/czq850114000/article/details/95463461" target="_blank" rel="noopener">https://blog.csdn.net/czq850114000/article/details/95463461</a></p>
 <h6 id="引入hive-hook"><a href="#引入hive-hook" class="headerlink" title="引入hive hook"></a>引入hive hook</h6><ul>
@@ -239,6 +237,13 @@
 
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/03/24/canal%E5%90%8C%E6%AD%A5mysql/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">canal同步mysql</span>
+            </a>
+        </div>
         
         
         <div class="level-end">
@@ -320,7 +325,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        16
+                        23
                     </p>
                 </div>
             </div>
@@ -473,16 +478,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -492,16 +497,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -511,16 +516,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -530,16 +535,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -549,16 +554,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -576,6 +581,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -665,16 +703,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Atlas2.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kudu使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T02:49:03.000Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Apache-Atlas2-0%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Atlas2.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-26T02:49:23.000Z">2020-05-26</time></div>
+                    <a href="/2020/05/26/kudu%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kudu使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -684,16 +722,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/05/24/jupyter/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Apache Kylin3.0安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="jupyter">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-17T09:53:16.000Z">2020-01-17</time></div>
-                    <a href="/2020/01/17/Kylin%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Apache Kylin3.0安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-24T02:43:27.000Z">2020-05-24</time></div>
+                    <a href="/2020/05/24/jupyter/" class="title has-link-black-ter is-size-6 has-text-weight-normal">jupyter</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -703,16 +741,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="media-left">
+            <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="DolphinScheduler安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="centos7安装mysql5.7">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-10T08:12:12.000Z">2020-01-10</time></div>
-                    <a href="/2020/01/10/DolphinScheduler%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">DolphinScheduler安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-28T06:51:07.000Z">2020-04-28</time></div>
+                    <a href="/2020/04/28/centos7%E5%AE%89%E8%A3%85mysql5-7/" class="title has-link-black-ter is-size-6 has-text-weight-normal">centos7安装mysql5.7</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -722,16 +760,16 @@
         
         <article class="media">
             
-            <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow简单使用">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="neo4j安装">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-09T06:41:56.000Z">2020-01-09</time></div>
-                    <a href="/2020/01/09/Airflow%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow简单使用</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-26T03:45:51.000Z">2020-04-26</time></div>
+                    <a href="/2020/04/26/neo4j%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">neo4j安装</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -741,16 +779,16 @@
         
         <article class="media">
             
-            <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
+            <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Airflow安装">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Tigergraph安装使用">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-30T08:28:21.000Z">2019-12-30</time></div>
-                    <a href="/2019/12/30/airflow%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Airflow安装</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-22T03:19:41.000Z">2020-04-22</time></div>
+                    <a href="/2020/04/22/Tigergraph%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Tigergraph安装使用</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -768,6 +806,39 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1055,6 +1126,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (windowWidth > 480) {
 	document.write('<script type="text/javascript" src="/js/src/snowFall.js"><\/script>');
   }
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
